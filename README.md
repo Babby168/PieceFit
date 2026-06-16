@@ -644,3 +644,10 @@
 Sidekiq・Redis・Cloudinary・vips など、未経験技術が多いため、本リリースでの実装を完遂できるかに不安がある。ただしMVPはこれらの技術を使わないCSS描画方式で実装するため、まずMVPリリースによる体験検証を優先する。
 
 ---
+
+## 画面遷移図
+
+**Figma：**
+https://www.figma.com/design/HI4KcRmfzsoUpvVjEzwLcH/PieceFit_%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=8-227&t=fhBBQNQZPiJmYUFi-1
+
+---
