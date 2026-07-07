@@ -1,0 +1,27 @@
+# ベースイメージを指定（Ruby 3.4.10）
+FROM ruby:3.4.10
+
+# 環境変数の設定
+# 日本語対応
+ENV LANG C.UTF-8
+# タイムゾーンを日本に設定
+ENV TZ Asia/Tokyo
+
+# 必要なパッケージのインストール
+# パッケージリストを更新
+RUN apt-get update -qq \
+&& apt-get install -y ca-certificates curl \
+&& curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
+&& apt-get install -y build-essential libpq-dev nodejs vim \
+&& npm install --global yarn
+
+# アプリケーションディレクトリをコンテナ内に作成
+RUN mkdir /myapp
+# アプリケーションディレクトリに移動（コンテナ内）
+WORKDIR /myapp
+
+# Bundlerをインストール（Rubyのパッケージ管理ツール）
+RUN gem install bundler
+
+# ホスト側のアプリケーションのコードをコンテナ内にコピー
+COPY . /myapp
