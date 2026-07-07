@@ -432,6 +432,11 @@ braces@^3.0.3:
   dependencies:
     fill-range "^7.1.1"
 
+daisyui@^5.6.14:
+  version "5.6.14"
+  resolved "https://registry.yarnpkg.com/daisyui/-/daisyui-5.6.14.tgz#1d70363d07fcd0612a5bffeec1a2d37ef951c9ad"
+  integrity sha512-PFDSzWbCSok8jNFprlJh3qzat1HeigsX8RKChHrjY8UFBB79idGP17Gtmcv5CaH4EyyhvIn8DDtua4sk6dRzOQ==
+
 detect-libc@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
