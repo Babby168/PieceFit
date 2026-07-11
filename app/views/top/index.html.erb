@@ -1,6 +1,81 @@
-<div class="min-h-screen flex flex-col items-center justify-center">
-  <h1 class="text-4xl font-bold mb-4">PieceFit</h1>
-  <h2 class="text-2xl font-bold mb-6">１分間のリフレッシュで、身体も心もピースフルに。</h2>
+<div class="min-h-screen flex flex-col items-center justify-center px-4 mt-10">
+  <div class="flex flex-col md:flex-row gap-8 items-center md:items-center max-w-5xl w-full mb-16">
+    <div class="flex-1 text-center md:text-left">
+      <h1 class="text-3xl font-bold mb-4">
+        １分間のリフレッシュで、
+        <br>
+        身体も心もピースフルに。
+      </h1>
+      <p class="max-w-md mb-8 text-base-content/70 mx-auto md:mx-0">
+        デスクワークの合間に。パズルを完成させるような感覚で、
+        毎日のストレッチを楽しみましょう。
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+        <%= link_to "ストレッチをはじめる", "#", class: "btn btn-primary" %>
+        <%= link_to "ログイン / 新規登録", "#", class: "btn btn-info btn-outline" %>
+      </div>
+    </div>
 
-  <button class="btn btn-primary btn-outline">ストレッチをはじめる</button>
+    <div class="card bg-gray-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border p-6 w-full md:w-72 shrink-0">
+      <h3 class="text-lg font-bold mb-2">デイリー・モザイク</h3>
+      <p class="text-sm text-base-content/70 mb-4">
+        ストレッチを続けると、ここにピースが集まっていきます。
+      </p>
+      <progress class="progress progress-primary w-full" value="0" max="90"></progress>
+      <p class="text-xs text-base-content/50 mt-1 text-right">0 / 90 ピース</p>
+    </div>
+  </div>
+
+  <section class="w-full max-w-4xl mx-auto px-4 py-16">
+    <h2 class="text-2xl font-bold text-center mb-8">
+      仕事の合間に、ピースを埋める。
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <!-- 90ピースの達成感 -->
+      <div class="card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border md:col-span-2 p-6">
+        <h3 class="text-lg font-bold mb-2">90ピースの達成感</h3>
+        <p class="text-sm text-base-content/70 mb-4">
+          1回のストレッチで１つのピースが埋まります。<br>1日の終わりに完成する自分だけのモザイクアート。
+        </p>
+
+        <div class="grid grid-cols-4 gap-2">
+          <div class="aspect-square rounded-lg shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-orange-300"></div>
+          <div class="aspect-square rounded-lg shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-purple-300"></div>
+          <div class="aspect-square rounded-lg shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-emerald-200"></div>
+          <div class="aspect-square rounded-lg shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-teal-200"></div>
+        </div>
+      </div>
+
+      <%# わずか60秒 %>
+      <div class="card bg-teal-400 text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border p-6">
+        <div class="w-8 h-8 flex items-center justify-center rounded-full bg-white mb-2">
+          <%= image_tag "stopwatch_24.png", alt: "わずか60秒", width: "100", height: "100" %>
+        </div>
+        <h3 class="text-lg font-bold mb-2">わずか60秒</h3>
+        <p class="text-sm text-white/90">
+          忙しい会議の合間でも。科学的に効果が実証された、最小単位のウェルネス。
+        </p>
+      </div>
+
+      <%# 進捗を見守る %>
+      <div class="card bg-purple-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border p-6">
+        <div class="w-8 h-8 flex items-center justify-center rounded-full bg-white mb-2">
+          <%= image_tag "progress_chat-gpt.png", alt: "進捗を見守る", width: "100", height: "100" %>
+        </div>
+        <h3 class="text-lg font-bold mb-2">進捗を見守る</h3>
+        <p class="text-sm text-base-content/70">
+          あなたの身体の「凝り」の傾向を分析。パーソナライズされたメニューを提案。
+        </p>
+      </div>
+
+      <%# デスクの隣に、PieceFit（横2列分） %>
+      <div class="card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border md:col-span-2 p-6">
+        <h3 class="text-lg font-bold mb-2">デスクの隣に、PieceFit</h3>
+        <p class="text-sm text-base-content/70">
+          ブラウザの端に置いて、いつでも。低負荷で続けやすい「マイクロ習慣」をデザインします。
+        </p>
+      </div>
+    </div>
+  </section>
 </div>
