@@ -1,0 +1,15 @@
+<header class="navbar bg-base-200 border-b-4 border-black shadow-sm px-4 sm:px-6">
+  <div class="flex-1">
+  <%= link_to root_path, class: "btn btn-ghost text-xl font-bold" do %>
+    <%= image_tag "piecefit_logo_v1-1.png", alt: "PieceFit_logo", width: "100", height: "100" %>
+  <% end %>
+  </div>
+
+  <div class="flex-none">
+    <ul class="menu menu-horizontal px-1 gap-1">
+      <li><%= link_to "マイページ", "#", class: "text-sm font-bold sm:text-base" %></li>
+      <!-- 本リリース時に表示予定 -->
+      <li><%= link_to "モザイクコレクション", "#", class: "text-sm font-bold sm:text-base" %></li>
+    </ul>
+  </div>
+</header>
