@@ -45,6 +45,8 @@ gem "image_processing", "~> 1.2"
 # ユーザーの認証機能（会員登録, ログイン, ログアウト, パスワードのリセット, メールアドレスの確認など）
 gem "devise"
 
+gem "devise-i18n"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
