@@ -13,6 +13,11 @@
 # it.
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require "factory_bot_rails"
+require "faker"
+
+Faker::Config.locale = :ja
+
 RSpec.configure do |config|
   # テスト内でFactoryBotを省略して使えるようにする
   config.include FactoryBot::Syntax::Methods
