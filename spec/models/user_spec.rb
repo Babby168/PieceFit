@@ -23,7 +23,7 @@ RSpec.describe User, type: :model do
     end
 
     it "passwordが6文字未満の場合は無効であること" do
-      user = build(:user, password: Faker::Internet.password( min_length: 3, max_length: 5))
+      user = build(:user, password: Faker::Internet.password(min_length: 3, max_length: 5))
       expect(user).to be_invalid
     end
 
@@ -33,7 +33,7 @@ RSpec.describe User, type: :model do
     end
 
     it "passwordとpassword_confirmationが一致しない場合は無効であること" do
-      user = build(:user, password: Faker::Internet.password( min_length: 6), password_confirmation: Faker::Internet.password( min_length: 6))
+      user = build(:user, password: Faker::Internet.password(min_length: 6), password_confirmation: Faker::Internet.password(min_length: 6))
       expect(user).to be_invalid
     end
 
