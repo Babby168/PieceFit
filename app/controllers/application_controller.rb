@@ -9,6 +9,6 @@ class ApplicationController < ActionController::Base
   # パラメータの許可
   # ユーザー登録時に、nicknameを許可する
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:nickname])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :nickname ])
   end
 end
