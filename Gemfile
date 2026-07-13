@@ -42,6 +42,11 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
+# ユーザーの認証機能（会員登録, ログイン, ログアウト, パスワードのリセット, メールアドレスの確認など）
+gem "devise"
+
+gem "devise-i18n"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -54,6 +59,15 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # RSpecを使用してテストを行う
+  gem "rspec-rails"
+
+  # テスト用データを生成する
+  gem "factory_bot_rails"
+
+  # ダミーデータを生成する
+  gem "faker"
 end
 
 group :development do
