@@ -1,26 +1,43 @@
-<h2>Log in</h2>
+<div class="min-h-screen flex flex-col items-center justify-center">
+  <div class="border border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-base-100 p-8">
+    <h2 class="text-center font-bold text-2xl mb-4">ログイン</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <p><%= f.label :email %></p>
-    <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+      <div class="field mb-4">
+        <label class="label">
+          <span class="label-text"><%= f.label :email %></span>
+        </label>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input w-full" %>
+      </div>
+    
+      <div class="field mb-4">
+        <div class="flex justify-between items-center">
+          <label class="label">
+            <span class="label-text"><%= f.label :password %></span>
+          </label>
+          <% if devise_mapping.recoverable? %>
+            <%= link_to "お忘れですか？", new_password_path(resource_name), class: "link link-hover text-xs" %>
+          <% end %>
+        </div>
+        <%= f.password_field :password, autocomplete: "current-password", class: "input w-full" %>
+      </div>
+    
+      <% if devise_mapping.rememberable? %>
+        <fieldset class="fieldset bg-base-100 border-base-300 rounded-box w-64 border p-4 mb-4">
+          <legend class="fieldset-legend">ログインを保持する</legend>
+          <label class="label">
+            <%= f.check_box :remember_me, class: "checkbox" %>
+            <%= f.label :remember_me %>
+          </label>
+        </fieldset>
+      <% end %>
+    
+      <div class="actions">
+        <%= f.submit "ログイン", class: "btn btn-primary w-full mb-8" %>
+      </div>
+
+      <%= render "devise/shared/links" %>
+    <% end %>
   </div>
-
-  <div class="field">
-    <p><%= f.label :password %></p>
-    <p><%= f.password_field :password, autocomplete: "current-password" %></p>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <p><%= f.check_box :remember_me %></p>
-      <p><%= f.label :remember_me %></p>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
