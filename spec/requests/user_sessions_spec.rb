@@ -40,6 +40,25 @@ RSpec.describe "UserSessions", type: :request do
     let(:password) { "password123" }
     let(:user) { create(:user, password: password, password_confirmation: password) }
 
+    context "正しいメールアドレスとパスワードの場合" do
+      it "ログインに成功し、flashのnoticeメッセージが表示される" do
+        post user_session_path, params: {
+          user: { email: user.email, password: password }
+        }
+        follow_redirect!
+        expect(flash[:notice]).to eq("ログインしました。")
+      end
+    end
+
+    context "パスワードが間違っている場合" do
+      it "ログインに失敗し、flashのalertメッセージが表示される" do
+        post user_session_path, params: {
+          user: { email: user.email, password: "wrong_password" }
+        }
+        expect(flash[:alert]).to eq("Eメールまたはパスワードが違います。")
+      end
+    end
+
     context "有効な認証情報の場合" do
       it "ログインに成功し、トップページにリダイレクトされること" do
         post user_session_path, params: {
