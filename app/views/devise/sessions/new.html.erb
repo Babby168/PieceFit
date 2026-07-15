@@ -1,7 +1,9 @@
 <div class="min-h-screen flex flex-col items-center justify-center">
   <div class="border border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-base-100 p-8">
     <h2 class="text-center font-bold text-2xl mb-4">ログイン</h2>
-
+    
+    <%= render "shared/flash_messages" %>
+    
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
       <div class="field mb-4">
