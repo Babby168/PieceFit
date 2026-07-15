@@ -1,0 +1,5 @@
+<% flash.each do |type, message| %>
+  <div class="alert <%= type.to_s == "notice" ? "alert-success" : "alert-error" %> rounded-box mb-4">
+    <span><%= message %></span>
+  </div>
+<% end %>
