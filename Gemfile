@@ -68,6 +68,9 @@ group :development, :test do
 
   # ダミーデータを生成する
   gem "faker"
+
+  # HTMLを安全に扱うためのgem
+  gem "rails-html-sanitizer", ">= 1.7.1"
 end
 
 group :development do
