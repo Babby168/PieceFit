@@ -9,7 +9,7 @@ stretches_data = [
       { step_number: 1, image_path: "stretches/steps/neck_1.png", description: "背筋を伸ばし、視線を前に向けます。" },
       { step_number: 2, image_path: "stretches/steps/neck_2.png", description: "右手で頭の左側を軽く押さえ、頭をゆっくり右へ傾けます。" },
       { step_number: 3, image_path: "stretches/steps/neck_3.png", description: "左肩が上がらないよう、意識して下げた状態を保ちます。" },
-      { step_number: 4, image_path: "stretches/steps/neck_4.png", description: "深く深呼吸しながら、30秒キープ。左右を入れ替えて同様に行います。" },
+      { step_number: 4, image_path: "stretches/steps/neck_4.png", description: "深く深呼吸しながら、30秒キープ。左右を入れ替えて同様に行います。" }
     ]
   },
   {
@@ -22,7 +22,7 @@ stretches_data = [
       { step_number: 1, image_path: "stretches/steps/shoulder_1.png", description: "背筋を伸ばし、リラックスした姿勢で座るか立ちます。" },
       { step_number: 2, image_path: "stretches/steps/shoulder_2.png", description: "両肩を耳の方へゆっくりと持ち上げます。" },
       { step_number: 3, image_path: "stretches/steps/shoulder_3.png", description: "肩甲骨を寄せるようにして、肩を大きく後ろに回します。" },
-      { step_number: 4, image_path: "stretches/steps/shoulder_4.png", description: "ゆっくりと肩を下ろし、円を描くように繰り返します。" },
+      { step_number: 4, image_path: "stretches/steps/shoulder_4.png", description: "ゆっくりと肩を下ろし、円を描くように繰り返します。" }
     ]
   },
   {
@@ -35,7 +35,7 @@ stretches_data = [
       { step_number: 1, image_path: "stretches/steps/waist_1.png", description: "背筋をまっすぐに保ち、椅子にしっかりと座ります。" },
       { step_number: 2, image_path: "stretches/steps/waist_2.png", description: "右の膝を左手で押さえ、右手で椅子の背もたれか座面の後ろ部分を持ちます。" },
       { step_number: 3, image_path: "stretches/steps/waist_3.png", description: "息をツイストして、上体をゆっくり回します。" },
-      { step_number: 4, image_path: "stretches/steps/waist_4.png", description: "同じ位置で3回深く深呼吸。ゆっくり正面に戻り、反対側も行います。" },
+      { step_number: 4, image_path: "stretches/steps/waist_4.png", description: "同じ位置で3回深く深呼吸。ゆっくり正面に戻り、反対側も行います。" }
     ]
   }
 ]
