@@ -1,5 +1,5 @@
 class Stretch < ApplicationRecord
-  has_many :stretch_steps, dependent: :destroy
+  has_many :stretch_steps, -> { order(:step_number)}, dependent: :destroy
 
   enum :body_part, {
     "neck" => 0,
