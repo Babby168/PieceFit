@@ -1,0 +1,14 @@
+<div class="min-h-screen flex flex-col items-center px-4 mt-10">
+  <h1 class="text-2xl font-bold mb-8">気になる部位を選んでください</h1>
+
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 max-w-6xl w-full">
+    <% Stretch.body_parts.each_key do |part| %>
+      <%= link_to stretches_path(body_part: part), class: "card #{body_part_color(part)} shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border p-6 items-center text-center hover:brightness-95 transition" do %>
+        <div class="w-80 h-80 flex items-center justify-center mb-4 bg-gray-100 rounded-lg">
+          <%= image_tag "stretches/parts/#{part}.png", alt: part, class: "w-full h-full object-cover" %>
+        </div>
+        <h2 class="text-2xl font-bold"><%= t("stretches.body_parts.#{part}") %></h2>
+      <% end %>
+    <% end %>
+  </div>
+</div>
