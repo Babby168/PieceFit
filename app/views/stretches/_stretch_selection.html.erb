@@ -1,0 +1,37 @@
+<div class="min-h-screen flex flex-col items-center px-4 mt-10">
+  <div class="w-full max-w-6xl flex justify-between items-center mb-6 link-secondary">
+    <%# マイページ実装後、マイページ経由で来た場合はマイページに戻るよう分岐を追加予定 %>
+    <%=  link_to "← 部位選択に戻る", stretches_path, class: "text-sm font-bold link" %>
+
+    <%=  render "shared/breadcrumb", items: [
+      { label: "トップ", path: root_path },
+      { label: "部位選択", path: stretches_path },
+      { label: "ストレッチ選択", path: nil }
+    ] %>
+  </div>
+
+  <h1 class="text-2xl font-bold mb-8">ストレッチを選んでください</h1>
+
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 max-w-6xl w-full">
+    
+    <% @stretches.each do |stretch| %>
+      <%= link_to "#", class: "card #{body_part_color(stretch.body_part)} shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-4 p-6 items-center text-center hover:brightness-95 transition" do %>
+        <div class="w-80 h-80 flex items-center justify-center mb-4 bg-gray-100 rounded-lg">
+          <%= image_tag stretch.key_visual_path, alt: stretch.name, class: "w-full h-full object-cover" %>
+        </div>
+        <%# ストレッチ実行ページは次のissueで実装予定 %>
+        <h2 class="text-2xl font-bold"><%= stretch.name %></h2>
+        <p class="text-sm text-base-content/70 mb-2"><%= stretch.description %></p>
+      <% end %>
+    <% end %>
+
+    <%# 本リリースに向けて今後ストレッチの選択肢を追加予定であることを示すプレースホルダーカード %>
+    <div class="card border-2 border-dashed border-gray-400 p-6 items-center text-center justify-center opacity-50 pointer-events-none select-none">
+      <div class="w-80 h-80 flex items-center justify-center mb-4 bg-gray-100 rounded-lg">
+        <span class="text-6xl text-gray-400">+</span>
+      </div>
+      <h2 class="text-2xl font-bold text-gray-400">近日追加予定</h2>
+    </div>
+
+  </div>
+</div>

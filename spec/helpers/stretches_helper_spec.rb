@@ -1,15 +1,21 @@
-require 'rails_helper'
+require "rails_helper"
 
-# Specs in this file have access to a helper object that includes
-# the StretchesHelper. For example:
-#
-# describe StretchesHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe StretchesHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#body_part_color" do
+    it "首にはemeraldの背景色クラスを返すこと" do
+      expect(helper.body_part_color("neck")).to eq("bg-emerald-200")
+    end
+
+    it "肩にはpurpleの背景色クラスを返すこと" do
+      expect(helper.body_part_color("shoulder")).to eq("bg-purple-200")
+    end
+
+    it "腰にはyellowの背景色クラスを返すこと" do
+      expect(helper.body_part_color("waist")).to eq("bg-yellow-200")
+    end
+
+    it "未定義の部位にはデフォルトの背景色クラスを返すこと" do
+      expect(helper.body_part_color("unknown")).to eq("bg-base-100")
+    end
+  end
 end
