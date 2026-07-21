@@ -1,0 +1,13 @@
+<nav class="text-sm breadcrumbs">
+  <ul>
+    <%  items.each_with_index do |item, index| %>
+      <li>
+        <% if index == items.size - 1 %>
+          <span class="font-bold"><%= item[:label] %></span>
+        <% else %>
+          <%= link_to item[:label], item[:path] %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</nav>
