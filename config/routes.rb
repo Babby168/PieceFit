@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "users/registrations" }
   get "registration/complete", to: "registration_complete#show", as: :registration_complete
 
-  get "stretches(/:body_part)", to: "stretches#index", as: :stretches
+  get "stretches(/:body_part)", to: "stretches#index", as: :stretches,
+      constraints: { body_part: /neck|shoulder|waist/ }
+  get "stretches/:id", to: "stretches#show", as: :stretch,
+      constraints: { id: /\d+/ }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

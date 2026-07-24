@@ -1,0 +1,57 @@
+<div class="min-h-screen flex flex-col items-center px-4 mt-10">
+  <div class="w-full max-w-6xl flex justify-between items-center mb-6 link-secondary">
+    <%= link_to "← ストレッチ選択に戻る", stretches_path(body_part: @stretch.body_part), class: "text-sm font-bold link" %>
+
+    <%= render "shared/breadcrumb", items: [
+      { label: "トップ", path: root_path },
+      { label: "部位選択", path: stretches_path },
+      { label: "ストレッチ選択", path: stretches_path(body_part: @stretch.body_part) },
+      { label: "ストレッチ実施", path: nil }
+    ] %>
+  </div>
+
+  
+  <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-6 gap-6 max-w-6xl w-full mb-10">
+    
+    <%# ストレッチ詳細：キービジュアル＋手順文（画像の自動スライドショー化は別issueで対応） %>
+    <div class="md:col-span-2 md:row-span-6 card <%= body_part_color(@stretch.body_part) %> shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-4 p-6">
+      <div class="w-full w-full flex items-center justify-center mb-4 bg-gray-100 rounded-lg overflow-hidden border-3 border-black">
+        <%= image_tag @stretch.key_visual_path, alt: @stretch.name, class: "w-full h-full object-cover" %>
+      </div>
+
+      <h1 class="text-4xl font-bold p-4 text-center"><%= @stretch.name %></h1>
+      
+      <div class="mt-4 mb-8 bg-white p-8 rounded-lg border-3 border-black">   
+        <h2 class="text-lg font-bold mb-4 border-b-2 border-black pb-2">ストレッチの手順</h2>
+        
+        <ol class="list-decimal list-inside space-y-8 text-base-content/80">
+          <% @stretch.stretch_steps.each do |step| %>
+            <li><%= step.description %></li>
+          <% end %>
+        </ol>
+      </div>
+    </div>
+
+    <%# カウントダウンタイマー（動作実装は別issueで対応。「中止」ボタンはタイマー開始時にJSで表示予定） %>
+    <div class="md:row-span-3 card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-4 p-8 flex flex-col items-center justify-center gap-4">
+      <h2 class="text-2xl font-bold mb-2 text-center">残り時間</h2>
+      <div class="p-8 mb-4 border-4 border-black rounded-lg w-full text-center">
+        <p class="text-6xl font-bold tabular-nums">01:00</p>
+      </div>
+
+      <div class="flex gap-2 justify-center w-full">
+        <button type="button" class="btn btn-primary w-full h-15">スタート</button>
+      </div>
+      <button type="button" class="btn btn-ghost btn-sm w-full h-15">リセット</button>
+    </div>
+
+    <%# 意識するポイント %>
+    <div class="md:row-span-1 card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-4 p-6">
+      <h2 class="text-lg font-bold mb-2">意識するポイント</h2>
+      <% if @stretch.point.present? %>
+        <p class="text-base-content/80"><%= @stretch.point %></p>
+      <% end %>
+    </div>
+
+  </div>
+</div>
