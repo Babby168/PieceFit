@@ -5,4 +5,8 @@ class StretchesController < ApplicationController
       # ↑ ビュー実装は次の「ストレッチ選択」issueで対応
     end
   end
+
+  def show
+    @stretch = Stretch.includes(:stretch_steps).find(params[:id])
+  end
 end
