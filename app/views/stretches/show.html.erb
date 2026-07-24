@@ -14,8 +14,8 @@
   <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-6 gap-6 max-w-6xl w-full mb-10">
     
     <%# ストレッチ詳細：キービジュアル＋手順文（画像の自動スライドショー化は別issueで対応） %>
-    <div class="md:col-span-2 md:row-span-6 card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-4 p-6">
-      <div class="w-full aspect-video flex items-center justify-center mb-4 bg-gray-100 rounded-lg overflow-hidden border-3 border-black">
+    <div class="md:col-span-2 md:row-span-6 card <%= body_part_color(@stretch.body_part) %> shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-4 p-6">
+      <div class="w-full w-full flex items-center justify-center mb-4 bg-gray-100 rounded-lg overflow-hidden border-3 border-black">
         <%= image_tag @stretch.key_visual_path, alt: @stretch.name, class: "w-full h-full object-cover" %>
       </div>
 
