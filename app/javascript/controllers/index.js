@@ -4,5 +4,8 @@
 
 import { application } from "./application"
 
+import CountdownTimerController from "./countdown_timer_controller"
+application.register("countdown-timer", CountdownTimerController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
