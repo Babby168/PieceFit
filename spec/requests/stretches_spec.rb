@@ -193,7 +193,34 @@ RSpec.describe "Stretches", type: :request do
         expect(response.body).to include("残り時間")
         expect(response.body).to include("01:00")
         expect(response.body).to include("スタート")
+        expect(response.body).to include("中止")
         expect(response.body).to include("リセット")
+      end
+
+      it "カウントダウンタイマーのStimulusコントローラが設定されていること" do
+        expect(response.body).to include('data-controller="countdown-timer"')
+        expect(response.body).to include('data-countdown-timer-duration-value="60"')
+      end
+
+      it "カウントダウンタイマーのStimulusターゲットが設定されていること" do
+        expect(response.body).to include('data-countdown-timer-target="time"')
+        expect(response.body).to include('data-countdown-timer-target="startButton"')
+        expect(response.body).to include('data-countdown-timer-target="abortButton"')
+      end
+
+      it "カウントダウンタイマーのStimulusアクションが設定されていること" do
+        expect(response.body).to include('data-action="click->countdown-timer#start"')
+        expect(response.body).to include('data-action="click->countdown-timer#complete"')
+        expect(response.body).to include('data-action="click->countdown-timer#reset"')
+      end
+
+      it "初期状態では中止ボタンが非表示であること" do
+        abort_button_html = response.body[
+          /<button[^>]*data-countdown-timer-target="abortButton"[^>]*>/
+        ]
+
+        expect(abort_button_html).to be_present
+        expect(abort_button_html).to match(/\bhidden\b/)
       end
 
       it "ストレッチ選択に戻るリンクが表示されること" do
