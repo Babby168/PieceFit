@@ -33,18 +33,38 @@
     </div>
 
     <%# カウントダウンタイマー（動作実装は別issueで対応。「中止」ボタンはタイマー開始時にJSで表示予定） %>
-    <div class="md:row-span-3 card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-4 p-8 flex flex-col items-center justify-center gap-4">
+    <div 
+      class="md:row-span-3 card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-4 p-8 flex flex-col items-center justify-center gap-4"
+      data-controller="countdown-timer"
+      data-countdown-timer-duration-value="60"
+    >
       <h2 class="text-2xl font-bold mb-2 text-center">残り時間</h2>
       <div class="p-8 mb-4 border-4 border-black rounded-lg w-full text-center">
-        <p class="text-6xl font-bold tabular-nums">01:00</p>
+        <p class="text-6xl font-bold tabular-nums" data-countdown-timer-target="time">01:00</p>
       </div>
 
       <div class="flex gap-2 justify-center w-full">
-        <button type="button" class="btn btn-primary w-full h-15">スタート</button>
-      </div>
-      <button type="button" class="btn btn-ghost btn-sm w-full h-15">リセット</button>
-    </div>
+        <button
+          type="button"
+          class="btn btn-primary w-full h-15"
+          data-countdown-timer-target="startButton"
+          data-action="click->countdown-timer#start"
+        >スタート</button>
 
+        <button 
+          type="button"
+          class="btn btn-soft btn-secondary w-full h-15 hidden"
+          data-countdown-timer-target="abortButton"
+          data-action="click->countdown-timer#complete"        
+        >中止</button>
+      </div>
+      <button
+        type="button"
+        class="btn btn-info w-full h-15"
+        data-action="click->countdown-timer#reset"
+      >リセット</button>
+    </div>
+    
     <%# 意識するポイント %>
     <div class="md:row-span-1 card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-4 p-6">
       <h2 class="text-lg font-bold mb-2">意識するポイント</h2>
