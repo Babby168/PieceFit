@@ -13,12 +13,20 @@
   
   <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-6 gap-6 max-w-6xl w-full mb-10">
     
-    <%# ストレッチ詳細：キービジュアル＋手順文（画像の自動スライドショー化は別issueで対応） %>
-    <div class="md:col-span-2 md:row-span-6 card <%= body_part_color(@stretch.body_part) %> shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-4 p-6">
+    <%# ストレッチ詳細：キービジュアル＋手順文（自動スライドショー対応） %>
+    <div 
+      class="md:col-span-2 md:row-span-6 card <%= body_part_color(@stretch.body_part) %> shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-4 p-6"
+      data-controller="illustration-slideshow"
+      data-illustration-slideshow-images-value="<%= @stretch.stretch_steps.map { |step| asset_path(step.image_path) }.to_json %>"
+      data-illustration-slideshow-key-visual-value="<%= asset_path(@stretch.key_visual_path) %>"
+      data-illustration-slideshow-loops-value="2"
+      data-illustration-slideshow-interval-value="<%= (60.0 / (@stretch.stretch_steps.size * 2)).round(2) %>"
+      data-action="countdown-timer:start@window->illustration-slideshow#start countdown-timer:complete@window->illustration-slideshow#stop countdown-timer:reset@window->illustration-slideshow#reset"
+    >
       <div class="w-full w-full flex items-center justify-center mb-4 bg-gray-100 rounded-lg overflow-hidden border-3 border-black">
-        <%= image_tag @stretch.key_visual_path, alt: @stretch.name, class: "w-full h-full object-cover" %>
+        <%= image_tag @stretch.key_visual_path, alt: @stretch.name, class: "w-full h-full object-cover transition-opacity duration-200 ease-in-out", data: { illustration_slideshow_target: "image" } %>
       </div>
-
+    
       <h1 class="text-4xl font-bold p-4 text-center"><%= @stretch.name %></h1>
       
       <div class="mt-4 mb-8 bg-white p-8 rounded-lg border-3 border-black">   
@@ -26,7 +34,7 @@
         
         <ol class="list-decimal list-inside space-y-8 text-base-content/80">
           <% @stretch.stretch_steps.each do |step| %>
-            <li><%= step.description %></li>
+            <li data-illustration-slideshow-target="step" class="transition-all duration-300 ease-in-out rounded-lg p-2"><%= step.description %></li>
           <% end %>
         </ol>
       </div>

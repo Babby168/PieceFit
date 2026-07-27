@@ -9,3 +9,6 @@ application.register("countdown-timer", CountdownTimerController)
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import IllustrationSlideshowController from "./illustration_slideshow_controller"
+application.register("illustration-slideshow", IllustrationSlideshowController)
