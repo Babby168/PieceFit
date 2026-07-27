@@ -23,6 +23,8 @@ export default class extends Controller {
     this.startButtonTarget.classList.add("hidden") // スタートボタンを非表示
     this.abortButtonTarget.classList.remove("hidden") // 中止ボタンを表示
 
+    this.dispatch("start") // ★追加：スライドショー側に開始を通知
+
     this.timerId = setInterval(() => {
       this.remainingSeconds -= 1 // 1秒ごとにカウントダウン
       this.updateDisplay() // 表示を更新
@@ -41,10 +43,12 @@ export default class extends Controller {
 
     this.startButtonTarget.classList.remove("hidden") // スタートボタンを表示
     this.abortButtonTarget.classList.add("hidden") // 中止ボタンを非表示
+
+    this.dispatch("reset") // ★追加：スライドショー側にリセットを通知
   }
 
   complete() {
-    // 中止処理
+    // 中止処理（自然完了・中止ボタン両方から呼ばれる）
     this.clearTimer()
     this.remainingSeconds = 0
     this.updateDisplay()
@@ -52,6 +56,8 @@ export default class extends Controller {
     this.startButtonTarget.classList.add("hidden") // スタートボタンを非表示
     this.abortButtonTarget.classList.add("hidden") // 中止ボタンを非表示
     this.timeTarget.textContent = "完了！"
+
+    this.dispatch("complete") // ★追加：スライドショー側に完了を通知
   }
 
   clearTimer() {
