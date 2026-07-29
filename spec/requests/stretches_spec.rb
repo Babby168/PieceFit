@@ -157,10 +157,22 @@ RSpec.describe "Stretches", type: :request do
       )
     end
     let!(:step1) do
-      create(:stretch_step, stretch: stretch, step_number: 1, description: "背筋を伸ばして座ります。")
+      create(
+        :stretch_step,
+        stretch: stretch,
+        step_number: 1,
+        description: "背筋を伸ばして座ります。",
+        image_path: "stretches/neck/neck_1.png"
+      )
     end
     let!(:step2) do
-      create(:stretch_step, stretch: stretch, step_number: 2, description: "頭をゆっくり横に倒します。")
+      create(
+        :stretch_step,
+        stretch: stretch,
+        step_number: 2,
+        description: "頭をゆっくり横に倒します。",
+        image_path: "stretches/neck/neck_2.png"
+      )
     end
 
     describe "ストレッチ実施ページ" do
@@ -210,7 +222,6 @@ RSpec.describe "Stretches", type: :request do
 
       it "カウントダウンタイマーのStimulusアクションが設定されていること" do
         expect(response.body).to include('data-action="click->countdown-timer#start"')
-        expect(response.body).to include('data-action="click->countdown-timer#complete"')
         expect(response.body).to include('data-action="click->countdown-timer#reset"')
       end
 
@@ -221,6 +232,35 @@ RSpec.describe "Stretches", type: :request do
 
         expect(abort_button_html).to be_present
         expect(abort_button_html).to match(/\bhidden\b/)
+      end
+
+      it "実施記録ダイアログのStimulusコントローラが設定されていること" do
+        expect(response.body).to include('data-controller="stretch-log-dialog"')
+        expect(response.body).to include("data-stretch-log-dialog-stretch-id-value=\"#{stretch.id}\"")
+      end
+
+      it "実施記録ダイアログのStimulusターゲットが設定されていること" do
+        expect(response.body).to include('data-stretch-log-dialog-target="completeDialog"')
+        expect(response.body).to include('data-stretch-log-dialog-target="abortDialog"')
+      end
+
+      it "完了ダイアログが表示用の内容を持つこと" do
+        expect(response.body).to include("ストレッチ完了！")
+        expect(response.body).to include("お疲れ様でした。")
+        expect(response.body).to include("マイページで確認する")
+      end
+
+      it "中止確認ダイアログが表示用の内容を持つこと" do
+        expect(response.body).to include("ストレッチを中止しますか？")
+        expect(response.body).to include("中止すると、ここまでの実施が記録されます。")
+        expect(response.body).to include("キャンセル")
+        expect(response.body).to include("中止する")
+      end
+
+      it "実施記録ダイアログのStimulusアクションが設定されていること" do
+        expect(response.body).to include('data-action="click->stretch-log-dialog#openAbortConfirm"')
+        expect(response.body).to include('data-action="click->stretch-log-dialog#closeAbortConfirm"')
+        expect(response.body).to include('data-action="click->stretch-log-dialog#recordAndRedirect"')
       end
 
       it "ストレッチ選択に戻るリンクが表示されること" do

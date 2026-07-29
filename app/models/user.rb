@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :stretch_logs, dependent: :destroy
+
   validates :nickname, presence: true, uniqueness: true
   validates :password_confirmation, presence: true, on: :create
 end

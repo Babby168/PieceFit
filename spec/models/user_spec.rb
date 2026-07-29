@@ -49,4 +49,20 @@ RSpec.describe User, type: :model do
       expect(user).to be_invalid
     end
   end
+
+  describe "アソシエーション" do
+    it "stretch_logsを複数持てること" do
+      user = create(:user)
+      stretch_log = create(:stretch_log, user: user)
+
+      expect(user.stretch_logs).to include(stretch_log)
+    end
+
+    it "user削除時に関連するstretch_logsも削除されること" do
+      user = create(:user)
+      create(:stretch_log, user: user)
+
+      expect { user.destroy }.to change(StretchLog, :count).by(-1)
+    end
+  end
 end
