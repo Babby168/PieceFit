@@ -12,3 +12,9 @@ application.register("hello", HelloController)
 
 import IllustrationSlideshowController from "./illustration_slideshow_controller"
 application.register("illustration-slideshow", IllustrationSlideshowController)
+
+import StretchLogController from "./stretch_log_controller"
+application.register("stretch-log", StretchLogController)
+
+import StretchLogDialogController from "./stretch_log_dialog_controller"
+application.register("stretch-log-dialog", StretchLogDialogController)

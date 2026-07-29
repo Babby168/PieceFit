@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_18_090025) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_27_094512) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "stretch_logs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "performed_at", null: false
+    t.bigint "stretch_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["stretch_id"], name: "index_stretch_logs_on_stretch_id"
+    t.index ["user_id"], name: "index_stretch_logs_on_user_id"
+  end
 
   create_table "stretch_steps", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -48,5 +58,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_18_090025) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "stretch_logs", "stretches"
+  add_foreign_key "stretch_logs", "users"
   add_foreign_key "stretch_steps", "stretches"
 end

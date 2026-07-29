@@ -10,9 +10,12 @@
     ] %>
   </div>
 
-  
-  <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-6 gap-6 max-w-6xl w-full mb-10">
-    
+  <div
+    class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-6 gap-6 max-w-6xl w-full mb-10"
+    data-controller="stretch-log-dialog"
+    data-stretch-log-dialog-stretch-id-value="<%= @stretch.id %>"
+  >
+
     <%# ストレッチ詳細：キービジュアル＋手順文（自動スライドショー対応） %>
     <div 
       class="md:col-span-2 md:row-span-6 card <%= body_part_color(@stretch.body_part) %> shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-4 p-6"
@@ -63,7 +66,7 @@
           type="button"
           class="btn btn-soft btn-secondary w-full h-15 hidden"
           data-countdown-timer-target="abortButton"
-          data-action="click->countdown-timer#complete"        
+          data-action="click->stretch-log-dialog#openAbortConfirm"
         >中止</button>
       </div>
       <button
@@ -80,6 +83,39 @@
         <p class="text-base-content/80"><%= @stretch.point %></p>
       <% end %>
     </div>
+
+    <dialog data-stretch-log-dialog-target="completeDialog" class="modal">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">ストレッチ完了！</h3>
+        <p class="py-4">お疲れ様でした。</p>
+        <div class="modal-action">
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-action="click->stretch-log-dialog#recordAndRedirect"
+          >マイページで確認する</button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog data-stretch-log-dialog-target="abortDialog" class="modal">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">ストレッチを中止しますか？</h3>
+        <p class="py-4">中止すると、ここまでの実施が記録されます。</p>
+        <div class="modal-action">
+          <button
+            type="button"
+            class="btn btn-ghost"
+            data-action="click->stretch-log-dialog#closeAbortConfirm"
+          >キャンセル</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-action="click->stretch-log-dialog#recordAndRedirect"
+          >中止する</button>
+        </div>
+      </div>
+    </dialog>
 
   </div>
 </div>

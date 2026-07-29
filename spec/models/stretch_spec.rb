@@ -49,5 +49,19 @@ RSpec.describe Stretch, type: :model do
 
       expect { stretch.destroy }.to change(StretchStep, :count).by(-1)
     end
+
+    it "stretch_logsを複数持てること" do
+      stretch = create(:stretch)
+      stretch_log = create(:stretch_log, stretch: stretch)
+
+      expect(stretch.stretch_logs).to include(stretch_log)
+    end
+
+    it "stretch削除時に関連するstretch_logsも削除されること" do
+      stretch = create(:stretch)
+      create(:stretch_log, stretch: stretch)
+
+      expect { stretch.destroy }.to change(StretchLog, :count).by(-1)
+    end
   end
 end

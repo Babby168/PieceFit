@@ -7,6 +7,9 @@ Rails.application.routes.draw do
       constraints: { body_part: /neck|shoulder|waist/ }
   get "stretches/:id", to: "stretches#show", as: :stretch,
       constraints: { id: /\d+/ }
+
+  resources :stretch_logs, only: %i[create]
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
