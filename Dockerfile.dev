@@ -12,7 +12,7 @@ ENV TZ Asia/Tokyo
 RUN apt-get update -qq \
 && apt-get install -y ca-certificates curl \
 && curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
-&& apt-get install -y build-essential libpq-dev nodejs vim \
+&& apt-get install -y build-essential libpq-dev nodejs vim libvips libvips-tools imagemagick \
 && npm install --global yarn
 
 # アプリケーションディレクトリをコンテナ内に作成

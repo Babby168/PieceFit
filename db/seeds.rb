@@ -56,12 +56,22 @@ stretches_data.each do |data|
   end
 end
 
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+mosaic_color_dir = Rails.root.join("db/seed_data/mosaic_designs/colors")
+Dir.glob(mosaic_color_dir.join("*.yml")).sort.each do |yaml_path|
+  data = YAML.safe_load_file(yaml_path, permitted_classes: [ Symbol ], aliases: true)
+  next if data.blank?
+
+  mosaic_design = MosaicDesign.find_or_initialize_by(name: data["name"])
+  mosaic_design.area_size_x = data["area_size_x"]
+  mosaic_design.area_size_y = data["area_size_y"]
+  mosaic_design.save!
+
+  Array(data["pieces"]).each do |piece_data|
+    design_piece = DesignPiece.find_or_initialize_by(
+      mosaic_design: mosaic_design,
+      position: piece_data["position"]
+    )
+    design_piece.color = piece_data["color"]
+    design_piece.save!
+  end
+end
