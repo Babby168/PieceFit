@@ -10,9 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_27_094512) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_31_082254) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "design_pieces", force: :cascade do |t|
+    t.string "color", default: [], null: false, array: true
+    t.datetime "created_at", null: false
+    t.bigint "mosaic_design_id", null: false
+    t.integer "position", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mosaic_design_id"], name: "index_design_pieces_on_mosaic_design_id"
+  end
+
+  create_table "mosaic_designs", force: :cascade do |t|
+    t.integer "area_size_x", default: 10, null: false
+    t.integer "area_size_y", default: 9, null: false
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "stretch_logs", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -58,6 +75,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_27_094512) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "design_pieces", "mosaic_designs"
   add_foreign_key "stretch_logs", "stretches"
   add_foreign_key "stretch_logs", "users"
   add_foreign_key "stretch_steps", "stretches"
