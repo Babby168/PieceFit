@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :stretch_logs, dependent: :destroy
+  has_many :mosaic_arts, dependent: :destroy
 
   validates :nickname, presence: true, uniqueness: true
   validates :password_confirmation, presence: true, on: :create
