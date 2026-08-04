@@ -1,0 +1,37 @@
+<%
+  # モザイクデザインの縦横サイズを元に、ピースの総数を計算
+  total_positions = mosaic_design.area_size_x * mosaic_design.area_size_y
+  # 獲得済みピースの数をカウント
+  acquired_count = pieces_by_position.values.count { |piece| piece.acquired_at.present? }
+%>
+
+<!-- モザイクアート進捗のグリッドカード表示 -->
+<div class="card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border p-6">
+  <h2 class="text-lg font-bold mb-2">モザイクアート進捗</h2>
+  <p class="text-xs text-base-content/50 mb-4 text-right">
+    <%= acquired_count %> / <%= total_positions %> ピース
+  </p>
+
+  <!-- ピースのグリッド表示 -->
+  <div class="grid gap-1"
+       style="grid-template-columns: repeat(<%= mosaic_design.area_size_x %>, minmax(0, 1fr));">
+    <% (0...total_positions).each do |position| %>
+      <!-- ピースの獲得状況を取得 -->
+      <% piece = pieces_by_position[position] %>
+      <!-- デザインピースの情報を取得 -->
+      <% design_piece = design_pieces_by_position[position] %>
+
+      <!-- 獲得済みのピースは色を表示 -->
+      <% if piece&.acquired_at.present? %>
+        <div class="grid grid-cols-2 grid-rows-2 aspect-square rounded-sm overflow-hidden">
+          <% design_piece.color.each do |hex| %>
+            <div style="background-color: <%= hex %>;"></div>
+          <% end %>
+        </div>
+      <!-- 未獲得のピースは背景色を表示 -->
+      <% else %>
+        <div class="aspect-square rounded-sm bg-base-300"></div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
