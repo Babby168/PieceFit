@@ -6,6 +6,7 @@ class StretchLogsController < ApplicationController
     @stretch_log.performed_at = Time.current
 
     if @stretch_log.save
+      PieceAcquisitionService.call(current_user)
       head :no_content
     else
       head :unprocessable_entity
