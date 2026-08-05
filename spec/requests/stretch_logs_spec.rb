@@ -14,7 +14,7 @@ RSpec.describe "StretchLogs", type: :request do
           post stretch_logs_path, params: { stretch_id: stretch.id }
         }.to change(StretchLog, :count).by(1)
 
-        expect(response).to have_http_status(:no_content)
+        expect(response).to redirect_to(mypage_path)
 
         stretch_log = StretchLog.last
         expect(stretch_log.user).to eq(user)
@@ -46,7 +46,7 @@ RSpec.describe "StretchLogs", type: :request do
             post stretch_logs_path, params: { stretch_id: stretch.id }
           }.to change { mosaic_art.pieces.acquired.count }.by(1)
 
-          expect(response).to have_http_status(:no_content)
+          expect(response).to redirect_to(mypage_path)
           expect(mosaic_art.pieces.order(:position).first.acquired_at).to be_present
         end
 
@@ -58,7 +58,7 @@ RSpec.describe "StretchLogs", type: :request do
           }.to change(StretchLog, :count).by(1)
            .and change { mosaic_art.pieces.acquired.count }.by(0)
 
-          expect(response).to have_http_status(:no_content)
+          expect(response).to redirect_to(mypage_path)
           expect(mosaic_art.pieces.acquired.count).to eq(3)
         end
 
@@ -70,9 +70,27 @@ RSpec.describe "StretchLogs", type: :request do
           }.to change(MosaicArt, :count).by(1)
            .and change(StretchLog, :count).by(1)
 
-          expect(response).to have_http_status(:no_content)
+          expect(response).to redirect_to(mypage_path)
           expect(user.mosaic_arts.last.pieces.acquired.count).to eq(1)
         end
+
+        context "Accept が Turbo Stream の場合" do
+          it "モザイクグリッドを replace する turbo_stream が返されること" do
+            post stretch_logs_path,
+                 params: { stretch_id: stretch.id },
+                 headers: { "Accept" => "text/vnd.turbo-stream.html" }
+
+            expect(response).to have_http_status(:ok)
+            expect(response.media_type).to eq Mime[:turbo_stream]
+            expect(response.body).to include('action="replace"')
+            expect(response.body).to include('target="mosaic-grid"')
+          end
+        end
+      end
+
+      it "POST成功時にマイページにリダイレクトされること" do
+        post stretch_logs_path, params: { stretch_id: stretch.id }
+        expect(response).to redirect_to(mypage_path)
       end
     end
 

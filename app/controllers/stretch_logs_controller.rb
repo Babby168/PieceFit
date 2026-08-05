@@ -1,6 +1,6 @@
 class StretchLogsController < ApplicationController
   include MosaicGridAssignable
-  
+
   def create
     return head :no_content unless user_signed_in?
 

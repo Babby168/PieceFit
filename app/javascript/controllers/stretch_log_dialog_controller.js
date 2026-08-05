@@ -30,8 +30,9 @@ export default class extends Controller {
       method: "POST",
       headers: {
         "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+        "Accept": "text/vnd.turbo-stream.html",
       },
-    }).then(async(response) => {
+    }).then(async (response) => {
       if (!response.ok) return
 
       const html = await response.text()
