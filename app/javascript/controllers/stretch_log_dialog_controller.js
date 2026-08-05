@@ -31,8 +31,13 @@ export default class extends Controller {
       headers: {
         "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
       },
-    }).then(() => {
-      window.location.href = "/"
+    }).then(async(response) => {
+      if (!response.ok) return
+
+      const html = await response.text()
+      if (html) window.Turbo.renderStreamMessage(html)
+
+      window.Turbo.visit("/mypage")
     })
   }
 }
