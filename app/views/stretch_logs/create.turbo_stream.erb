@@ -1,0 +1,9 @@
+<%# Turbo Stream のレスポンスを返す %>
+<% if @mosaic_art %>
+  <%= turbo_stream.replace "mosaic-grid" do %>
+    <%= render "mosaic_arts/grid",
+          mosaic_design: @mosaic_design,
+          design_pieces_by_position: @design_pieces_by_position,
+          pieces_by_position: @pieces_by_position %>
+  <% end %>
+<% end %>
