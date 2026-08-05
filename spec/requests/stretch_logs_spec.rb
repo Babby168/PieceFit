@@ -29,6 +29,51 @@ RSpec.describe "StretchLogs", type: :request do
 
         expect(response).to have_http_status(:unprocessable_content)
       end
+
+      context "ピース獲得連携" do
+        let!(:mosaic_design) { create(:mosaic_design, area_size_x: 2, area_size_y: 2) }
+        let!(:mosaic_art) { create(:mosaic_art, user: user, mosaic_design: mosaic_design) }
+
+        before do
+          4.times do |i|
+            create(:design_piece, mosaic_design: mosaic_design, position: i)
+            create(:piece, mosaic_art: mosaic_art, position: i)
+          end
+        end
+
+        it "POST成功時に未獲得ピースが1つ獲得されること" do
+          expect {
+            post stretch_logs_path, params: { stretch_id: stretch.id }
+          }.to change { mosaic_art.pieces.acquired.count }.by(1)
+
+          expect(response).to have_http_status(:no_content)
+          expect(mosaic_art.pieces.order(:position).first.acquired_at).to be_present
+        end
+
+        it "1日3回を超えるPOSTではログは増えるがピースは増えないこと" do
+          3.times { post stretch_logs_path, params: { stretch_id: stretch.id } }
+
+          expect {
+            post stretch_logs_path, params: { stretch_id: stretch.id }
+          }.to change(StretchLog, :count).by(1)
+           .and change { mosaic_art.pieces.acquired.count }.by(0)
+
+          expect(response).to have_http_status(:no_content)
+          expect(mosaic_art.pieces.acquired.count).to eq(3)
+        end
+
+        it "MosaicArt未作成でもPOST成功時に作成されピースが獲得されること" do
+          mosaic_art.destroy!
+
+          expect {
+            post stretch_logs_path, params: { stretch_id: stretch.id }
+          }.to change(MosaicArt, :count).by(1)
+           .and change(StretchLog, :count).by(1)
+
+          expect(response).to have_http_status(:no_content)
+          expect(user.mosaic_arts.last.pieces.acquired.count).to eq(1)
+        end
+      end
     end
 
     context "ログインしていない場合" do
@@ -38,6 +83,12 @@ RSpec.describe "StretchLogs", type: :request do
         }.not_to change(StretchLog, :count)
 
         expect(response).to have_http_status(:no_content)
+      end
+
+      it "ピースも獲得されないこと" do
+        expect {
+          post stretch_logs_path, params: { stretch_id: stretch.id }
+        }.not_to change(Piece.acquired, :count)
       end
     end
   end
