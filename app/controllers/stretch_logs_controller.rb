@@ -9,6 +9,7 @@ class StretchLogsController < ApplicationController
 
     if @stretch_log.save
       PieceAcquisitionService.call(current_user)
+      StreakBonusService.call(current_user)
       assign_mosaic_grid!(current_user)
 
       respond_to do |format|

@@ -66,6 +66,18 @@ RSpec.describe PieceAcquisitionService, type: :service do
         expect(piece_3.reload.acquired_at).to be_present
         expect(mosaic_art.reload.completed_at).to be_present
       end
+
+      it "is_bonus のピースは日次上限に含まないこと" do
+        piece_0.update!(acquired_at: Time.current, is_bonus: true)
+        piece_1.update!(acquired_at: Time.current, is_bonus: true)
+        piece_2.update!(acquired_at: Time.current, is_bonus: true)
+
+        result = described_class.call(user)
+
+        expect(result.status).to eq(:acquired)
+        expect(piece_3.reload.acquired_at).to be_present
+        expect(piece_3.reload.is_bonus).to be false
+      end
     end
 
     context "進行中アートのピースがすべて獲得済みの場合" do
