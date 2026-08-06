@@ -9,6 +9,11 @@ class StreakBonusService
     new(user).call
   end
 
+  # インスタンスを初期化
+  def initialize(user)
+    @user = user
+  end
+
   # 連続アクティビティの日数を取得
   def call
     streak_days = consecutive_active_days
@@ -30,7 +35,7 @@ class StreakBonusService
   def consecutive_active_days
     # StretchLog を取得
     dates = @user.stretch_logs
-                # 90日以内のログを取得
+                 # 90日以内のログを取得
                  .where(performed_at: 90.days.ago.beginning_of_day..Time.current)
                  # 日付を取得
                  .pluck(:performed_at)
@@ -55,7 +60,7 @@ class StreakBonusService
       break unless date == expected
       # 連続日数を増やす
       count += 1
-      # 明日を期待する
+      # 前日を期待する
       expected -= 1.day
     end
     # 連続日数を返す
@@ -77,7 +82,7 @@ class StreakBonusService
   # ボーナスを付与する
   def grant_bonus_piece!(streak_days)
     # モザイクアートを取得
-    mosaic_art = PieceAcquisitionService.new(@user).ensure_mosaic_art!
+    mosaic_art = PieceAcquisitionService.new(@user).ensure_current_mosaic_art!
     # モザイクアートが存在しない場合は対象外
     return Result.new(status: :no_design, streak_days: streak_days) unless mosaic_art
 

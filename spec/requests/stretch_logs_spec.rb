@@ -86,6 +86,19 @@ RSpec.describe "StretchLogs", type: :request do
             expect(response.body).to include('target="mosaic-grid"')
           end
         end
+
+        it "3日連続時は通常1 + ボーナス1でピースが2つ増えること" do
+          create(:stretch_log, user: user, stretch: stretch, performed_at: 2.days.ago)
+          create(:stretch_log, user: user, stretch: stretch, performed_at: 1.day.ago)
+
+          expect {
+            post stretch_logs_path, params: { stretch_id: stretch.id }
+          }.to change { mosaic_art.pieces.acquired.count }.by(2)
+
+          pieces = mosaic_art.pieces.acquired.order(:position)
+          expect(pieces.first.is_bonus).to be false
+          expect(pieces.last.is_bonus).to be true
+        end
       end
 
       it "POST成功時にマイページにリダイレクトされること" do
