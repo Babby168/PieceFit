@@ -74,7 +74,7 @@ class PieceAcquisitionService
   # 1日に獲得できるピースの上限を超えている場合はエラーを返す
   def daily_acquired_count
     Piece.joins(:mosaic_art)
-         .where(mosaic_arts: { user_id: @user.id })
+         .where(mosaic_arts: { user_id: @user.id }, is_bonus: false)
          .acquired_on(Time.zone.today)
          .count
   end
