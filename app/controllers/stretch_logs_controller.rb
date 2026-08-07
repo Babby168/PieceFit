@@ -9,7 +9,13 @@ class StretchLogsController < ApplicationController
 
     if @stretch_log.save
       PieceAcquisitionService.call(current_user)
-      StreakBonusService.call(current_user)
+
+      # ストレッチボーナスを付与しているかどうかを確認して、付与していればフラッシュにストレッチボーナスの日数を保存する
+      bonus_result = StreakBonusService.call(current_user)
+      if bonus_result.status == :awarded
+        flash[:streak_bonus_days] = bonus_result.streak_days
+      end
+
       assign_mosaic_grid!(current_user)
 
       respond_to do |format|

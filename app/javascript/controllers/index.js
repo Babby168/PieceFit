@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import AutoOpenDialogController from "./auto_open_dialog_controller"
+application.register("auto-open-dialog", AutoOpenDialogController)
+
 import CountdownTimerController from "./countdown_timer_controller"
 application.register("countdown-timer", CountdownTimerController)
 

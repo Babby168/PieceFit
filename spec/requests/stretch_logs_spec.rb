@@ -99,6 +99,21 @@ RSpec.describe "StretchLogs", type: :request do
           expect(pieces.first.is_bonus).to be false
           expect(pieces.last.is_bonus).to be true
         end
+
+        it "3日連続でボーナス付与時は flash[:streak_bonus_days] がセットされること" do
+          create(:stretch_log, user: user, stretch: stretch, performed_at: 2.days.ago)
+          create(:stretch_log, user: user, stretch: stretch, performed_at: 1.day.ago)
+
+          post stretch_logs_path, params: { stretch_id: stretch.id }
+
+          expect(flash[:streak_bonus_days]).to eq(3)
+        end
+
+        it "連続不足のときは flash[:streak_bonus_days] がセットされないこと" do
+          post stretch_logs_path, params: { stretch_id: stretch.id }
+
+          expect(flash[:streak_bonus_days]).to be_nil
+        end
       end
 
       it "POST成功時にマイページにリダイレクトされること" do
