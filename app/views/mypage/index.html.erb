@@ -9,4 +9,24 @@
         design_pieces_by_position: @design_pieces_by_position,
         # ピースの獲得状況
         pieces_by_position: @pieces_by_position %>
+
+  <% if flash[:streak_bonus_days].present? %>
+    <dialog
+      class="modal"
+      data-controller="auto-open-dialog"
+    >
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">ボーナスピース獲得！</h3>
+        <p class="py-4"><%= flash[:streak_bonus_days] %>日間連続達成ボーナスとして、</p>
+        <p class="py-4 font-bold text-success">新しいピースを1つ獲得しました！</p>
+        <div class="modal-action">
+          <button
+            type="button"
+            class="btn btn-success"
+            data-action="click->auto-open-dialog#close"
+          >OK</button>
+        </div>
+      </div>
+    </dialog>
+  <% end %>
 </div>

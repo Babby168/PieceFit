@@ -1,4 +1,6 @@
 <% flash.each do |type, message| %>
+  <%# notice と alert のみ表示する %>
+  <% next unless %w[notice alert].include?(type.to_s) %>
   <div class="alert <%= type.to_s == "notice" ? "alert-success" : "alert-error" %> rounded-box mb-4">
     <span><%= message %></span>
   </div>
