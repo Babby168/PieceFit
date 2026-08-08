@@ -1,8 +1,22 @@
-<div class="max-w-4xl mx-auto px-4 py-10">
-  <h1 class="text-2xl font-bold mb-6">マイページ</h1>
+<div class="max-w-6xl mx-auto px-4 py-10">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">マイページ</h1>
+    <%= render "shared/breadcrumb", items: [
+      { label: "ホーム", path: root_path },
+      { label: "マイページ", path: nil }
+    ] %>
+  </div>
 
-  <%# プロフィール/実施履歴/継続記録 は issue #42 で追加予定 %>
-  <%= render "mosaic_arts/grid",
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <%# 左カラム %>
+    <div class="space-y-6">
+      <%= render "mypage/profile" %>
+      <%= render "mypage/streak", streak_days: @streak_days %>
+    </div>
+
+    <%# 右カラム（モザイク＋履歴） %>
+    <div class="md:col-span-2 space-y-6">
+      <%= render "mosaic_arts/grid",
         # モザイクアートのデザイン情報
         mosaic_design: @mosaic_design,
         # デザインピースの情報
@@ -10,6 +24,12 @@
         # ピースの獲得状況
         pieces_by_position: @pieces_by_position %>
 
+        <%= render "mypage/history", stretch_logs: @stretch_logs %>
+    </div>
+  </div>
+  
+
+  <%# ボーナスピース獲得モーダル %>
   <% if flash[:streak_bonus_days].present? %>
     <dialog
       class="modal"

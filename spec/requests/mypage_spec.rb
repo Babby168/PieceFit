@@ -5,6 +5,13 @@ RSpec.describe "Mypage", type: :request do
     let(:user) { create(:user) }
     let!(:mosaic_design) { create(:mosaic_design, area_size_x: 2, area_size_y: 1) }
 
+    context "未ログインの場合" do
+      it "ログイン画面へリダイレクトすること" do
+        get mypage_path
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
     context "ログインしている場合" do
       before { sign_in user }
 
@@ -84,6 +91,26 @@ RSpec.describe "Mypage", type: :request do
       it "通常のマイページアクセスではボーナスモーダルが出ないこと" do
         get mypage_path
         expect(response.body).not_to include("ボーナスピース獲得")
+      end
+      it "ニックネームが表示されること" do
+        get mypage_path
+        expect(response.body).to include(user.nickname)
+      end
+
+      it "実施履歴が表示されること" do
+        stretch = create(:stretch, name: "肩まわし")
+        create(:stretch_log, user: user, stretch: stretch, performed_at: Time.current)
+        get mypage_path
+        expect(response.body).to include("肩まわし")
+        expect(response.body).to include("実施履歴")
+      end
+
+      it "継続記録が表示されること" do
+        stretch = create(:stretch)
+        create(:stretch_log, user: user, stretch: stretch, performed_at: Time.current)
+        get mypage_path
+        expect(response.body).to include("継続記録")
+        expect(response.body).to include("1")
       end
     end
   end

@@ -14,7 +14,7 @@ class User < ApplicationRecord
     dates = stretch_logs
               .where(performed_at: 90.days.ago.beginning_of_day..Time.current)
               .pluck(:performed_at)
-              .map { |t| t.in_time_zone.to_date}
+              .map { |t| t.in_time_zone.to_date }
               .uniq
               .sort
               .reverse
