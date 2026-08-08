@@ -84,38 +84,36 @@
       <% end %>
     </div>
 
-    <dialog data-stretch-log-dialog-target="completeDialog" class="modal">
-      <div class="modal-box">
-        <h3 class="text-lg font-bold">ストレッチ完了！</h3>
-        <p class="py-4">お疲れ様でした。</p>
-        <div class="modal-action">
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-action="click->stretch-log-dialog#recordAndRedirect"
-          >マイページで確認する</button>
-        </div>
-      </div>
-    </dialog>
+    <%# ストレッチ完了モーダル（モーダルのテンプレートをパーシャル化） %>
+    <%= render "shared/feedback_modal",
+      title: "ストレッチ完了！",
+      messages: [
+        "お疲れ様でした。",
+        "ピースを獲得しました！"
+      ],
+      html: { data: { stretch_log_dialog_target: "completeDialog" } } do %>
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-action="click->stretch-log-dialog#recordAndRedirect"
+      >マイページで確認する</button>
+    <% end %>
 
-    <dialog data-stretch-log-dialog-target="abortDialog" class="modal">
-      <div class="modal-box">
-        <h3 class="text-lg font-bold">ストレッチを中止しますか？</h3>
-        <p class="py-4">中止すると、ここまでの実施が記録されます。</p>
-        <div class="modal-action">
-          <button
-            type="button"
-            class="btn btn-ghost"
-            data-action="click->stretch-log-dialog#closeAbortConfirm"
-          >キャンセル</button>
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-action="click->stretch-log-dialog#recordAndRedirect"
-          >中止する</button>
-        </div>
-      </div>
-    </dialog>
-
+    <%# ストレッチ中止モーダル（モーダルのテンプレートをパーシャル化） %>
+    <%= render "shared/feedback_modal",
+      title: "ストレッチを中止しますか？",
+      messages: ["中止すると、ここまでの実施が記録されます。"],
+      html: { data: { stretch_log_dialog_target: "abortDialog" } } do %>
+      <button
+        type="button",
+        class="btn btn-ghost",
+        data-action="click->stretch-log-dialog#closeAbortConfirm"
+      >キャンセル</button>
+      <button
+        type="button",
+        class="btn-btnsecondary",
+        data-action="click->stretch-log-dialog#recordAndRedirect"
+      >中止する</button>
+    <% end %>
   </div>
 </div>
