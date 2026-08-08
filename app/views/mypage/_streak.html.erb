@@ -1,0 +1,11 @@
+<div class="card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border p-6">
+  <h2 class="text-lg font-bold mb-2">継続記録</h2>
+  <p class="text-4xl font-bold"><%= streak_days %> <span class="text-base font-normal">日間</span></p>
+  <p class="text-sm text-base-content/70 mt-2">
+    <% if streak_days.zero? %>
+      今日のストレッチで記録を始めましょう！
+    <% else %>
+      その調子です！
+    <% end %>
+  </p>
+</div>

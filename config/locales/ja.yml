@@ -4,3 +4,6 @@ ja:
       neck: 首
       shoulder: 肩
       waist: 腰
+  time:
+    formats:
+      short: "%m/%d %H:%M"

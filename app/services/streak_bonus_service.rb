@@ -31,40 +31,9 @@ class StreakBonusService
 
   private
 
-  # 今日を起点に、StretchLog がある日を1日ずつ遡って連続日数を数える
+  # ユーザーのストレッチ連続日数を取得
   def consecutive_active_days
-    # StretchLog を取得
-    dates = @user.stretch_logs
-                 # 90日以内のログを取得
-                 .where(performed_at: 90.days.ago.beginning_of_day..Time.current)
-                 # 日付を取得
-                 .pluck(:performed_at)
-                 # 日付を配列に変換
-                 .map { |t| t.in_time_zone.to_date }
-                 # 重複を削除
-                 .uniq
-                 # ソート
-                 .sort
-                 # 逆順にソート
-                 .reverse
-
-    # 今日が最初の日付でない場合は対象外
-    return 0 unless dates.first == Time.zone.today
-
-    # 連続日数を数える
-    count = 0
-    # 今日を起点に遡る
-    expected = Time.zone.today
-    dates.each do |date|
-      # 日付が一致しない場合は終了
-      break unless date == expected
-      # 連続日数を増やす
-      count += 1
-      # 前日を期待する
-      expected -= 1.day
-    end
-    # 連続日数を返す
-    count
+    @user.current_streak_days
   end
 
   # 今日はすでにボーナスが付与されているかどうかを返す

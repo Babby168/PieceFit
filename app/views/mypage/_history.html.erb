@@ -1,0 +1,23 @@
+<div class="card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border p-6">
+  <h2 class="text-lg font-bold mb-2">実施履歴</h2>
+
+  <% if stretch_logs.empty? %>
+    <p class="text-sm text-base-content/60">まだ実施記録がありません。</p>
+  <% else %>
+    <ul class="space-y-3">
+      <% stretch_logs.each do |log| %>
+        <li class="flex items-center justify-between border-b pb-2">
+          <div>
+            <p class="font-bold"><%= log.stretch.name %></p>
+            <p class="text-xs text-base-content/60">
+              <%= t("stretches.body_parts.#{log.stretch.body_part}") %>
+              .
+              <%= l(log.performed_at, format: :short) %>
+            </p>
+          </div>
+          <span class="badge badge-outline">完了</span>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

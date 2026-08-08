@@ -42,11 +42,16 @@ RSpec.describe "UserSessions", type: :request do
 
     context "正しいメールアドレスとパスワードの場合" do
       it "ログインに成功し、flashのnoticeメッセージが表示される" do
+        create(:mosaic_design, area_size_x: 2, area_size_y: 1)
+
         post user_session_path, params: {
           user: { email: user.email, password: password }
         }
-        follow_redirect!
+
+        expect(response).to redirect_to(mypage_path)
         expect(flash[:notice]).to eq("ログインしました。")
+        follow_redirect!
+        expect(response.body).to include("ログインしました。")
       end
     end
 
@@ -60,12 +65,12 @@ RSpec.describe "UserSessions", type: :request do
     end
 
     context "有効な認証情報の場合" do
-      it "ログインに成功し、トップページにリダイレクトされること" do
+      it "ログインに成功し、マイページにリダイレクトされること" do
         post user_session_path, params: {
           user: { email: user.email, password: password }
         }
 
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(mypage_path)
         expect(request.env["warden"].user(:user)).to eq(user)
       end
     end

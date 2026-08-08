@@ -25,6 +25,9 @@
 
   <body>
     <%= render "shared/header" %>
+    <div class="max-w-6xl mx-auto px-4 pt-4">
+      <%= render "shared/flash_messages" %>
+    </div>
     <%= yield %>
     <%= render "shared/footer" %>
   </body>
