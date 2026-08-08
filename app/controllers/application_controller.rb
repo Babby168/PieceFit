@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
   # Deviseのコントローラーでのみ、 configure_permitted_parametersを実行
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  def after_sign_in_path_for(_resource)
+    mypage_path
+  end
+
   protected
   # パラメータの許可
   # ユーザー登録時に、nicknameを許可する
