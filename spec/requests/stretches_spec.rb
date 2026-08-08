@@ -247,12 +247,13 @@ RSpec.describe "Stretches", type: :request do
       it "完了ダイアログが表示用の内容を持つこと" do
         expect(response.body).to include("ストレッチ完了！")
         expect(response.body).to include("お疲れ様でした。")
+        expect(response.body).to include("ピースを獲得しました")
         expect(response.body).to include("マイページで確認する")
       end
 
       it "中止確認ダイアログが表示用の内容を持つこと" do
         expect(response.body).to include("ストレッチを中止しますか？")
-        expect(response.body).to include("中止すると、ここまでの実施が記録されます。")
+        expect(response.body).to include("中止すると、ここまでの実施が記録されます")
         expect(response.body).to include("キャンセル")
         expect(response.body).to include("中止する")
       end
