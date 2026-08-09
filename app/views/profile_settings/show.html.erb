@@ -1,0 +1,74 @@
+<div class="min-h-screen flex flex-col items-center px-4 mt-10" data-controller="confirm-dialog">
+  <div class="w-full max-w-6xl flex justify-between items-center mb-6 link-secondary">
+    <%= link_to "← マイページに戻る", mypage_path, class: "text-sm font-bold link" %>
+    
+    <%= render "shared/breadcrumb", items: [
+      { label: "ホーム", path: root_path },
+      { label: "マイページ", path: mypage_path },
+      { label: "プロフィール設定", path: nil }
+      ] %>
+  </div>
+
+  <div class="w-full max-w-2xl">
+    <h1 class="text-2xl font-bold mb-2">プロフィール設定</h1>
+    <p class="text-sm text-base-content/60 mb-8">
+      アカウント情報の確認と変更ができます。
+    </p>
+
+    <%# 設定項目 %>
+    <div class="space-y-6">
+      <%# setting_item パーシャルで設定項目を表示 %>
+      <%# ニックネーム変更ページは issue #45 で実装 %>
+      <%= render "profile_settings/setting_item",
+      path: "#",
+      title: "ニックネーム",
+      subtitle: current_user.nickname %>
+
+      <%# メールアドレス変更ページは issue #47 で実装 %>
+      <%= render "profile_settings/setting_item",
+      path: "#",
+      title: "メールアドレス",
+      subtitle: current_user.email %>
+
+      <%# パスワード変更ページは issue #49 で実装 %>
+      <%= render "profile_settings/setting_item",
+      path: "#",
+      title: "パスワードの変更",
+      subtitle: "********" %>
+
+      <button
+        type="button"
+        class="card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-2 border-error p-4 flex-row items-center gap-4 hover:brightness-95 transition text-left w-full"
+        data-action="click->confirm-dialog#open"
+      >
+        <div class="flex-1">
+          <p class="font-bold text-error">ログアウト</p>
+        </div>
+      </button>
+
+      <%# アカウント削除ページは issue #51 で実装 %>
+      <%= render "profile_settings/setting_item",
+      path: "#",
+      title: "アカウントの削除",
+      subtitle: "この操作は取り消せません。全てのデータが失われます。",
+      chevron: false,
+      destructive: true %>
+    </div>
+  </div>
+
+  <!-- ログアウトモーダル -->
+  <%= render "shared/feedback_modal",
+    title: "ログアウトしますか？",
+    messages: ["ログアウトすると、再度ログインが必要になります。"],
+    html: { data: { confirm_dialog_target: "dialog" } } do %>
+    <button
+      type="button"
+      class="btn btn-ghost"
+      data-action="click->confirm-dialog#close"
+    >キャンセル</button>
+    <%= button_to "ログアウト",
+      destroy_user_session_path,
+      method: :delete,
+      class: "btn btn-primary" %>
+  <% end %>
+</div>

@@ -8,8 +8,7 @@
     <h2 class="text-xl font-bold"><%= current_user.nickname %></h2>
   </div>
   
-  <%# プロフィール設定ページは issue #44 で実装。今は見た目と導線だけ用意 %>
-  <%= link_to "プロフィールを編集", "#", class: "btn btn-warning btn-outline btn-sm w-full mb-3" %>
+  <%= link_to "プロフィールを編集", profile_settings_path, class: "btn btn-warning btn-outline btn-sm w-full mb-3" %>
   <%= link_to "モザイクコレクション", "#", class: "btn btn-success btn-outline btn-sm w-full mb-3" %>
   <%= link_to "ストレッチを始める", stretches_path, class: "btn btn-primary btn-outline btn-sm w-full mb-3" %>
 </div>
