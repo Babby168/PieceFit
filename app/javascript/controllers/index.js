@@ -7,6 +7,9 @@ import { application } from "./application"
 import AutoOpenDialogController from "./auto_open_dialog_controller"
 application.register("auto-open-dialog", AutoOpenDialogController)
 
+import ConfirmDialogController from "./confirm_dialog_controller"
+application.register("confirm-dialog", ConfirmDialogController)
+
 import CountdownTimerController from "./countdown_timer_controller"
 application.register("countdown-timer", CountdownTimerController)
 

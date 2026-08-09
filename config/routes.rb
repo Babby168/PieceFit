@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :stretch_logs, only: %i[create]
 
   get "mypage", to: "mypage#index", as: :mypage
+  get "profile/settings", to: "profile_settings#show", as: :profile_settings
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
