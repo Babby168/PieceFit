@@ -1,0 +1,2 @@
+module NicknameChangesHelper
+end
