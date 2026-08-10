@@ -48,6 +48,16 @@ RSpec.describe User, type: :model do
       user = build(:user, nickname: "test")
       expect(user).to be_invalid
     end
+
+    it "nickname が10文字を超える場合は無効であること" do
+      user = build(:user, nickname: Faker::Lorem.characters(number: 11))
+      expect(user).to be_invalid
+    end
+
+    it "nickname が10文字以内の場合は有効であること" do
+      user = build(:user, nickname: Faker::Lorem.characters(number: 10))
+      expect(user).to be_valid
+    end
   end
 
   describe "アソシエーション" do
