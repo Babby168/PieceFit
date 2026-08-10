@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   get "mypage", to: "mypage#index", as: :mypage
   get "profile/settings", to: "profile_settings#show", as: :profile_settings
 
+  get "nickname/change", to: "nickname_changes#edit", as: :edit_nickname_change
+  patch "nickname/change", to: "nickname_changes#update", as: :nickname_change
+  get "nickname/change/complete", to: "nickname_changes#complete", as: :nickname_change_complete
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

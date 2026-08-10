@@ -1,0 +1,41 @@
+<div class="min-h-screen flex flex-col items-center justify-center">
+  <div class="w-full max-w-md">
+    <%= link_to "← 戻る", profile_settings_path, class: "text-sm font-bold link mb-4 inline-block" %>
+
+    <div class="border border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-base-100 p-8 rounded-box">
+      <h2 class="text-center font-bold text-2xl mb-4">ニックネームの変更</h2>
+      <p class="text-center text-sm mb-4">新しいニックネームを入力してください。</p>
+      
+      <%= form_with model: @user, url: nickname_change_path, method: :patch do |f| %>
+
+      <% if @user.errors.any? %>
+        <div class="alert alert-error mb-4 rounded-box">
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      
+        <div class="field mb-4">
+          <div class="flex justify-between items-center">
+            <label class="label">
+              <span class="label-text"><%= f.label :nickname, "新しいニックネーム" %></span>
+            </label>
+          </div>
+          <%= f.text_field :nickname,
+                value: (@user.errors.any? ? @user.nickname_was : nil),
+                autofocus: true,
+                placeholder: "新しいニックネームを入力",
+                class: "input w-full" %>
+        </div>
+      
+        <%# 変更を保存するボタン %>
+        <div class="actions">
+          <%= f.submit "変更を保存する", class: "btn btn-primary w-full mb-8" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

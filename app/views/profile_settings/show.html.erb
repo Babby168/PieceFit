@@ -18,9 +18,9 @@
     <%# 設定項目 %>
     <div class="space-y-6">
       <%# setting_item パーシャルで設定項目を表示 %>
-      <%# ニックネーム変更ページは issue #45 で実装 %>
+      <%# ニックネーム %>
       <%= render "profile_settings/setting_item",
-      path: "#",
+      path: edit_nickname_change_path,
       title: "ニックネーム",
       subtitle: current_user.nickname %>
 
