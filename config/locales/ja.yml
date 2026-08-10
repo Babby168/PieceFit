@@ -1,4 +1,19 @@
 ja:
+  errors:
+    format: "%{attribute}%{message}"
+  activerecord:
+    attributes:
+      user:
+        nickname: ニックネーム
+      errors:
+        models:
+          user:
+            attributes:
+              nickname:
+                blank: を入力してください
+                taken: はすでに使用されています
+                too_long: は%{count}文字以内で入力してください
+                unchanged: は現在のニックネームと同じです
   stretches:
     body_parts:
       neck: 首

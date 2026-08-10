@@ -88,6 +88,42 @@ RSpec.describe "NicknameChanges", type: :request do
           expect(response.body).to include("alert-error")
         end
       end
+
+      context "11文字以上のニックネームの場合" do
+        it "422ステータスが返されること" do
+          patch nickname_change_path, params: { user: { nickname: Faker::Lorem.characters(number: 11) } }
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+
+        it "ニックネームが変更されないこと" do
+          expect {
+            patch nickname_change_path, params: { user: { nickname: Faker::Lorem.characters(number: 11) } }
+          }.not_to change { user.reload.nickname }
+        end
+
+        it "エラーメッセージ欄が表示されること" do
+          patch nickname_change_path, params: { user: { nickname: Faker::Lorem.characters(number: 11) } }
+          expect(response.body).to include("alert-error")
+        end
+      end
+
+      context "現在と同じニックネームの場合" do
+        it "422ステータスが返されること" do
+          patch nickname_change_path, params: { user: { nickname: user.nickname } }
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+
+        it "ニックネームが変更されないこと" do
+          expect {
+            patch nickname_change_path, params: { user: { nickname: user.nickname } }
+          }.not_to change { user.reload.nickname }
+        end
+
+        it "エラーメッセージ欄が表示されること" do
+          patch nickname_change_path, params: { user: { nickname: user.nickname } }
+          expect(response.body).to include("alert-error")
+        end
+      end
     end
   end
 

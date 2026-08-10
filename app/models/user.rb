@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :stretch_logs, dependent: :destroy
   has_many :mosaic_arts, dependent: :destroy
 
-  validates :nickname, presence: true, uniqueness: true
+  validates :nickname, presence: true, uniqueness: true, length: { maximum: 10 }
   validates :password_confirmation, presence: true, on: :create
 
   def current_streak_days
