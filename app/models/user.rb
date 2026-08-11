@@ -74,7 +74,7 @@ class User < ApplicationRecord
       email_change_token_sent_at: nil
     )
   end
-  
+
   private
 
   # 仮メールアドレスが一意かを確認

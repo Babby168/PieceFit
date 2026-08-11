@@ -1,8 +1,8 @@
 class EmailChangesController < ApplicationController
   # ログインしていない場合は確認画面にリダイレクト
-  before_action :authenticate_user!, except: [:confirm]
+  before_action :authenticate_user!, except: [ :confirm ]
   # ユーザーを取得
-  before_action :set_user, only: %i[edit update complete]
+  before_action :set_user, only: %i[ edit update complete ]
 
   def edit
   end

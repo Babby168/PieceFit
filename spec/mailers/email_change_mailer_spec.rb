@@ -10,7 +10,7 @@ RSpec.describe EmailChangeMailer, type: :mailer do
     let(:mail) { EmailChangeMailer.confirmation_instructions(user) }
 
     it "新しいメールアドレス宛に送信されること" do
-      expect(mail.to).to eq(["new@example.com"])
+      expect(mail.to).to eq([ "new@example.com" ])
     end
 
     it "件名が正しいこと" do

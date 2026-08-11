@@ -75,7 +75,7 @@ RSpec.describe User, type: :model do
 
     it "unconfirmed_email が現在のemailと同じ場合は無効であること" do
       user.unconfirmed_email = user.email
-      expect(user.valid?( :email_change)).to be false
+      expect(user.valid?(:email_change)).to be false
     end
 
     it "unconfirmed_email が他のユーザーのemailと重複する場合は無効であること" do
