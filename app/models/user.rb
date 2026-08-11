@@ -10,6 +10,19 @@ class User < ApplicationRecord
   validates :nickname, presence: true, uniqueness: true, length: { maximum: 10 }
   validates :password_confirmation, presence: true, on: :create
 
+
+  EMAIL_CHANGE_TOKEN_EXPIRATION = 24.hours
+
+  # 仮メールアドレスのバリデーション（必須 / アドレス変更時）
+  validates :unconfirmed_email, presence: true, on: :email_change
+  # 仮メールアドレスのバリデーション（形式 / アドレス変更時 / 空文字を許可）
+  validates :unconfirmed_email, format: { with: URI::MailTo::EMAIL_REGEXP }, on: :email_change, allow_blank: true
+  # 仮メールアドレスのバリデーション（一意性 / アドレス変更時）
+  validate :unconfirmed_email_must_be_unique, on: :email_change, if: -> { unconfirmed_email.present? }
+  # 仮メールアドレスのバリデーション（現在のメールアドレスと異なる / アドレス変更時）
+  validate :unconfirmed_email_must_differ_from_current, on: :email_change, if: -> { unconfirmed_email.present? }
+
+
   def current_streak_days
     dates = stretch_logs
               .where(performed_at: 90.days.ago.beginning_of_day..Time.current)
@@ -36,5 +49,41 @@ class User < ApplicationRecord
       expected -= 1
     end
     count
+  end
+
+  # メールアドレス変更トークンを生成して保存
+  def generate_email_change_token!
+    update_columns(
+      unconfirmed_email: unconfirmed_email,
+      email_change_token: SecureRandom.urlsafe_base64,
+      email_change_token_sent_at: Time.current
+    )
+  end
+
+  # メールアドレス変更トークンが期限切れかどうかを判定
+  def email_change_token_expired?
+    email_change_token_sent_at.nil? || email_change_token_sent_at < EMAIL_CHANGE_TOKEN_EXPIRATION.ago
+  end
+
+  # メールアドレス変更を確認
+  def confirm_email_change!
+    update!(
+      email: unconfirmed_email,
+      unconfirmed_email: nil,
+      email_change_token: nil,
+      email_change_token_sent_at: nil
+    )
+  end
+  
+  private
+
+  # 仮メールアドレスが一意かを確認
+  def unconfirmed_email_must_be_unique
+    errors.add(:unconfirmed_email, :taken) if User.where(email: unconfirmed_email).where.not(id: id).exists?
+  end
+
+  # 仮メールアドレスが現在のメールアドレスと異なるかを確認
+  def unconfirmed_email_must_differ_from_current
+    errors.add(:unconfirmed_email, :unchanged) if unconfirmed_email == email
   end
 end

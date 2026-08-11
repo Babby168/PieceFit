@@ -13,9 +13,17 @@ Rails.application.routes.draw do
   get "mypage", to: "mypage#index", as: :mypage
   get "profile/settings", to: "profile_settings#show", as: :profile_settings
 
+  # ニックネーム変更
   get "nickname/change", to: "nickname_changes#edit", as: :edit_nickname_change
   patch "nickname/change", to: "nickname_changes#update", as: :nickname_change
   get "nickname/change/complete", to: "nickname_changes#complete", as: :nickname_change_complete
+
+  # メールアドレス変更
+  get "email/change", to: "email_changes#edit", as: :edit_email_change
+  patch "email/change", to: "email_changes#update", as: :email_change
+  get "email/change/complete", to: "email_changes#complete", as: :email_change_complete
+  get "email/change/confirm/:token", to: "email_changes#confirm", as: :email_change_confirm
+  get "email/change/confirmed", to: "email_changes#confirmed", as: :email_change_confirmed
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
