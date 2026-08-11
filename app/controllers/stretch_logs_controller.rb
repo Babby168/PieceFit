@@ -23,7 +23,7 @@ class StretchLogsController < ApplicationController
         format.html { redirect_to mypage_path }
       end
     else
-      head :unprocessable_entity
+      head :unprocessable_content
     end
   end
 

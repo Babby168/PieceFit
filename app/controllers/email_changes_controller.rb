@@ -15,7 +15,7 @@ class EmailChangesController < ApplicationController
       EmailChangeMailer.confirmation_instructions(@user).deliver_later
       redirect_to email_change_complete_path
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 

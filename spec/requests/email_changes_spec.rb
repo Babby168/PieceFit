@@ -69,7 +69,7 @@ RSpec.describe "EmailChanges", type: :request do
       context "空文字の場合" do
         it "422ステータスが返されること" do
           patch email_change_path, params: { user: { unconfirmed_email: "" } }
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(:unprocessable_content)
         end
 
         it "エラーメッセージ欄が表示されること" do
@@ -81,7 +81,7 @@ RSpec.describe "EmailChanges", type: :request do
       context "形式が不正な場合" do
         it "422ステータスが返されること" do
           patch email_change_path, params: { user: { unconfirmed_email: "invalid_email" } }
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(:unprocessable_content)
         end
       end
 
@@ -90,7 +90,7 @@ RSpec.describe "EmailChanges", type: :request do
 
         it "422ステータスが返されること" do
           patch email_change_path, params: { user: { unconfirmed_email: "duplicate@example.com" } }
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(:unprocessable_content)
         end
 
         it "確認メールが送信されないこと" do
@@ -103,7 +103,7 @@ RSpec.describe "EmailChanges", type: :request do
       context "現在のメールアドレスと同じ場合" do
         it "422ステータスが返されること" do
           patch email_change_path, params: { user: { unconfirmed_email: user.email } }
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(:unprocessable_content)
         end
       end
     end
