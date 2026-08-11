@@ -18,15 +18,15 @@
     <%# 設定項目 %>
     <div class="space-y-6">
       <%# setting_item パーシャルで設定項目を表示 %>
-      <%# ニックネーム %>
+      <%# ニックネーム変更ページ %>
       <%= render "profile_settings/setting_item",
       path: edit_nickname_change_path,
       title: "ニックネーム",
       subtitle: current_user.nickname %>
 
-      <%# メールアドレス変更ページは issue #47 で実装 %>
+      <%# メールアドレス変更ページ %>
       <%= render "profile_settings/setting_item",
-      path: "#",
+      path: edit_email_change_path,
       title: "メールアドレス",
       subtitle: current_user.email %>
 

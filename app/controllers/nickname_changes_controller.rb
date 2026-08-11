@@ -11,14 +11,14 @@ class NicknameChangesController < ApplicationController
     # ニックネームが変更されていない場合はエラーを追加して編集画面を表示
     if nickname_unchanged?
       @user.errors.add(:nickname, :unchanged)
-      return render :edit, status: :unprocessable_entity
+      return render :edit, status: :unprocessable_content
     end
 
     # ニックネームが変更されている場合は更新して完了画面にリダイレクト
     if @user.update(nickname_params)
       redirect_to nickname_change_complete_path
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
