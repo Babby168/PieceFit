@@ -37,6 +37,26 @@ RSpec.describe User, type: :model do
       expect(user).to be_invalid
     end
 
+    it "全角文字を含むパスワードは無効であること" do
+      user = build(:user, password: "あいうえお")
+      expect(user).to be_invalid
+    end
+
+    it "半角スペースを含むパスワードは無効であること" do
+      user = build(:user, password: "a b")
+      expect(user).to be_invalid
+    end
+
+    it "半角英数字のみのパスワードは有効であること" do
+      user = build(:user, password: "a1b2c3")
+      expect(user).to be_valid
+    end
+
+    it "半角記号を含むパスワードは有効であること" do
+      user = build(:user, password: "a!b@c#")
+      expect(user).to be_valid
+    end
+
     it "emailがすでに存在する場合は無効であること" do
       create(:user, email: "test@example.com")
       user = build(:user, email: "test@example.com")

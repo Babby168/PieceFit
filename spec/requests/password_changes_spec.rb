@@ -89,6 +89,30 @@ RSpec.describe "PasswordChanges", type: :request do
           expect(response).to have_http_status(:unprocessable_content)
         end
       end
+
+      context "新しいパスワードが現在のパスワードと同じ場合" do
+        it "422ステータスが返ってくること" do
+          patch password_change_path, params: { user: { current_password: current_password, password: current_password, password_confirmation: current_password } }
+          expect(response).to have_http_status(:unprocessable_content)
+        end
+
+        it "エラーメッセージ欄が表示されること" do
+          patch password_change_path, params: { user: { current_password: current_password, password: current_password, password_confirmation: current_password } }
+          expect(response.body).to include("alert-error")
+        end
+
+        it "パスワードが変更されないこと" do
+          patch password_change_path, params: { user: { current_password: current_password, password: current_password, password_confirmation: current_password } }
+          expect(user.reload.valid_password?(current_password)).to eq(true)
+        end
+      end
+
+      context "新しいパスワードに全角文字・絵文字などの使用できない文字が含まれている場合" do
+        it "422ステータスが返ってくること" do
+          patch password_change_path, params: { user: { current_password: current_password, password: "あいうえお", password_confirmation: "あいうえお" } }
+          expect(response).to have_http_status(:unprocessable_content)
+        end
+      end
     end
   end
 
