@@ -6,6 +6,7 @@ ja:
       user:
         nickname: ニックネーム
         unconfirmed_email: メールアドレス
+        password: パスワード
     errors:
       models:
         user:
@@ -20,6 +21,9 @@ ja:
               invalid: の形式が正しくありません
               taken: はすでに使用されています
               unchanged: は現在のメールアドレスと同じです
+            password:
+              invalid: は半角英数字・記号のみ使用できます
+              unchanged: は現在のパスワードと同じです
   stretches:
     body_parts:
       neck: 首

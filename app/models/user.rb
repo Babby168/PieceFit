@@ -22,6 +22,10 @@ class User < ApplicationRecord
   # 仮メールアドレスのバリデーション（現在のメールアドレスと異なる / アドレス変更時）
   validate :unconfirmed_email_must_differ_from_current, on: :email_change, if: -> { unconfirmed_email.present? }
 
+  # パスワードのバリデーション（形式 / 空文字を許可 ← Devise側に判定を委ねる）
+  # on: を指定しないので 新規登録時 / パスワード変更時の両方で適用される
+  validates :password, format: { with: /\A[\x21-\x7E]+\z/ }, allow_blank: true
+
 
   def current_streak_days
     dates = stretch_logs
