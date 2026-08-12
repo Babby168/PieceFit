@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  # 開発中はメールを確認するためのルートを追加
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
   root "top#index"
   devise_for :users, controllers: { registrations: "users/registrations" }
   get "registration/complete", to: "registration_complete#show", as: :registration_complete

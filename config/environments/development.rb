@@ -40,6 +40,12 @@ Rails.application.configure do
   # Set localhost to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
+  # 開発中は本物のメールを送らず、ブラウザで内容を確認する
+  # 送信先を letter_opener に設定
+  config.action_mailer.delivery_method = :letter_opener_web
+  # 「送る処理」自体は必ず実行する
+  config.action_mailer.perform_deliveries = true
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
