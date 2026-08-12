@@ -30,6 +30,12 @@ Rails.application.routes.draw do
   get "email/change/confirm/:token", to: "email_changes#confirm", as: :email_change_confirm
   get "email/change/confirmed", to: "email_changes#confirmed", as: :email_change_confirmed
 
+  # パスワード変更
+  get "password/change", to: "password_changes#edit", as: :edit_password_change
+  patch "password/change", to: "password_changes#update", as: :password_change
+  get "password/change/complete", to: "password_changes#complete", as: :password_change_complete
+
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
