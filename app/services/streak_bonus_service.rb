@@ -2,7 +2,7 @@ class StreakBonusService
   # 連続アクティビティの閾値
   STREAK_THRESHOLD = 3
   # 結果を格納する構造体
-  Result = Struct.new(:status, :piece, :streak_days, keyword_init: true)
+  Result = Struct.new(:status, :piece, :streak_days, :art_completed, keyword_init: true)
 
   # サービスを呼び出すクラスメソッド
   def self.call(user)
@@ -68,12 +68,11 @@ class StreakBonusService
       piece.update!(acquired_at: Time.current, is_bonus: true)
 
       # モザイクアートがすでに完成している場合は更新
-      if mosaic_art.pieces.unacquired.none?
-        mosaic_art.update!(completed_at: Time.current)
-      end
+      art_completed = mosaic_art.pieces.unacquired.none?
+      mosaic_art.update!(completed_at: Time.current) if art_completed
 
       # 結果を返す
-      Result.new(status: :awarded, piece: piece, streak_days: streak_days)
+      Result.new(status: :awarded, piece: piece, streak_days: streak_days, art_completed: art_completed)
     end
   end
 end

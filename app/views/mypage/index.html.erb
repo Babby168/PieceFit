@@ -46,4 +46,20 @@
       >OK</button>
     <% end %>
   <% end %>
+
+  <% if flash[:mosaic_completed].present? %>
+    <%= render "shared/feedback_modal",
+      title: "モザイクアート完成！",
+      messages: [
+        "おめでとうございます！",
+        "すべてのピースが埋まりました！"
+      ],
+      html: { data: { controller: "auto-open-dialog" } } do %>
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-action="click->auto-open-dialog#close"
+      >OK</button>
+    <% end %>
+  <% end %>
 </div>

@@ -114,6 +114,32 @@ RSpec.describe "StretchLogs", type: :request do
 
           expect(flash[:streak_bonus_days]).to be_nil
         end
+
+        context "モザイクアートが完成した場合" do
+          let(:pieces) { mosaic_art.pieces.order(:position).to_a }
+
+          it "残り1ピースの POST で flash[:mosaic_completed] がセットされること" do
+            pieces[0..2].each { |piece| piece.update!(acquired_at: 1.day.ago) }
+
+            post stretch_logs_path, params: { stretch_id: stretch.id }
+            expect(flash[:mosaic_completed]).to be_truthy
+          end
+
+          it "ピースが残っている POST では flash[:mosaic_completed] に nil がセットされること" do
+            post stretch_logs_path, params: { stretch_id: stretch.id }
+            expect(flash[:mosaic_completed]).to be_nil
+          end
+
+          it "残り2ピース + 3日連続ならボーナスで完成し、完成 flash だけが立つこと" do
+            pieces[0..1].each { |piece| piece.update!(acquired_at: 1.day.ago) }
+            create(:stretch_log, user: user, stretch: stretch, performed_at: 2.days.ago)
+            create(:stretch_log, user: user, stretch: stretch, performed_at: 1.day.ago)
+
+            post stretch_logs_path, params: { stretch_id: stretch.id }
+            expect(flash[:mosaic_completed]).to be_truthy
+            expect(flash[:streak_bonus_days]).to be_nil
+          end
+        end
       end
 
       it "POST成功時にマイページにリダイレクトされること" do

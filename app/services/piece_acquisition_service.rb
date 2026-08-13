@@ -2,7 +2,7 @@ class PieceAcquisitionService
   # 1日に獲得できるピースの上限
   DAILY_LIMIT = 3
   # ピース獲得ロジックの結果を表す構造体
-  Result = Struct.new(:status, :piece, keyword_init: true)
+  Result = Struct.new(:status, :piece, :art_completed, keyword_init: true)
 
   # ピース獲得ロジックを呼び出す
   def self.call(user)
@@ -38,12 +38,11 @@ class PieceAcquisitionService
       piece.update!(acquired_at: Time.current)
 
       # モザイクアートの未獲得ピースが存在しない場合は、現在時刻を設定して完成とする
-      if mosaic_art.pieces.unacquired.none?
-        mosaic_art.update!(completed_at: Time.current)
-      end
+      art_completed = mosaic_art.pieces.unacquired.none?
+      mosaic_art.update!(completed_at: Time.current) if art_completed
 
       # ピース獲得ロジックの結果を返す
-      Result.new(status: :acquired, piece: piece)
+      Result.new(status: :acquired, piece: piece, art_completed: art_completed)
     end
   end
 

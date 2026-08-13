@@ -72,6 +72,7 @@ RSpec.describe "Mypage", type: :request do
           create(:mosaic_art, user: user, mosaic_design: mosaic_design).tap do |art|
             create(:piece, mosaic_art: art, position: 0, acquired_at: nil)
             create(:piece, mosaic_art: art, position: 1, acquired_at: nil)
+            create(:piece, mosaic_art: art, position: 2, acquired_at: nil)
           end
 
           create(:stretch_log, user: user, stretch: stretch, performed_at: 2.days.ago)
@@ -86,6 +87,32 @@ RSpec.describe "Mypage", type: :request do
           expect(response.body).to include("data-controller=\"auto-open-dialog\"")
           expect(response.body).to include("3日間連続")
         end
+      end
+
+      context "モザイクアートが完成した場合" do
+        let!(:stretch) { create(:stretch) }
+
+        before do
+          create(:design_piece, mosaic_design: mosaic_design, position: 0, color: [ "#111111", "#222222", "#333333", "#444444" ])
+          create(:design_piece, mosaic_design: mosaic_design, position: 1)
+          create(:mosaic_art, user: user, mosaic_design: mosaic_design).tap do |art|
+            create(:piece, mosaic_art: art, position: 0, acquired_at: 1.day.ago)
+            create(:piece, mosaic_art: art, position: 1, acquired_at: nil)
+          end
+
+          post stretch_logs_path, params: { stretch_id: stretch.id }
+        end
+
+        it "マイページに完成モーダルの文言が表示されること" do
+          get mypage_path
+          expect(response.body).to include("モザイクアート完成")
+          expect(response.body).to include("data-controller=\"auto-open-dialog\"")
+        end
+      end
+
+      it "通常のマイページアクセスでは完成モーダルが出ないこと" do
+        get mypage_path
+        expect(response.body).not_to include("モザイクアート完成")
       end
 
       it "通常のマイページアクセスではボーナスモーダルが出ないこと" do
