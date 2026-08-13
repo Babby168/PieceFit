@@ -8,12 +8,18 @@ class StretchLogsController < ApplicationController
     @stretch_log.performed_at = Time.current
 
     if @stretch_log.save
-      PieceAcquisitionService.call(current_user)
+      piece_result = PieceAcquisitionService.call(current_user)
 
       # ストレッチボーナスを付与しているかどうかを確認して、付与していればフラッシュにストレッチボーナスの日数を保存する
       bonus_result = StreakBonusService.call(current_user)
       if bonus_result.status == :awarded
         flash[:streak_bonus_days] = bonus_result.streak_days
+      end
+
+      # 完成していれば完成モーダルを表示（ボーナスモーダルは出さない）
+      if piece_result.art_completed || bonus_result.art_completed
+        flash.delete(:streak_bonus_days)
+        flash[:mosaic_completed] = true
       end
 
       assign_mosaic_grid!(current_user)
