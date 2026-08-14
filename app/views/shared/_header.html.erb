@@ -9,7 +9,12 @@
     <ul class="menu menu-horizontal px-1 gap-1">
       <li><%= link_to "マイページ", mypage_path, class: "text-sm font-bold sm:text-base" %></li>
       <!-- 本リリース時に表示予定 -->
-      <li><%= link_to "モザイクコレクション", "#", class: "text-sm font-bold sm:text-base opacity-30 pointer-events-none select-none" %></li>
+      <li>
+        <span class="text-sm font-bold sm:text-base opacity-30 pointer-events-none select-none inline-flex items-center gap-1">
+          モザイクコレクション
+          <span class="badge badge-ghost badge-xs">近日公開</span>
+        </span>  
+      </li>
     </ul>
   </div>
 </header>

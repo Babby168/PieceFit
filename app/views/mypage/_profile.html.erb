@@ -9,6 +9,8 @@
   </div>
   
   <%= link_to "プロフィールを編集", profile_settings_path, class: "btn btn-warning btn-outline btn-sm w-full mb-3" %>
-  <%= link_to "モザイクコレクション", "#", class: "btn btn-success btn-outline btn-sm w-full mb-3 opacity-30 pointer-events-none select-none" %>
+  <%= link_to "#", class: "btn btn-success btn-outline btn-sm w-full mb-3 opacity-30 pointer-events-none select-none" do %>
+    モザイクコレクション <span class="badge badge-ghost badge-xs">近日公開</span>
+  <% end %>
   <%= link_to "ストレッチを始める", stretches_path, class: "btn btn-primary btn-outline btn-sm w-full mb-3" %>
 </div>
