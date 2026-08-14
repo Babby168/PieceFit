@@ -1,19 +1,25 @@
 <%# destructive: 破壊的な操作を行う場合に true を指定 %>
 <%# chevron: ナビゲーションに矢印を表示する場合に true を指定 %>
+<%# soon: まだ実装されていない機能を表示する場合に true を指定 %>
 <% destructive = local_assigns.fetch(:destructive, false) %>
 <% chevron = local_assigns.fetch(:chevron, true) %>
+<% soon = local_assigns.fetch(:soon, false) %>
 
 <%# クラスの設定 %>
 <% classes = [
   "card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-2 p-4 w-full",
   "flex-row items-center gap-4 no-underline hover:brightness-95 transition",
+  soon ? "opacity-30 pointer-events-none select-none" : "hover:brightness-95",
   destructive ? "border-2 border-error" : "border-2 border-black"
 ].join(" ") %>
 
 <%# リンクの設定 %>
 <%= link_to path, class: classes do %>
   <div class="flex-1 min-w-0 text-left">
-    <p class="font-bold <%= destructive ? "text-error" : "" %>"><%= title %></p>
+    <p class="font-bold <%= destructive ? "text-error" : "" %>">
+      <%= title %>
+      <% if soon %><span class="badge badge-ghost badge-sm align-middle ml-1">近日公開</span><% end %>
+    </p>
     <% if subtitle.present? %>
       <p class="text-sm truncate <%= destructive ? "text-error/80" : "text-base-content/60" %>">
         <%= subtitle %>
