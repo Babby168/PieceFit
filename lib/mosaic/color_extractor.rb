@@ -24,7 +24,7 @@ module Mosaic
       resized_path = nil
       quantized_path = nil
 
-      resized_path = resize_with_nearest_neighbor
+      resized_path = resize_cover_crop_then_nearest
       quantized_path = quantize_colors(resized_path)
       pixel_map = read_pixels(quantized_path)
       build_position_color_map(pixel_map)
@@ -34,19 +34,44 @@ module Mosaic
 
     private
 
-    def resize_with_nearest_neighbor
+    # アスペクト比を維持しながら、グリッドサイズに合わせてリサイズした後、nearestでリサイズする
+    def resize_cover_crop_then_nearest
       image = Vips::Image.new_from_file(@source_path)
-      image = image.flatten(background: [ 255, 255, 255 ]) if image.has_alpha?
+      image = image.flatten(background: [255, 255, 255]) if image.has_alpha?
 
-      scale = @grid_width.to_f / image.width
-      vscale = @grid_height.to_f / image.height
-      resized = image.resize(scale, vscale: vscale, kernel: :nearest)
+      # target_ratio: 20/18 ≒ 10/9
+      # source_ratio: 10/9
+      target_ratio = @grid_width.to_f / @grid_height  # 20/18 ≒ 10/9
+      source_ratio = image.width.to_f / image.height
 
+      if source_ratio > target_ratio
+        # 元が横長 → 左右を切る
+        new_width = (image.height * target_ratio).round
+        left = (image.width - new_width) / 2
+        image = image.crop(left, 0, new_width, image.height)
+      else
+        # 元が縦長 → 上下を切る
+        new_height = (image.width / target_ratio).round
+        top = (image.height - new_height) / 2
+        image = image.crop(0, top, image.width, new_height)
+      end
+
+      # リサイズ
+      resized = image.resize(
+        @grid_width.to_f / image.width,
+        vscale: @grid_height.to_f / image.height,
+        kernel: :nearest
+      )
+
+      # パスを作成
       path = File.join(Dir.tmpdir, "mosaic_resized_#{Process.pid}_#{SecureRandom.hex(4)}.png")
+      # パスに書き出し
       resized.write_to_file(path)
+      # パスを返す
       path
     end
 
+    # 減色
     def quantize_colors(input_path)
       image = MiniMagick::Image.open(input_path)
       image.combine_options do |c|
@@ -59,6 +84,7 @@ module Mosaic
       output_path
     end
 
+    # ピクセルを読み込む
     def read_pixels(path)
       image = Vips::Image.new_from_file(path)
       image = image.flatten(background: [ 255, 255, 255 ]) if image.has_alpha?
@@ -71,6 +97,7 @@ module Mosaic
       end
     end
 
+    # 位置と色のマップを作成する
     def build_position_color_map(pixel_map)
       result = {}
       @area_size_y.times do |piece_row|
