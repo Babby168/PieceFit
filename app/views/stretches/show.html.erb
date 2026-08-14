@@ -105,13 +105,13 @@
       messages: ["中止すると、ここまでの実施が記録されます。"],
       html: { data: { stretch_log_dialog_target: "abortDialog" } } do %>
       <button
-        type="button",
-        class="btn btn-ghost",
+        type="button"
+        class="btn btn-ghost"
         data-action="click->stretch-log-dialog#closeAbortConfirm"
       >キャンセル</button>
       <button
-        type="button",
-        class="btn-btnsecondary",
+        type="button"
+        class="btn btn-secondary"
         data-action="click->stretch-log-dialog#recordAndRedirect"
       >中止する</button>
     <% end %>
