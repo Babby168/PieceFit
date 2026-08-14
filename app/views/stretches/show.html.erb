@@ -26,7 +26,7 @@
       data-illustration-slideshow-interval-value="<%= (60.0 / (@stretch.stretch_steps.size * 2)).round(2) %>"
       data-action="countdown-timer:start@window->illustration-slideshow#start countdown-timer:complete@window->illustration-slideshow#stop countdown-timer:reset@window->illustration-slideshow#reset"
     >
-      <div class="w-full w-full flex items-center justify-center mb-4 bg-gray-100 rounded-lg overflow-hidden border-3 border-black">
+      <div class="w-full aspect-[4/3] flex items-center justify-center mb-4 bg-gray-100 rounded-lg overflow-hidden border-3 border-black">
         <%= image_tag @stretch.key_visual_path, alt: @stretch.name, class: "w-full h-full object-cover transition-opacity duration-200 ease-in-out", data: { illustration_slideshow_target: "image" } %>
       </div>
     
