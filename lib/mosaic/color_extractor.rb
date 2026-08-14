@@ -37,7 +37,7 @@ module Mosaic
     # アスペクト比を維持しながら、グリッドサイズに合わせてリサイズした後、nearestでリサイズする
     def resize_cover_crop_then_nearest
       image = Vips::Image.new_from_file(@source_path)
-      image = image.flatten(background: [255, 255, 255]) if image.has_alpha?
+      image = image.flatten(background: [ 255, 255, 255 ]) if image.has_alpha?
 
       # target_ratio: 20/18 ≒ 10/9
       # source_ratio: 10/9
