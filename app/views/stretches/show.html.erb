@@ -22,8 +22,8 @@
       data-controller="illustration-slideshow"
       data-illustration-slideshow-images-value="<%= @stretch.stretch_steps.map { |step| asset_path(step.image_path) }.to_json %>"
       data-illustration-slideshow-key-visual-value="<%= asset_path(@stretch.key_visual_path) %>"
-      data-illustration-slideshow-loops-value="2"
-      data-illustration-slideshow-interval-value="<%= (60.0 / (@stretch.stretch_steps.size * 2)).round(2) %>"
+      data-illustration-slideshow-loops-value="5"
+      data-illustration-slideshow-interval-value="<%= (60.0 / (@stretch.stretch_steps.size * 5)).round(2) %>"
       data-action="countdown-timer:start@window->illustration-slideshow#start countdown-timer:complete@window->illustration-slideshow#stop countdown-timer:reset@window->illustration-slideshow#reset"
     >
       <div class="w-full aspect-[4/3] flex items-center justify-center mb-4 bg-gray-100 rounded-lg overflow-hidden border-3 border-black">
