@@ -210,7 +210,7 @@ RSpec.describe "Stretches", type: :request do
       end
 
       it "カウントダウンタイマーのStimulusコントローラが設定されていること" do
-        expect(response.body).to include('data-controller="countdown-timer"')
+        expect(response.body).to match(/data-controller="[^"]*countdown-timer[^"]*"/)
         expect(response.body).to include('data-countdown-timer-duration-value="60"')
       end
 
@@ -235,7 +235,7 @@ RSpec.describe "Stretches", type: :request do
       end
 
       it "実施記録ダイアログのStimulusコントローラが設定されていること" do
-        expect(response.body).to include('data-controller="stretch-log-dialog"')
+        expect(response.body).to match(/data-controller="[^"]*stretch-log-dialog[^"]*"/)
         expect(response.body).to include("data-stretch-log-dialog-stretch-id-value=\"#{stretch.id}\"")
       end
 

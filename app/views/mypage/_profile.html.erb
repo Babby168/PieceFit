@@ -1,16 +1,15 @@
 <div class="card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border p-6">
   <div class="flex items-center gap-4 mb-4">
     <div class="avatar placeholder">
-      <div class="bg-neutral text-neutral-content w-16 rounded-full">
-        <span class="text-xl"><%= current_user.nickname.first %></span>
+      <div class="bg-gray-400 text-neutral-content w-16 rounded-full flex items-center justify-center">
+        <p class="text-sm text-center">アイコン未対応</p>
       </div>
     </div>
-    <h2 class="text-xl font-bold"><%= current_user.nickname %></h2>
+    <h2 class="text-3xl font-bold"><%= current_user.nickname %></h2>
   </div>
   
   <%= link_to "プロフィールを編集", profile_settings_path, class: "btn btn-warning btn-outline btn-sm w-full mb-3" %>
   <%= link_to "#", class: "btn btn-success btn-outline btn-sm w-full mb-3 opacity-30 pointer-events-none select-none" do %>
     モザイクコレクション <span class="badge badge-ghost badge-xs">近日公開</span>
   <% end %>
-  <%= link_to "ストレッチを始める", stretches_path, class: "btn btn-primary btn-outline btn-sm w-full mb-3" %>
 </div>

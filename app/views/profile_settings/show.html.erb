@@ -1,4 +1,4 @@
-<div class="min-h-screen flex flex-col items-center px-4 mt-10" data-controller="confirm-dialog">
+<div class="flex flex-col items-center px-4 mb-4" data-controller="confirm-dialog">
   <div class="w-full max-w-6xl flex justify-between items-center mb-6 link-secondary">
     <%= link_to "← マイページに戻る", mypage_path, class: "text-sm font-bold link" %>
     
@@ -35,16 +35,6 @@
       path: edit_password_change_path,
       title: "パスワードの変更",
       subtitle: "********" %>
-
-      <button
-        type="button"
-        class="card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-2 border-error p-4 flex-row items-center gap-4 hover:brightness-95 transition text-left w-full"
-        data-action="click->confirm-dialog#open"
-      >
-        <div class="flex-1">
-          <p class="font-bold text-error">ログアウト</p>
-        </div>
-      </button>
 
       <%# アカウント削除ページは issue #51 で実装 %>
       <%= render "profile_settings/setting_item",
