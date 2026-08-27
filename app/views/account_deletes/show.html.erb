@@ -1,0 +1,35 @@
+<div class="flex-1 w-full flex flex-col items-center justify-center px-4 py-6">
+  <div class="w-full max-w-md">
+    <%= link_to "← 戻る", profile_settings_path, class: "text-sm font-bold link link-secondary mb-4 inline-block" %>
+
+    <div class="border border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-base-100 p-8 rounded-box">
+      <h2 class="text-center font-bold text-2xl mb-4">アカウントを削除しますか？</h2>
+      <p class="text-center text-sm mb-8 leading-relaxed">
+        PieceFit をご利用いただきありがとうございました。<br>
+        アカウントを削除すると、<br>
+        これまでのすべてのデータが完全に失われます。
+      </p>
+
+      <div class="bg-base-200 p-4 rounded-box border border-red-500">
+        <h4 class="text-md font-bold text-red-500 mb-2">削除前の注意事項</h4>
+        <ul class="list-disc list-inside space-y-4 text-red-500 text-sm leading-relaxed">
+          <li>完了した90ピースのモザイクアートと進捗履歴がすべて削除されます。</li>
+          <li>この操作は取り消すことができず、データの復旧も不可能です。</li>
+        </ul>
+      </div>
+
+
+      <div class="flex justify-center items-center gap-4 mt-8">
+      <%= button_to "キャンセル",
+        profile_settings_path,
+        method: :get,
+        class: "btn btn-outline btn-neutral w-40" %>
+
+      <%= button_to "削除する",
+        account_delete_path,
+        method: :delete,
+        class: "btn btn-secondary w-40" %>
+      </div>
+    </div>
+  </div>
+</div>
