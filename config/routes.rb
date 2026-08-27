@@ -4,18 +4,26 @@ Rails.application.routes.draw do
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
 
+  # トップページ
   root "top#index"
+  # ユーザー登録
   devise_for :users, controllers: { registrations: "users/registrations" }
+  # 新規登録完了画面
   get "registration/complete", to: "registration_complete#show", as: :registration_complete
 
+  # 部位/ストレッチ選択
   get "stretches(/:body_part)", to: "stretches#index", as: :stretches,
       constraints: { body_part: /neck|shoulder|waist/ }
+  # ストレッチ実施ページ
   get "stretches/:id", to: "stretches#show", as: :stretch,
       constraints: { id: /\d+/ }
 
+  # ストレッチ実施記録
   resources :stretch_logs, only: %i[create]
 
+  # マイページ
   get "mypage", to: "mypage#index", as: :mypage
+  # プロフィール設定
   get "profile/settings", to: "profile_settings#show", as: :profile_settings
 
   # ニックネーム変更
@@ -35,6 +43,10 @@ Rails.application.routes.draw do
   patch "password/change", to: "password_changes#update", as: :password_change
   get "password/change/complete", to: "password_changes#complete", as: :password_change_complete
 
+  # アカウント削除
+  get "account/delete", to: "account_deletes#show", as: :account_delete
+  delete "account/delete", to: "account_deletes#destroy"
+  get "account/delete/complete", to: "account_deletes#complete", as: :account_delete_complete
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

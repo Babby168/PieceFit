@@ -124,6 +124,14 @@ RSpec.describe "Mypage", type: :request do
         expect(response.body).to include(user.nickname)
       end
 
+      it "ログアウト確認モーダルが表示用に含まれること" do
+        get mypage_path
+        expect(response.body).to include("ログアウト")
+        expect(response.body).to include("ログアウトしますか？")
+        expect(response.body).to include('data-controller="confirm-dialog"')
+        expect(response.body).to include(destroy_user_session_path)
+      end
+
       it "実施履歴が表示されること" do
         stretch = create(:stretch, name: "肩まわし")
         create(:stretch_log, user: user, stretch: stretch, performed_at: Time.current)

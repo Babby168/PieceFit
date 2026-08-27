@@ -33,16 +33,13 @@ RSpec.describe "ProfileSettings", type: :request do
         expect(response.body).to include(user.email)
         expect(response.body).to include("パスワードの変更")
         expect(response.body).to include("********")
-        expect(response.body).to include("ログアウト")
         expect(response.body).to include("アカウントの削除")
         expect(response.body).to include("この操作は取り消せません。全てのデータが失われます。")
       end
 
-      it "ログアウト確認モーダルが表示用に含まれること" do
+      it "アカウント削除ページへのリンクが表示されること" do
         get profile_settings_path
-        expect(response.body).to include("ログアウトしますか？")
-        expect(response.body).to include('data-controller="confirm-dialog"')
-        expect(response.body).to include(destroy_user_session_path)
+        expect(response.body).to include(account_delete_path)
       end
     end
   end

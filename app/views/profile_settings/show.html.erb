@@ -1,4 +1,4 @@
-<div class="flex flex-col items-center px-4 mb-4" data-controller="confirm-dialog">
+<div class="flex flex-col items-center px-4 mb-4">
   <div class="w-full max-w-6xl flex justify-between items-center mb-6 link-secondary">
     <%= link_to "← マイページに戻る", mypage_path, class: "text-sm font-bold link" %>
     
@@ -38,28 +38,10 @@
 
       <%# アカウント削除ページは issue #51 で実装 %>
       <%= render "profile_settings/setting_item",
-      path: "#",
+      path: account_delete_path,
       title: "アカウントの削除",
       subtitle: "この操作は取り消せません。全てのデータが失われます。",
-      chevron: false,
-      destructive: true,
-      soon: true %>
+      destructive: true %>
     </div>
   </div>
-
-  <!-- ログアウトモーダル -->
-  <%= render "shared/feedback_modal",
-    title: "ログアウトしますか？",
-    messages: ["ログアウトすると、再度ログインが必要になります。"],
-    html: { data: { confirm_dialog_target: "dialog" } } do %>
-    <button
-      type="button"
-      class="btn btn-ghost"
-      data-action="click->confirm-dialog#close"
-    >キャンセル</button>
-    <%= button_to "ログアウト",
-      destroy_user_session_path,
-      method: :delete,
-      class: "btn btn-primary" %>
-  <% end %>
 </div>

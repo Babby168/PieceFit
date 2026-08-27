@@ -1,4 +1,4 @@
-<div class="max-w-6xl mx-auto px-4 py-4 data-controller="confirm-dialog">
+<div class="max-w-6xl mx-auto px-4 py-4" data-controller="confirm-dialog">
   <h1 class="text-2xl font-bold mb-6">マイページ</h1>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -31,7 +31,22 @@
         <%= render "mypage/history", stretch_logs: @stretch_logs %>
     </div>
   </div>
-  
+
+  <!-- ログアウトモーダル -->
+  <%= render "shared/feedback_modal",
+    title: "ログアウトしますか？",
+    messages: ["ログアウトすると、再度ログインが必要になります。"],
+    html: { data: { confirm_dialog_target: "dialog" } } do %>
+    <button
+      type="button"
+      class="btn btn-ghost"
+      data-action="click->confirm-dialog#close"
+    >キャンセル</button>
+    <%= button_to "ログアウト",
+      destroy_user_session_path,
+      method: :delete,
+      class: "btn btn-primary" %>
+  <% end %>
 
   <%# ボーナスピース獲得モーダル（モーダルのテンプレートをパーシャル化） %>
   <%# streak_bonus_days（連続達成日数）が存在する場合に表示 %>
