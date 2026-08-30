@@ -79,6 +79,15 @@ class User < ApplicationRecord
     )
   end
 
+  def generate_reset_password_token!
+    raw, hashed = Devise.token_generator.generate(self.class, :reset_password_token)
+    update_columns(
+      reset_password_token: hashed,
+      reset_password_sent_at: Time.current
+    )
+    raw
+  end
+
   private
 
   # 仮メールアドレスが一意かを確認
