@@ -1,0 +1,43 @@
+<div class="flex-1 w-full flex flex-col items-center justify-center px-4 py-6">
+  <div class="w-full max-w-md">
+    <%= link_to "← 戻る", new_user_session_path, class: "text-sm font-bold link link-secondary mb-4 inline-block" %>
+
+    <div class="border border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-base-100 p-8 rounded-box">
+      <h2 class="text-center font-bold text-2xl mb-4">パスワードを再設定</h2>
+      <p class="text-center text-sm mb-4">
+        ご登録のメールアドレスを入力してください。<br>
+        再設定用のリンクを送信します。
+      </p>
+      
+      <%= form_with model: @user, url: password_reset_path, method: :patch do |f| %>
+
+      <% if @user.errors.any? %>
+        <div class="alert alert-error mb-4 rounded-box">
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      
+        <div class="field mb-8">
+          <div class="flex justify-between items-center">
+            <label class="label">
+              <span class="label-text"><%= f.label :email, "メールアドレス" %></span>
+            </label>
+          </div>
+          <%= f.email_field :email,
+                autofocus: true,
+                placeholder: "メールアドレスを入力",
+                class: "input w-full" %>
+        </div>
+      
+        <%# 再設定用のリンクを送信するボタン %>
+        <div class="actions">
+          <%= f.submit "再設定メールを送信", class: "btn btn-primary w-full mb-6" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

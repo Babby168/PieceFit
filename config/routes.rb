@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # トップページ
   root "top#index"
   # ユーザー登録
-  devise_for :users, controllers: { registrations: "users/registrations" }
+  devise_for :users, controllers: { registrations: "users/registrations" }, skip: [ :passwords ]
   # 新規登録完了画面
   get "registration/complete", to: "registration_complete#show", as: :registration_complete
 
@@ -47,6 +47,14 @@ Rails.application.routes.draw do
   get "account/delete", to: "account_deletes#show", as: :account_delete
   delete "account/delete", to: "account_deletes#destroy"
   get "account/delete/complete", to: "account_deletes#complete", as: :account_delete_complete
+
+  # パスワードリセット（ログアウト中）
+  get "password/reset", to: "password_resets#edit", as: :edit_password_reset
+  patch "password/reset", to: "password_resets#update", as: :password_reset
+  get "password/reset/complete", to: "password_resets#complete", as: :password_reset_complete
+  get "password/reset/confirm/:token", to: "password_resets#confirm", as: :password_reset_confirm
+  patch "password/reset/confirm/:token", to: "password_resets#reset", as: :password_reset_update
+  get "password/reset/confirmed", to: "password_resets#confirmed", as: :password_reset_confirmed
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

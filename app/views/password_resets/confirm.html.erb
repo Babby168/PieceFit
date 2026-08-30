@@ -1,0 +1,52 @@
+<div class="flex-1 w-full flex flex-col items-center justify-center px-4 py-6">
+  <div class="w-full max-w-md">
+    <%= link_to "← 戻る", new_user_session_path, class: "text-sm font-bold link link-secondary mb-4 inline-block" %>
+    
+    <div class="border border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-base-100 p-8 rounded-box">
+      <h2 class="text-center font-bold text-2xl mb-4">パスワード再設定</h2>
+      <p class="text-center text-sm mb-4">
+        新しいパスワードを入力してください。
+      </p>
+      
+      <%= form_with model: @user, url: password_reset_update_path(token: params[:token]), method: :patch do |f| %>
+
+      <% if @user.errors.any? %>
+        <div class="alert alert-error mb-4 rounded-box">
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      
+        <div class="field mb-8">
+          <div class="flex justify-between items-center">
+            <label class="label">
+              <span class="label-text"><%= f.label :password, "新しいパスワード" %></span>
+            </label>
+          </div>
+          <%= f.password_field :password,
+                autofocus: true,
+                placeholder: "新しいパスワードを入力",
+                class: "input w-full" %>
+        </div>
+        <div class="field mb-8">
+          <div class="flex justify-between items-center">
+            <label class="label">
+              <span class="label-text"><%= f.label :password_confirmation, "新しいパスワード（確認用）" %></span>
+            </label>
+          </div>
+          <%= f.password_field :password_confirmation,
+                placeholder: "新しいパスワード（確認用）を入力",
+                class: "input w-full" %>
+        </div>
+      
+        <%# パスワードを再設定するボタン %>
+        <div class="actions">
+          <%= f.submit "パスワードを更新する", class: "btn btn-primary w-full mb-6" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

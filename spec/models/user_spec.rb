@@ -125,6 +125,26 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "#generate_reset_password_token!" do
+    let(:user) { create(:user) }
+
+    it "reset_password_token と reset_password_sent_at が保存されること" do
+      expect { user.generate_reset_password_token! }
+        .to change { user.reload.reset_password_token }.from(nil)
+      expect(user.reset_password_sent_at).to be_present
+    end
+
+    it "戻り値の生トークンでユーザーを検索できること" do
+      raw_token = user.generate_reset_password_token!
+      expect(User.with_reset_password_token(raw_token)).to eq(user)
+    end
+
+    it "DBに保存された値は生トークンそのものではないこと" do
+      raw_token = user.generate_reset_password_token!
+      expect(user.reload.reset_password_token).not_to eq(raw_token)
+    end
+  end
+
   describe "#email_change_token_expired?" do
     let(:user) { create(:user) }
 

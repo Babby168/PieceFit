@@ -33,6 +33,7 @@ RSpec.describe "UserSessions", type: :request do
       get new_user_session_path
 
       expect(response.body).to include("お忘れですか？")
+      expect(response.body).to include(edit_password_reset_path)
     end
   end
 
@@ -60,7 +61,7 @@ RSpec.describe "UserSessions", type: :request do
         post user_session_path, params: {
           user: { email: user.email, password: "wrong_password" }
         }
-        expect(flash[:alert]).to eq("Eメールまたはパスワードが違います。")
+        expect(flash[:alert]).to eq("メールアドレスまたはパスワードが違います。")
       end
     end
 
@@ -82,7 +83,7 @@ RSpec.describe "UserSessions", type: :request do
         }
 
         expect(response).to have_http_status(:unprocessable_content)
-        expect(flash[:alert]).to eq("Eメールまたはパスワードが違います。")
+        expect(flash[:alert]).to eq("メールアドレスまたはパスワードが違います。")
         expect(request.env["warden"].user(:user)).to be_nil
       end
     end
@@ -94,7 +95,7 @@ RSpec.describe "UserSessions", type: :request do
         }
 
         expect(response).to have_http_status(:unprocessable_content)
-        expect(flash[:alert]).to eq("Eメールまたはパスワードが違います。")
+        expect(flash[:alert]).to eq("メールアドレスまたはパスワードが違います。")
         expect(request.env["warden"].user(:user)).to be_nil
       end
     end
