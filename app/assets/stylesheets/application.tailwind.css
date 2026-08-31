@@ -1,2 +1,9 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+.tabs .tab.tab-active {
+  color: var(--color-secondary);
+  font-weight: 700;
+  --tab-bg: var(--color-base-200);
+  --tab-border-color: var(--color-secondary);
+}

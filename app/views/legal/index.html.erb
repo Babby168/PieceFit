@@ -1,0 +1,49 @@
+<div class="flex flex-col items-center px-4 mt-10 mb-10">
+  <div class="w-full max-w-6xl flex justify-between items-center mb-6 link-secondary">
+    <%= link_to "← トップに戻る", root_path, class: "text-sm font-bold link" %>
+    
+    <%= render "shared/breadcrumb", items: [
+      { label: "トップ", path: root_path },
+      { label: "プライバシーポリシー/利用規約", path: nil }
+      ] %>
+  </div>
+
+  <div class="w-full max-w-4xl">
+    <h1 class="text-2xl font-bold mb-6">プライバシーポリシー/利用規約</h1>
+
+    <div data-controller="legal-tabs">
+      <div role="tablist" class="tabs tabs-lift tabs-md">
+  
+        <button
+          type="button"
+          aria-selected="true"
+          role="tab"
+          class="tab tab-active"
+          data-legal-tabs-target="tab"
+          data-legal-tabs-key="privacy"
+          data-action="click->legal-tabs#select"
+        >プライバシーポリシー</button>
+  
+  
+        <button
+          type="button"
+          aria-selected="false"
+          role="tab"
+          class="tab"
+          data-legal-tabs-target="tab"
+          data-legal-tabs-key="terms"
+          data-action="click->legal-tabs#select"
+        >利用規約</button>
+      </div>
+  
+      <div class="card bg-base-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-4 border-secondary p-8">
+        <div data-legal-tabs-target="panel" data-legal-tabs-key="privacy">
+          <%= render "legal/privacy_policy" %>
+        </div>
+        <div class="hidden" data-legal-tabs-target="panel" data-legal-tabs-key="terms">
+          <%= render "legal/terms" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
