@@ -5,9 +5,7 @@
       &copy; <%= Time.current.year %> PieceFit. All rights reserved.
     </p>
   </aside>
-  <div class="flex-none px-8">
-    <%= link_to "#", class: "text-sm text-opacity-50 sm:text-base opacity-30 pointer-events-none select-none" do %>
-      プライバシー/利用規約 <span class="badge badge-ghost badge-xs">近日公開</span>
-    <% end %>
+  <div class="flex-none px-8 gap-1">
+    <%= link_to "プライバシーポリシー/利用規約", legal_path, class: "text-sm font-bold sm:text-base" %>
   </div>
 </footer>

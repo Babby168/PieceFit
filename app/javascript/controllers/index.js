@@ -19,6 +19,9 @@ application.register("hello", HelloController)
 import IllustrationSlideshowController from "./illustration_slideshow_controller"
 application.register("illustration-slideshow", IllustrationSlideshowController)
 
+import LegalTabsController from "./legal_tabs_controller"
+application.register("legal-tabs", LegalTabsController)
+
 import StretchLogController from "./stretch_log_controller"
 application.register("stretch-log", StretchLogController)
 

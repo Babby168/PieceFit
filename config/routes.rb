@@ -23,6 +23,10 @@ Rails.application.routes.draw do
 
   # マイページ
   get "mypage", to: "mypage#index", as: :mypage
+
+  # プライバシーポリシー/利用規約
+  get "legal", to: "legal#index", as: :legal
+
   # プロフィール設定
   get "profile/settings", to: "profile_settings#show", as: :profile_settings
 
