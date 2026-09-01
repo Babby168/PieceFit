@@ -23,15 +23,49 @@
     data-action="countdown-timer:start@window->illustration-slideshow#start countdown-timer:complete@window->illustration-slideshow#stop countdown-timer:reset@window->illustration-slideshow#reset"
   >
 
-    <%# ストレッチ詳細：キービジュアル と カウントダウンタイマー %>
+    <%# タイマー： カウントダウンタイマー（「中止」ボタンはタイマー開始時にJSで表示） %>
+    <div class="md:col-span-3 sticky top-0 z-20 md:static card bg-base-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-2 p-4 flex flex-col items-center justify-center overflow-hidden">
+      <div class="flex flex-wrap gap-4 items-center justify-between w-full min-w-0">
+        <div class="flex flex-row gap-2 items-center justify-center">
+          <h2 class="text-xl font-bold mb-2 text-center">TIME</h2>
+          <div class="h-15 p-2 mb-2 border-2 border-gray-400 rounded-lg bg-white text-center">
+            <p class="text-2xl md:text-4xl font-bold tabular-nums" data-countdown-timer-target="time">01:00</p>
+          </div>
+        </div>
+        <%# スタートボタンと中止ボタン %>
+        <div class="flex flex-row gap-2 justify-center">
+          <button
+            type="button"
+            class="btn btn-primary btn-sm md:btn-md rounded-full"
+            data-countdown-timer-target="startButton"
+            data-action="click->countdown-timer#start"
+          >スタート</button>
+  
+          <button 
+            type="button"
+            class="btn btn-soft btn-secondary btn-sm md:btn-md hidden rounded-full"
+            data-countdown-timer-target="abortButton"
+            data-action="click->stretch-log-dialog#openAbortConfirm"
+          >中止</button>
+          <button
+            type="button"
+            class="btn btn-info btn-sm md:btn-md rounded-full"
+            data-action="click->countdown-timer#reset"
+          >リセット</button>
+        </div>
+      </div>
+    </div>
+
+    <%# 左カード： ストレッチ名 / キービジュアル %>
     <div class="md:col-span-3 card <%= body_part_color(@stretch.body_part) %> shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-4 p-4">
+
 
       <%# ストレッチ名 %>
       <h1 class="text-2xl font-bold p-4 text-center"><%= @stretch.name %></h1>
 
       <%# ストレッチキービジュアル %>
       <div class="shrink-0 flex flex-col md:items-start">
-
+      
         <div class="w-full aspect-[16/9] flex items-center justify-center mb-3 bg-gray-100 rounded-lg border-1 border-black overflow-hidden">
           <%= image_tag @stretch.key_visual_path,
                 alt: @stretch.name,
@@ -39,48 +73,11 @@
                 data: { illustration_slideshow_target: "image" } %>
         </div>
       </div>
-
-      <%# カウントダウンタイマー（「中止」ボタンはタイマー開始時にJSで表示） %>
-      <div class="card bg-base-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-2 p-4 flex flex-col items-center justify-center">
-        <h2 class="text-xl font-bold mb-2 text-center">残り時間</h2>
-        <div class="p-4 mb-4 border-2 border-gray-400 rounded-lg bg-white text-center">
-          <p class="text-4xl font-bold tabular-nums" data-countdown-timer-target="time">01:00</p>
-        </div>
-        <%# スタートボタンと中止ボタン %>
-        <div class="flex flex-wrap gap-2 justify-center w-full">
-          <button
-            type="button"
-            class="btn btn-primary w-30"
-            data-countdown-timer-target="startButton"
-            data-action="click->countdown-timer#start"
-          >スタート</button>
-  
-          <button 
-            type="button"
-            class="btn btn-soft btn-secondary w-30 hidden"
-            data-countdown-timer-target="abortButton"
-            data-action="click->stretch-log-dialog#openAbortConfirm"
-          >中止</button>
-          <button
-            type="button"
-            class="btn btn-info w-30"
-            data-action="click->countdown-timer#reset"
-          >リセット</button>
-        </div>
-      </div>
     </div>
 
-    <%# 意識するポイント / ストレッチの手順カード %>
-    <div class="md:col-span-2 flex flex-col gap-4 min-h-0 flex-1">
+    <%# 右列： ストレッチの手順 / 意識するポイントカード %>
+    <div class="md:col-span-2 md:col-start-4 md:row-start-1 md:row-span-2 flex flex-col gap-4 min-h-0 flex-1">
       
-      <%# 意識するポイント %>
-      <div class="card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-4 p-6">
-        <h2 class="text-lg font-bold mb-2">意識するポイント</h2>
-        <% if @stretch.point.present? %>
-          <p class="text-base-content/80"><%= @stretch.point %></p>
-        <% end %>
-      </div>
-
       <%# ストレッチの手順 %>
       <div class="card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-4 p-6">   
 
@@ -93,6 +90,14 @@
             <li data-illustration-slideshow-target="step" class="transition-all duration-300 ease-in-out rounded-lg p-4"><%= step.description %></li>
           <% end %>
         </ol>
+      </div>
+
+      <%# 意識するポイント %>
+      <div class="card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-4 p-6">
+        <h2 class="text-lg font-bold mb-2">意識するポイント</h2>
+        <% if @stretch.point.present? %>
+          <p class="text-base-content/80"><%= @stretch.point %></p>
+        <% end %>
       </div>
     </div>
 

@@ -202,7 +202,7 @@ RSpec.describe "Stretches", type: :request do
       end
 
       it "カウントダウンタイマーのUIが表示されること" do
-        expect(response.body).to include("残り時間")
+        expect(response.body).to include("TIME")
         expect(response.body).to include("01:00")
         expect(response.body).to include("スタート")
         expect(response.body).to include("中止")
