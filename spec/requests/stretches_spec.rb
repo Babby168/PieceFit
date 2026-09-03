@@ -55,7 +55,7 @@ RSpec.describe "Stretches", type: :request do
           name: "首の横伸ばし",
           body_part: :neck,
           description: "首筋を優しく伸ばして、PC作業による首の疲れをリフレッシュします。",
-          key_visual_path: "stretches/key_visual/neck_kv.png"
+          key_visual_path: "stretches/key_visual/neck/neck_kv_1.png"
         )
       end
       let!(:shoulder_stretch) do
@@ -85,7 +85,7 @@ RSpec.describe "Stretches", type: :request do
       end
 
       it "キービジュアル画像が表示されること" do
-        expect(response.body).to include("/assets/stretches/key_visual/neck_kv")
+        expect(response.body).to include("/assets/stretches/key_visual/neck/neck_kv_1")
       end
 
       it "部位選択に戻るリンクが表示されること" do
@@ -97,10 +97,6 @@ RSpec.describe "Stretches", type: :request do
         expect(response.body).to include("トップ")
         expect(response.body).to include("部位選択")
         expect(response.body).to include("ストレッチ選択")
-      end
-
-      it "近日追加予定のプレースホルダーが表示されること" do
-        expect(response.body).to include("近日追加予定")
       end
 
       it "首のストレッチカードに背景色クラスが適用されていること" do
@@ -153,7 +149,7 @@ RSpec.describe "Stretches", type: :request do
         body_part: :neck,
         description: "首筋を優しく伸ばして、PC作業による首の疲れをリフレッシュします。",
         point: "肩の力を抜き、ゆっくりと伸ばしましょう。",
-        key_visual_path: "stretches/key_visual/neck_kv.png"
+        key_visual_path: "stretches/key_visual/neck/neck_kv_1.png"
       )
     end
     let!(:step1) do
@@ -162,7 +158,7 @@ RSpec.describe "Stretches", type: :request do
         stretch: stretch,
         step_number: 1,
         description: "背筋を伸ばして座ります。",
-        image_path: "stretches/neck/neck_1.png"
+        image_path: "stretches/neck/neck_01/neck_1-1.png"
       )
     end
     let!(:step2) do
@@ -171,7 +167,7 @@ RSpec.describe "Stretches", type: :request do
         stretch: stretch,
         step_number: 2,
         description: "頭をゆっくり横に倒します。",
-        image_path: "stretches/neck/neck_2.png"
+        image_path: "stretches/neck/neck_01/neck_1-2.png"
       )
     end
 
@@ -193,7 +189,7 @@ RSpec.describe "Stretches", type: :request do
       end
 
       it "キービジュアル画像が表示されること" do
-        expect(response.body).to include("/assets/stretches/key_visual/neck_kv")
+        expect(response.body).to include("/assets/stretches/key_visual/neck/neck_kv_1")
       end
 
       it "意識するポイントが表示されること" do
