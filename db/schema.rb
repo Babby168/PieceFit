@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_11_052943) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_04_113416) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -26,6 +26,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_11_052943) do
   create_table "mosaic_arts", force: :cascade do |t|
     t.datetime "completed_at"
     t.datetime "created_at", null: false
+    t.string "image_public_id"
+    t.string "image_url"
     t.bigint "mosaic_design_id", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
