@@ -43,3 +43,6 @@
 /.DS_Store
 
 /.cursor
+
+# 環境変数を管理するためのファイル（dotenv-railsを使用）
+/.env
