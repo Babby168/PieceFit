@@ -9,6 +9,8 @@ RSpec.describe PieceAcquisitionService, type: :service do
   end
 
   describe ".call" do
+    include ActiveJob::TestHelper
+
     context "進行中のMosaicArtがある場合" do
       let!(:mosaic_art) { create(:mosaic_art, user: user, mosaic_design: mosaic_design) }
       let!(:piece_0) { create(:piece, mosaic_art: mosaic_art, position: 0) }
@@ -65,6 +67,22 @@ RSpec.describe PieceAcquisitionService, type: :service do
         expect(result.status).to eq(:acquired)
         expect(piece_3.reload.acquired_at).to be_present
         expect(mosaic_art.reload.completed_at).to be_present
+      end
+
+      it "最後のピース獲得時に MosaicImageCompositionJob を詰むこと" do
+        piece_0.update!(acquired_at: 1.day.ago)
+        piece_1.update!(acquired_at: 1.day.ago)
+        piece_2.update!(acquired_at: 1.day.ago)
+
+        expect {
+          described_class.call(user)
+        }.to have_enqueued_job(MosaicImageCompositionJob).with(mosaic_art.id)
+      end
+
+      it "未完成の獲得ではジョブを積まないこと" do
+        expect {
+          described_class.call(user)
+        }.not_to have_enqueued_job(MosaicImageCompositionJob)
       end
 
       it "is_bonus のピースは日次上限に含まないこと" do
@@ -136,6 +154,15 @@ RSpec.describe PieceAcquisitionService, type: :service do
         art = described_class.new(user).ensure_current_mosaic_art!
         expect(art).to be_a(MosaicArt)
         expect(art.pieces.count).to eq(4)
+      }.to change(MosaicArt, :count).by(1)
+    end
+
+    it "完成済みアートしか無い場合は新しい進行中アートを作ること" do
+      create(:mosaic_art, user: user, mosaic_design: mosaic_design, completed_at: Time.current)
+
+      expect {
+        art = described_class.new(user).ensure_current_mosaic_art!
+        expect(art.completed_at).to be_nil
       }.to change(MosaicArt, :count).by(1)
     end
   end

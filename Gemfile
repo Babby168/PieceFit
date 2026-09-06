@@ -42,6 +42,12 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
+# 画像処理を行うためのgem（Vipsを使用）
+gem "ruby-vips"
+
+# 画像のアップロードを行うためのgem（Cloudinaryを使用）
+gem "cloudinary"
+
 # ユーザーの認証機能（会員登録, ログイン, ログアウト, パスワードのリセット, メールアドレスの確認など）
 gem "devise"
 
@@ -71,6 +77,9 @@ group :development, :test do
 
   # HTMLを安全に扱うためのgem
   gem "rails-html-sanitizer", ">= 1.7.1"
+
+  # 環境変数を管理するためのgem
+  gem "dotenv-rails"
 end
 
 group :development do

@@ -56,7 +56,7 @@ class StreakBonusService
     return Result.new(status: :no_design, streak_days: streak_days) unless mosaic_art
 
     # モザイクアートをロックしてボーナスを付与
-    mosaic_art.with_lock do
+    result = mosaic_art.with_lock do
       # モザイクアートがすでに完成している場合は対象外
       return Result.new(status: :already_completed, streak_days: streak_days) if mosaic_art.completed?
 
@@ -74,5 +74,8 @@ class StreakBonusService
       # 結果を返す
       Result.new(status: :awarded, piece: piece, streak_days: streak_days, art_completed: art_completed)
     end
+    # モザイクアートの画像を合成する
+    MosaicImageCompositionJob.perform_later(mosaic_art.id) if result.art_completed
+    result
   end
 end

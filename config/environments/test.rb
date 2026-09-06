@@ -50,4 +50,7 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Active Jobのキューをテスト用に設定（ローカルでは実行できないようにする）
+  config.active_job.queue_adapter = :test
 end

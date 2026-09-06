@@ -21,6 +21,8 @@
     <%# 右カラム（モザイク＋履歴） %>
     <div class="md:col-span-2 space-y-6">
       <%= render "mosaic_arts/grid",
+        # モザイクアートの情報
+        mosaic_art: @mosaic_art,
         # モザイクアートのデザイン情報
         mosaic_design: @mosaic_design,
         # デザインピースの情報
