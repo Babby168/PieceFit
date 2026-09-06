@@ -147,6 +147,36 @@ RSpec.describe "Mypage", type: :request do
         expect(response.body).to include("継続記録")
         expect(response.body).to include("1")
       end
+
+      context "完成済みアートだけがある場合" do
+        let!(:mosaic_art) do
+          create(:mosaic_art, user: user, mosaic_design: mosaic_design, completed_at: Time.current)
+        end
+
+        before do
+          create(:design_piece, mosaic_design: mosaic_design, position: 0, color: [ "#111111", "#222222", "#333333", "#444444" ])
+          create(:design_piece, mosaic_design: mosaic_design, position: 1, color: [ "#555555", "#666666", "#777777", "#888888" ])
+          create(:piece, mosaic_art: mosaic_art, position: 0, acquired_at: 1.day.ago)
+          create(:piece, mosaic_art: mosaic_art, position: 1, acquired_at: 1.day.ago)
+        end
+
+        it "次の MosaicArt を作らないこと" do
+          expect { get mypage_path }.not_to change(MosaicArt, :count)
+        end
+
+        it "image_url が無ければ完成グリッド (CSS) を出すこと" do
+          get mypage_path
+          expect(response.body).to include("#111111")
+          expect(response.body).not_to include("https://res.cloudinary.com/demo/mosaic.png")
+        end
+
+        it "image_url があれば合成画像を出すこと" do
+          mosaic_art.update!(image_url: "https://res.cloudinary.com/demo/mosaic.png")
+
+          get mypage_path
+          expect(response.body).to include("https://res.cloudinary.com/demo/mosaic.png")
+        end
+      end
     end
   end
 end

@@ -99,6 +99,8 @@ RSpec.describe StreakBonusService, type: :service do
     end
 
     context "通常ピースが日次上限に達している場合" do
+      include ActiveJob::TestHelper
+
       before do
         create_log_on(2)
         create_log_on(1)
@@ -113,6 +115,12 @@ RSpec.describe StreakBonusService, type: :service do
 
         expect(result.status).to eq(:awarded)
         expect(piece_3.reload.is_bonus).to be true
+      end
+
+      it "最後のピースがボーナスで埋まったとき MosaicImageCompositionJob を詰むこと" do
+        expect {
+          described_class.call(user)
+        }.to have_enqueued_job(MosaicImageCompositionJob).with(mosaic_art.id)
       end
     end
 

@@ -1,4 +1,7 @@
+# Cloudinaryにmosaic_artの画像をアップロードするJob
+# ①画像合成 → ②Cloudinaryアップロード → ③DB更新 → ④一時ファイル削除
 class MosaicImageCompositionJob < ApplicationJob
+  # デフォルトキューに追加
   queue_as :default
 
   # Cloudinaryへの一時的なアップロード失敗（ネットワークエラー等）に備えてリトライする

@@ -23,7 +23,7 @@ class PieceAcquisitionService
     return Result.new(status: :no_design) unless mosaic_art
 
     # モザイクアートをロックして同時実行を防ぐ
-    mosaic_art.with_lock do
+    result = mosaic_art.with_lock do
       # 1日に獲得できるピースの上限を超えている場合はエラーを返す
       return Result.new(status: :daily_limit) if daily_acquired_count >= DAILY_LIMIT
       # モザイクアートが完成している場合はエラーを返す
@@ -44,6 +44,10 @@ class PieceAcquisitionService
       # ピース獲得ロジックの結果を返す
       Result.new(status: :acquired, piece: piece, art_completed: art_completed)
     end
+
+    # モザイクアートの画像を合成する
+    MosaicImageCompositionJob.perform_later(mosaic_art.id) if result.art_completed
+    result
   end
 
 

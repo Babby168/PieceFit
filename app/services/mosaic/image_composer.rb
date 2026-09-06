@@ -4,15 +4,14 @@ require "securerandom"
 
 module Mosaic
   class ImageComposer
-
     # 1ピースあたりの最終出力サイズ（px）。偶数にすること（2×2に分割して描画するため）
     PIECE_PX = 80
 
     def initialize(mosaic_art)
       @mosaic_art = mosaic_art
       @mosaic_design = mosaic_art.mosaic_design
-      @area_size_x = mosaic_design.area_size_x
-      @area_size_y = mosaic_design.area_size_y
+      @area_size_x = @mosaic_design.area_size_x
+      @area_size_y = @mosaic_design.area_size_y
       # サブブロック（tl/tr/bl/br）単位のグリッドサイズ。1ピース = 2×2サブブロック
       @grid_width = @area_size_x * 2
       @grid_height = @area_size_y * 2
@@ -23,11 +22,11 @@ module Mosaic
     def call
       # サブブロック1個 = １px の小さいキャンバスに、design_pieceの色を敷き詰める
       small_image = build_small_grid_image # 小さいキャンバスを作成
-      scale = PIECE_PX / 2.0 # 小さいキャンバスを2倍に拡大
-      resized = small_image.resize(scale, kernel: :nearest) # 小さいキャンバスを2倍に拡大
+      scale = PIECE_PX / 2.0 # 1ピースあたりのサイズを半分にする
+      resized = small_image.resize(scale, kernel: :nearest) # サブブロック１pxを40pxに拡大
 
       path = File.join(Dir.tmpdir, "mosaic_art_#{@mosaic_art.id}_#{SecureRandom.hex(4)}.png") # 一時ファイルパスを生成
-      resized.write_to_file(path) # 小さいキャンバスを2倍に拡大した画像を保存
+      resized.write_to_file(path) # サブブロック１pxを40pxに拡大（1ピース=80px）
       path # 一時ファイルパスを返す
     end
 
@@ -38,7 +37,7 @@ module Mosaic
       # サブブロックの位置ごとにdesign_pieceを取得
       design_pieces_by_position = @mosaic_design.design_pieces.index_by(&:position)
       # サブブロック1個 = １px の小さいキャンバスを作成
-      base = Vips::Image.block(@grid_width, @grid_height, bands: 3)
+      base = Vips::Image.black(@grid_width, @grid_height, bands: 3)
 
       # サブブロックの位置ごとにdesign_pieceの色を敷き詰める
       base.mutate do |mutable|
