@@ -6,6 +6,9 @@ class MosaicArt < ApplicationRecord
   # 進行中のモザイクアートを取得
   scope :in_progress, -> { where(completed_at: nil) }
 
+  # 完成済みのモザイクアートを取得
+  scope :completed, -> { where.not(completed_at: nil) }
+
   # 完成しているかどうかを判定
   def completed?
     completed_at.present?

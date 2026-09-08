@@ -1,0 +1,27 @@
+<%# 画像の出し分け　パーシャル　%>
+<% mosaic_design = mosaic_art.mosaic_design %>
+
+<%# 画像がある場合 %>
+<% if mosaic_art.image_url.present? %>
+  <%= image_tag mosaic_art.image_url, alt: mosaic_design.name, class: "w-full h-auto" %>
+<% else %>
+  <%# 画像がない場合 %>
+  <% total_positions = mosaic_design.area_size_x * mosaic_design.area_size_y %>
+  <% design_pieces_by_position = mosaic_design.design_pieces.index_by(&:position) %>
+  <%# グリッドを作成 %>
+  <div class="grid gap-px"
+       style="grid-template-columns: repeat(<%= mosaic_design.area_size_x %>, minmax(0, 1fr));">
+    <% (0...total_positions).each do |position| %>
+      <%# デザインピースを取得 %>
+      <% design_piece = design_pieces_by_position[position] %>
+      <%# デザインピースを表示 %>
+      <div class="grid grid-cols-2 grid-rows-2 aspect-square overflow-hidden">
+        <%# デザインピースの色を配列で取得 %>
+        <% Array(design_piece&.color).each do |hex| %>
+          <%# デザインピースの色を表示 %>
+          <div style="background-color: <%= hex %>;"></div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

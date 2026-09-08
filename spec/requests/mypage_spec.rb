@@ -124,6 +124,12 @@ RSpec.describe "Mypage", type: :request do
         expect(response.body).to include(user.nickname)
       end
 
+      it "モザイクコレクションへのリンクがあること" do
+        get mypage_path
+        expect(response.body).to include(collection_path)
+        expect(response.body).not_to include("近日公開")
+      end
+
       it "ログアウト確認モーダルが表示用に含まれること" do
         get mypage_path
         expect(response.body).to include("ログアウト")
