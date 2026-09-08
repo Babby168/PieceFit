@@ -24,6 +24,9 @@ Rails.application.routes.draw do
   # マイページ
   get "mypage", to: "mypage#index", as: :mypage
 
+  # モザイクコレクション
+  get "collection", to: "collection#index", as: :collection
+
   # プライバシーポリシー/利用規約
   get "legal", to: "legal#index", as: :legal
 

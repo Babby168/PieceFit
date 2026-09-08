@@ -1,0 +1,47 @@
+<%# カード + モーダル %>
+<div data-controller="confirm-dialog">
+  <%# カード %>
+  <button
+    type="button"
+    class="card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border p-4 text-left hover:brightness-95 transition w-full"
+    data-action="click->confirm-dialog#open"
+  >
+    <%# 画像 %>
+    <div class="aspect-square overflow-hidden rounded-sm mb-3 bg-base-200">
+      <%= render "collection/art_image", mosaic_art: mosaic_art %>
+    </div>
+    <%# デザイン名 %>
+    <p class="font-bold text-center">
+      <%= mosaic_art.mosaic_design.name %>
+    </p>
+  </button>
+
+  <%# モーダル %>
+  <dialog
+    class="modal"
+    data-confirm-dialog-target="dialog"
+  >
+    <%# モーダルの中身 %>
+    <div class="modal-box border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+      <%# デザイン名 %>
+      <h3 class="text-2xl font-bold text-center mb-4"><%= mosaic_art.mosaic_design.name %></h3>
+      <%# 画像 %>
+      <div class="mb-4">
+        <%= render "collection/art_image", mosaic_art: mosaic_art %>
+      </div>
+      <p class="text-sm text-base-content/60 text-center mb-4">
+        完成日：<%= l(mosaic_art.completed_at, format: :short) %>
+      </p>
+      <div class="modal-action justify-center">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-action="click->confirm-dialog#close"
+        >閉じる</button>
+      </div>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+      <button>close</button>
+    </form>
+  </dialog>
+</div>

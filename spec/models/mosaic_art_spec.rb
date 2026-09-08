@@ -47,4 +47,15 @@ RSpec.describe MosaicArt, type: :model do
       expect { mosaic_art.destroy }.to change(Piece, :count).by(-1)
     end
   end
+
+  describe "スコープ" do
+    let(:user) { create(:user) }
+
+    it "completed は completed_at があるものだけ返すこと" do
+      completed = create(:mosaic_art, user: user, completed_at: Time.current)
+      create(:mosaic_art, user: user, completed_at: nil)
+
+      expect(user.mosaic_arts.completed).to contain_exactly(completed)
+    end
+  end
 end
