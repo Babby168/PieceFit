@@ -1,0 +1,545 @@
+---
+name: ロボらんてくん
+area_size_x: 10
+area_size_y: 9
+pieces:
+- position: 0
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 1
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#5353D9"
+- position: 2
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#5353D9"
+  - "#BD0A1A"
+- position: 3
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 4
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 5
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 6
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 7
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#4F4FCF"
+- position: 8
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#4F4FCF"
+  - "#CB0000"
+- position: 9
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 10
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 11
+  color:
+  - "#CB0000"
+  - "#5353D9"
+  - "#5353D9"
+  - "#5353D9"
+- position: 12
+  color:
+  - "#5353D9"
+  - "#5353D9"
+  - "#5353D9"
+  - "#5353D9"
+- position: 13
+  color:
+  - "#5353D9"
+  - "#CB0000"
+  - "#5353D9"
+  - "#5353D9"
+- position: 14
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 15
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 16
+  color:
+  - "#CB0000"
+  - "#4F4FCF"
+  - "#4F4FCF"
+  - "#4F4FCF"
+- position: 17
+  color:
+  - "#4F4FCF"
+  - "#4F4FCF"
+  - "#4F4FCF"
+  - "#4F4FCF"
+- position: 18
+  color:
+  - "#4F4FCF"
+  - "#4F4FCF"
+  - "#4F4FCF"
+  - "#4F4FCF"
+- position: 19
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 20
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 21
+  color:
+  - "#5353D9"
+  - "#5353D9"
+  - "#5353D9"
+  - "#5353D9"
+- position: 22
+  color:
+  - "#FC7400"
+  - "#FC7400"
+  - "#FC7400"
+  - "#FC7400"
+- position: 23
+  color:
+  - "#5353D9"
+  - "#5353D9"
+  - "#FC7400"
+  - "#5353D9"
+- position: 24
+  color:
+  - "#5353D9"
+  - "#CB0000"
+  - "#FEFEFE"
+  - "#FEFEFE"
+- position: 25
+  color:
+  - "#CB0000"
+  - "#5849BF"
+  - "#FEFEFE"
+  - "#FEFEFE"
+- position: 26
+  color:
+  - "#4F4FCF"
+  - "#4F4FCF"
+  - "#5353D9"
+  - "#564CC3"
+- position: 27
+  color:
+  - "#EF6E00"
+  - "#EF6E00"
+  - "#EF6E00"
+  - "#EF6E00"
+- position: 28
+  color:
+  - "#4F4FCF"
+  - "#4F4FCF"
+  - "#4F4FCF"
+  - "#4F4FCF"
+- position: 29
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#872C73"
+  - "#CB0000"
+- position: 30
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 31
+  color:
+  - "#5353D9"
+  - "#5353D9"
+  - "#5353D9"
+  - "#5353D9"
+- position: 32
+  color:
+  - "#FC7400"
+  - "#FC7400"
+  - "#FC7400"
+  - "#FEFEFE"
+- position: 33
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+- position: 34
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+- position: 35
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+- position: 36
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+- position: 37
+  color:
+  - "#EF6E00"
+  - "#EF6E00"
+  - "#FEFEFE"
+  - "#EF6E00"
+- position: 38
+  color:
+  - "#4F4FCF"
+  - "#4F4FCF"
+  - "#4F4FCF"
+  - "#4F4FCF"
+- position: 39
+  color:
+  - "#4F4FCF"
+  - "#CB0000"
+  - "#564CC3"
+  - "#CB0000"
+- position: 40
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 41
+  color:
+  - "#5353D9"
+  - "#5353D9"
+  - "#CB0000"
+  - "#5353D9"
+- position: 42
+  color:
+  - "#5353D9"
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+- position: 43
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FC8119"
+  - "#FEFEFE"
+- position: 44
+  color:
+  - "#5353D9"
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+- position: 45
+  color:
+  - "#FEFEFE"
+  - "#6262DC"
+  - "#FEFEFE"
+  - "#5353D9"
+- position: 46
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FC7400"
+- position: 47
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+- position: 48
+  color:
+  - "#4F4FCF"
+  - "#4F4FCF"
+  - "#5353D9"
+  - "#4F4FCF"
+- position: 49
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 50
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 51
+  color:
+  - "#CB0000"
+  - "#5353D9"
+  - "#CB0000"
+  - "#FEFEFE"
+- position: 52
+  color:
+  - "#FEFEFE"
+  - "#FC7400"
+  - "#FEFEFE"
+  - "#FC7400"
+- position: 53
+  color:
+  - "#5353D9"
+  - "#FEFEFE"
+  - "#8D8DC1"
+  - "#5353D9"
+- position: 54
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#5353D9"
+- position: 55
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+- position: 56
+  color:
+  - "#AF6462"
+  - "#FEFEFE"
+  - "#AF6462"
+  - "#B2B2B2"
+- position: 57
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FC7400"
+  - "#FEFEFE"
+- position: 58
+  color:
+  - "#FEFEFE"
+  - "#CB0000"
+  - "#FEFEFE"
+  - "#CB0000"
+- position: 59
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 60
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 61
+  color:
+  - "#CB0000"
+  - "#FEFEFE"
+  - "#CB0000"
+  - "#FEFEFE"
+- position: 62
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+- position: 63
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#5353D9"
+- position: 64
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#5353D9"
+  - "#5353D9"
+- position: 65
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#5353D9"
+  - "#5353D9"
+- position: 66
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#5353D9"
+  - "#6262DC"
+- position: 67
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+- position: 68
+  color:
+  - "#FEFEFE"
+  - "#CB0000"
+  - "#FEFEFE"
+  - "#CB0000"
+- position: 69
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 70
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 71
+  color:
+  - "#CB0000"
+  - "#FEFEFE"
+  - "#CB0000"
+  - "#5353D9"
+- position: 72
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+- position: 73
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+- position: 74
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+- position: 75
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+- position: 76
+  color:
+  - "#FEFEFE"
+  - "#5353D9"
+  - "#FEFEFE"
+  - "#5353D9"
+- position: 77
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#FEFEFE"
+- position: 78
+  color:
+  - "#FEFEFE"
+  - "#CB0000"
+  - "#FEFEFE"
+  - "#CB0000"
+- position: 79
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 80
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 81
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 82
+  color:
+  - "#5353D9"
+  - "#FEFEFE"
+  - "#CB0000"
+  - "#CB0000"
+- position: 83
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#CB0000"
+  - "#5353D9"
+- position: 84
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#5353D9"
+  - "#5353D9"
+- position: 85
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#5353D9"
+  - "#5353D9"
+- position: 86
+  color:
+  - "#FEFEFE"
+  - "#5353D9"
+  - "#5353D9"
+  - "#BD0A1A"
+- position: 87
+  color:
+  - "#FEFEFE"
+  - "#FEFEFE"
+  - "#CB0000"
+  - "#CB0000"
+- position: 88
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+- position: 89
+  color:
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"
+  - "#CB0000"

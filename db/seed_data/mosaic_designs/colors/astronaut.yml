@@ -1,0 +1,545 @@
+---
+name: アストロノート
+area_size_x: 10
+area_size_y: 9
+pieces:
+- position: 0
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 1
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 2
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 3
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#FFFFFF"
+  - "#FFFFFF"
+- position: 4
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#FFFFFF"
+  - "#FFFFFF"
+- position: 5
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#FFFFFF"
+  - "#FFFFFF"
+- position: 6
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#FFFFFF"
+  - "#FFFFFF"
+- position: 7
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 8
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 9
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 10
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 11
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 12
+  color:
+  - "#CCF5E3"
+  - "#FFFFFF"
+  - "#FFFFFF"
+  - "#FFFFFF"
+- position: 13
+  color:
+  - "#FFFFFF"
+  - "#FFFFFF"
+  - "#303238"
+  - "#303238"
+- position: 14
+  color:
+  - "#FFFFFF"
+  - "#FFFFFF"
+  - "#303238"
+  - "#537EA3"
+- position: 15
+  color:
+  - "#FFFFFF"
+  - "#FFFFFF"
+  - "#537EA3"
+  - "#537EA3"
+- position: 16
+  color:
+  - "#FFFFFF"
+  - "#FFFFFF"
+  - "#303238"
+  - "#303238"
+- position: 17
+  color:
+  - "#FFFFFF"
+  - "#CCF5E3"
+  - "#FFFFFF"
+  - "#FFFFFF"
+- position: 18
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 19
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 20
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 21
+  color:
+  - "#CCF5E3"
+  - "#FFFFFF"
+  - "#CCF5E3"
+  - "#FFFFFF"
+- position: 22
+  color:
+  - "#FFFFFF"
+  - "#303238"
+  - "#303238"
+  - "#303238"
+- position: 23
+  color:
+  - "#303238"
+  - "#537EA3"
+  - "#537EA3"
+  - "#80848A"
+- position: 24
+  color:
+  - "#80848A"
+  - "#80848A"
+  - "#80848A"
+  - "#F6BC86"
+- position: 25
+  color:
+  - "#80848A"
+  - "#80848A"
+  - "#F6BC86"
+  - "#F6BC86"
+- position: 26
+  color:
+  - "#80848A"
+  - "#303238"
+  - "#80848A"
+  - "#80848A"
+- position: 27
+  color:
+  - "#303238"
+  - "#FFFFFF"
+  - "#303238"
+  - "#303238"
+- position: 28
+  color:
+  - "#FFFFFF"
+  - "#CCF5E3"
+  - "#FFFFFF"
+  - "#CCF5E3"
+- position: 29
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 30
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#537EA3"
+- position: 31
+  color:
+  - "#CCF5E3"
+  - "#FFFFFF"
+  - "#FFFFFF"
+  - "#303238"
+- position: 32
+  color:
+  - "#303238"
+  - "#537EA3"
+  - "#303238"
+  - "#80848A"
+- position: 33
+  color:
+  - "#537EA3"
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#80848A"
+- position: 34
+  color:
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#80848A"
+  - "#F6BC86"
+- position: 35
+  color:
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#80848A"
+- position: 36
+  color:
+  - "#F6BC86"
+  - "#80848A"
+  - "#80848A"
+  - "#F6BC86"
+- position: 37
+  color:
+  - "#537EA3"
+  - "#303238"
+  - "#80848A"
+  - "#303238"
+- position: 38
+  color:
+  - "#FFFFFF"
+  - "#CCF5E3"
+  - "#303238"
+  - "#FFFFFF"
+- position: 39
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#537EA3"
+  - "#CCF5E3"
+- position: 40
+  color:
+  - "#CCF5E3"
+  - "#537EA3"
+  - "#CCF5E3"
+  - "#537EA3"
+- position: 41
+  color:
+  - "#FFFFFF"
+  - "#303238"
+  - "#FFFFFF"
+  - "#303238"
+- position: 42
+  color:
+  - "#303238"
+  - "#80848A"
+  - "#F6BC86"
+  - "#537EA3"
+- position: 43
+  color:
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#000000"
+- position: 44
+  color:
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#F6BC86"
+- position: 45
+  color:
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#F6BC86"
+- position: 46
+  color:
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#000000"
+  - "#F6BC86"
+- position: 47
+  color:
+  - "#80848A"
+  - "#303238"
+  - "#537EA3"
+  - "#F6BC86"
+- position: 48
+  color:
+  - "#303238"
+  - "#FFFFFF"
+  - "#303238"
+  - "#FFFFFF"
+- position: 49
+  color:
+  - "#537EA3"
+  - "#CCF5E3"
+  - "#537EA3"
+  - "#CCF5E3"
+- position: 50
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 51
+  color:
+  - "#FFFFFF"
+  - "#303238"
+  - "#CCF5E3"
+  - "#FFFFFF"
+- position: 52
+  color:
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#303238"
+  - "#F6BC86"
+- position: 53
+  color:
+  - "#ED8582"
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#C69B53"
+- position: 54
+  color:
+  - "#F6BC86"
+  - "#AD553F"
+  - "#73532D"
+  - "#F6BC86"
+- position: 55
+  color:
+  - "#C69B53"
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#73532D"
+- position: 56
+  color:
+  - "#F6BC86"
+  - "#ED8582"
+  - "#C69B53"
+  - "#F6BC86"
+- position: 57
+  color:
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#303238"
+- position: 58
+  color:
+  - "#303238"
+  - "#FFFFFF"
+  - "#FFFFFF"
+  - "#CCF5E3"
+- position: 59
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 60
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 61
+  color:
+  - "#CCF5E3"
+  - "#FFFFFF"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 62
+  color:
+  - "#FFFFFF"
+  - "#303238"
+  - "#FFFFFF"
+  - "#303238"
+- position: 63
+  color:
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#303238"
+  - "#F6BC86"
+- position: 64
+  color:
+  - "#F6BC86"
+  - "#73532D"
+  - "#F6BC86"
+  - "#F6BC86"
+- position: 65
+  color:
+  - "#73532D"
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#F6BC86"
+- position: 66
+  color:
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#F6BC86"
+  - "#303238"
+- position: 67
+  color:
+  - "#303238"
+  - "#FFFFFF"
+  - "#303238"
+  - "#FFFFFF"
+- position: 68
+  color:
+  - "#FFFFFF"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 69
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 70
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 71
+  color:
+  - "#CCF5E3"
+  - "#537EA3"
+  - "#FFFFFF"
+  - "#FFFFFF"
+- position: 72
+  color:
+  - "#537EA3"
+  - "#537EA3"
+  - "#80848A"
+  - "#537EA3"
+- position: 73
+  color:
+  - "#FFFFFF"
+  - "#FFFFFF"
+  - "#537EA3"
+  - "#537EA3"
+- position: 74
+  color:
+  - "#FFFFFF"
+  - "#FFFFFF"
+  - "#537EA3"
+  - "#537EA3"
+- position: 75
+  color:
+  - "#FFFFFF"
+  - "#FFFFFF"
+  - "#537EA3"
+  - "#537EA3"
+- position: 76
+  color:
+  - "#FFFFFF"
+  - "#FFFFFF"
+  - "#537EA3"
+  - "#537EA3"
+- position: 77
+  color:
+  - "#537EA3"
+  - "#537EA3"
+  - "#537EA3"
+  - "#80848A"
+- position: 78
+  color:
+  - "#537EA3"
+  - "#CCF5E3"
+  - "#FFFFFF"
+  - "#FFFFFF"
+- position: 79
+  color:
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+  - "#CCF5E3"
+- position: 80
+  color:
+  - "#CCF5E3"
+  - "#FFFFFF"
+  - "#FFFFFF"
+  - "#FFFFFF"
+- position: 81
+  color:
+  - "#537EA3"
+  - "#FFFFFF"
+  - "#FFFFFF"
+  - "#537EA3"
+- position: 82
+  color:
+  - "#FFFFFF"
+  - "#80848A"
+  - "#FFFFFF"
+  - "#FFFFFF"
+- position: 83
+  color:
+  - "#FFFFFF"
+  - "#FFFFFF"
+  - "#80848A"
+  - "#FFFFFF"
+- position: 84
+  color:
+  - "#FFFFFF"
+  - "#52763F"
+  - "#FFFFFF"
+  - "#FFFFFF"
+- position: 85
+  color:
+  - "#52763F"
+  - "#FFFFFF"
+  - "#FFFFFF"
+  - "#FFFFFF"
+- position: 86
+  color:
+  - "#FFFFFF"
+  - "#FFFFFF"
+  - "#FFFFFF"
+  - "#80848A"
+- position: 87
+  color:
+  - "#80848A"
+  - "#FFFFFF"
+  - "#FFFFFF"
+  - "#FFFFFF"
+- position: 88
+  color:
+  - "#FFFFFF"
+  - "#537EA3"
+  - "#537EA3"
+  - "#FFFFFF"
+- position: 89
+  color:
+  - "#FFFFFF"
+  - "#CCF5E3"
+  - "#FFFFFF"
+  - "#FFFFFF"
