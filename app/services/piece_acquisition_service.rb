@@ -58,15 +58,28 @@ class PieceAcquisitionService
     # 進行中のモザイクアートが存在する場合はそれを返す
     return art if art
 
-    # モザイクデザインテーブルから最初のデザインを取得
-    design = MosaicDesign.first
-    # デザインが存在しない場合はnilを返す
-    return nil unless design
+    # モザイクデザインテーブルの件数を取得
+    total = MosaicDesign.count
+    # モザイクデザインテーブルの件数が0の場合はnilを返す
+    return nil if total.zero?
+
+    # ユーザーのこれまでの完成数を題材数で割った余りを取得（今周で何件使ったか）
+    used_in_round = @user.mosaic_arts.completed.count % total
+    # ユーザーが完成させたモザイクアートが０件の場合は、空配列を返す
+    used_ids = if used_in_round.zero?
+      [] # 0件完成、または１周ちょうど終わった直後
+    else
+      # そうでない場合は、題材の完成させた日時とその題材IDでソートして、最後のused_in_round件の題材IDを配列で取得
+      @user.mosaic_arts.completed.order(:completed_at, :id).last(used_in_round).pluck(:mosaic_design_id)
+    end
+
+    # モザイクデザインテーブルから、ユーザーが今周で使った題材IDを除いたものをランダムに取得
+    random_design = MosaicDesign.where.not(id: used_ids).order(Arel.sql("RANDOM()")).first
 
     # モザイクアートを作成して、デザインのピースを作成
-    @user.mosaic_arts.create!(mosaic_design: design).tap do |mosaic_art|
+    @user.mosaic_arts.create!(mosaic_design: random_design).tap do |mosaic_art|
       # デザインのピースを作成
-      design.design_pieces.find_each do |dp|
+      random_design.design_pieces.find_each do |dp|
         mosaic_art.pieces.create!(position: dp.position)
       end
     end
