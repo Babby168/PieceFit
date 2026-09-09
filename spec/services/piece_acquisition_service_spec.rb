@@ -165,5 +165,63 @@ RSpec.describe PieceAcquisitionService, type: :service do
         expect(art.completed_at).to be_nil
       }.to change(MosaicArt, :count).by(1)
     end
+
+    context "題材が複数ある場合" do
+      let!(:design_b) { create(:mosaic_design) }
+      let!(:design_c) { create(:mosaic_design) }
+      let!(:designs) { [ mosaic_design, design_b, design_c ] }
+
+      def complete!(design, at:)
+        create(:mosaic_art, user: user, mosaic_design: design, completed_at: at)
+      end
+
+      it "進行中が無く未完成なら、全題材のどれかを割り当てること" do
+        art = described_class.new(user).ensure_current_mosaic_art!
+
+        expect(designs).to include(art.mosaic_design)
+        expect(art.completed_at).to be_nil
+      end
+
+      it "今周で１件完成済みなら、その題材は選ばないこと" do
+        complete!(mosaic_design, at: 1.week.ago)
+
+        art = described_class.new(user).ensure_current_mosaic_art!
+
+        expect(art.mosaic_design).not_to eq(mosaic_design)
+        expect([ design_b, design_c ]).to include(art.mosaic_design)
+      end
+
+      it "今周で2件完成済みなら、残りの1件を割り当てること" do
+        complete!(mosaic_design, at: 2.days.ago)
+        complete!(design_b, at: 1.day.ago)
+
+        art = described_class.new(user).ensure_current_mosaic_art!
+
+        expect(art.mosaic_design).to eq(design_c)
+      end
+
+      it "全題材を1周したら、どれかの題材でもう1周すること" do
+        complete!(mosaic_design, at: 3.days.ago)
+        complete!(design_b, at: 2.days.ago)
+        complete!(design_c, at: 1.day.ago)
+
+        art = described_class.new(user).ensure_current_mosaic_art!
+
+        expect(designs).to include(art.mosaic_design)
+        expect(art.completed_at).to be_nil
+        expect(user.mosaic_arts.count).to eq(4)
+      end
+
+      it "他ユーザーの完成は今周の除外に使わないこと" do
+        other = create(:user)
+        create(:mosaic_art, user: other, mosaic_design: design_c, completed_at: 1.day.ago)
+        complete!(mosaic_design, at: 1.day.ago)
+        complete!(design_b, at: Time.current)
+
+        art = described_class.new(user).ensure_current_mosaic_art!
+
+        expect(art.mosaic_design).to eq(design_c)
+      end
+    end
   end
 end
