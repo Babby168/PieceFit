@@ -1,9 +1,29 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+/* タブのアクティブスタイル */
 .tabs .tab.tab-active {
   color: var(--color-secondary);
   font-weight: 700;
   --tab-bg: var(--color-base-200);
   --tab-border-color: var(--color-secondary);
+}
+
+/* 全ページ共通の背景画像 */
+.piecefit-background {
+  position: relative;
+  isolation: isolate;
+  background-color: white;
+}
+.piecefit-background::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("./piecefit-background.png");
+  background-position: center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  opacity: 0.35;
 }

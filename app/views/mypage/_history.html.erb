@@ -1,9 +1,33 @@
 <div class="card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border p-6">
   <h2 class="text-lg font-bold mb-2">実施履歴</h2>
 
+  <!-- 体部位ごとのストレッチ回数を横棒グラフで表示 -->
+  <div class="space-y-2 mb-6">
+    <% max_count = body_part_counts.values.max %>
+    <% body_part_counts.each do |part, count| %>
+      <div class="flex items-center gap-3">
+        <span class="w-8 shrink-0 text-sm font-bold"><%= t("stretches.body_parts.#{part}") %></span>
+        <div class="flex-1 h-4 rounded bg-base-200 overflow-hidden">
+          <div class="h-full rounded <%= body_part_color(part) %>"
+               style="width: <%= body_part_bar_width_percent(count, max_count) %>%">
+          </div>
+        </div>
+        <span class="w-15 shrink-0 text-right text-sm"> <%= count %> 回</span>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- いちばん少ない部位の文言を表示 -->
+  <% message = least_active_body_part_message(body_part_counts) %>
+  <% if message.present? %>
+    <p class="text-sm text-base-content/70 mb-4"><%= message %></p>
+  <% end %>
+
+  <!-- 実施記録がない場合はまだ実施記録がありませんと表示 -->
   <% if stretch_logs.empty? %>
     <p class="text-sm text-base-content/60">まだ実施記録がありません。</p>
   <% else %>
+    <!-- 実施記録がある場合は実施記録を3件表示 -->
     <ul class="space-y-3">
       <% stretch_logs.each do |log| %>
         <li class="flex items-center justify-between border-b pb-2">
