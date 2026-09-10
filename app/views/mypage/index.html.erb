@@ -28,7 +28,9 @@
         # ピースの獲得状況
         pieces_by_position: @pieces_by_position %>
 
-        <%= render "mypage/history", stretch_logs: @stretch_logs %>
+        <%= render "mypage/history",
+              stretch_logs: @stretch_logs,
+              body_part_counts: @body_part_counts %>
     </div>
   </div>
 

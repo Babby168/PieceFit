@@ -27,6 +27,7 @@ class User < ApplicationRecord
   validates :password, format: { with: /\A[\x21-\x7E]+\z/ }, allow_blank: true
 
 
+  # 連続日数を計算
   def current_streak_days
     dates = stretch_logs
               .where(performed_at: 90.days.ago.beginning_of_day..Time.current)
@@ -86,6 +87,17 @@ class User < ApplicationRecord
       reset_password_sent_at: Time.current
     )
     raw
+  end
+
+  # 体部位ごとのストレッチ回数を取得
+  def stretch_counts_by_body_part
+    # ストレッチログを体部位ごとにグループ化して回数を取得し raw に格納
+    raw = stretch_logs.joins(:stretch).group("stretches.body_part").count
+
+    # 体部位ごとのストレッチを 名前 と 回数 のハッシュに変換（部位をそのまま取得すると数値になってしまうため、文字列に変換してからハッシュに格納）
+    Stretch.body_parts.each_with_object({}) do |(name, db_value), hash|
+      hash[name] = raw[name] || raw[db_value] || 0
+    end
   end
 
   private

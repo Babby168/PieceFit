@@ -146,6 +146,44 @@ RSpec.describe "Mypage", type: :request do
         expect(response.body).to include("実施履歴")
       end
 
+      it "0件でも実施履歴のグラフ枠と空メッセージが出ること" do
+        get mypage_path
+
+        expect(response.body).to include("実施履歴")
+        expect(response.body).to include("まだ実施記録がありません")
+        expect(response.body).to include("首")
+        expect(response.body).to include("肩")
+        expect(response.body).to include("腰")
+        expect(response.body).to include("0 回")
+        expect(response.body).not_to include("いちばん少ない部位は")
+      end
+
+      it "直近の実施は3件まで表示されること" do
+        stretch = create(:stretch, name: "肩まわし")
+        older = create(:stretch, name: "古いストレッチ")
+        create(:stretch_log, user: user, stretch: older, performed_at: 4.days.ago)
+        create(:stretch_log, user: user, stretch: stretch, performed_at: 3.days.ago)
+        create(:stretch_log, user: user, stretch: stretch, performed_at: 2.days.ago)
+        create(:stretch_log, user: user, stretch: stretch, performed_at: 1.day.ago)
+
+        get mypage_path
+
+        expect(response.body).to include("肩まわし")
+        expect(response.body).not_to include("古いストレッチ")
+      end
+
+      it "いちばん少ない部位の文言が表示されること" do
+        neck = create(:stretch, body_part: :neck)
+        waist = create(:stretch, :waist)
+
+        create(:stretch_log, user: user, stretch: neck)
+        create(:stretch_log, user: user, stretch: neck)
+        create(:stretch_log, user: user, stretch: waist)
+
+        get mypage_path
+        expect(response.body).to include("いちばん少ない部位は肩です (0回)")
+      end
+
       it "継続記録が表示されること" do
         stretch = create(:stretch)
         create(:stretch_log, user: user, stretch: stretch, performed_at: Time.current)

@@ -199,4 +199,42 @@ RSpec.describe User, type: :model do
       expect { user.destroy }.to change(StretchLog, :count).by(-1)
     end
   end
+
+  describe "#stretch_counts_by_body_part" do
+    let(:user) { create(:user) }
+
+    it "部位ごとの実施回数を返し、0回の部位も含めること" do
+      neck = create(:stretch, body_part: :neck)
+      shoulder = create(:stretch, body_part: :shoulder)
+
+      2.times { create(:stretch_log, user: user, stretch: neck) }
+      create(:stretch_log, user: user, stretch: shoulder)
+
+      expect(user.stretch_counts_by_body_part).to eq(
+        "neck" => 2,
+        "shoulder" => 1,
+        "waist" => 0
+      )
+    end
+
+    it "記録がない場合はすべて0を返すこと" do
+      expect(user.stretch_counts_by_body_part).to eq(
+        "neck" => 0,
+        "shoulder" => 0,
+        "waist" => 0
+      )
+    end
+
+    it "他のユーザーの記録は混ざらないこと" do
+      other = create(:user)
+      stretch = create(:stretch, body_part: :neck)
+      create(:stretch_log, user: other, stretch: stretch)
+
+      expect(user.stretch_counts_by_body_part).to eq(
+        "neck" => 0,
+        "shoulder" => 0,
+        "waist" => 0
+      )
+    end
+  end
 end
