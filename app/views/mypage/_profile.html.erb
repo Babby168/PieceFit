@@ -1,4 +1,4 @@
-<div class="card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border p-6">
+<div class="card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border p-6" data-controller="confirm-dialog">
   <div class="flex items-center gap-4 mb-4">
     <div class="avatar placeholder">
       <div class="bg-gray-400 text-neutral-content w-16 rounded-full flex items-center justify-center">
@@ -10,4 +10,27 @@
   
   <%= link_to "プロフィールを編集", profile_settings_path, class: "btn btn-warning btn-outline btn-sm w-full mb-3" %>
   <%= link_to "モザイクコレクション", collection_path, class: "btn btn-success btn-outline btn-sm w-full mb-3" %>
+  <button
+    type="button"
+    class="btn btn-error btn-outline btn-sm w-full mb-3"
+    data-action="click->confirm-dialog#open"
+  >
+    ログアウト
+  </button>
+
+  <!-- ログアウトモーダル -->
+  <%= render "shared/feedback_modal",
+    title: "ログアウトしますか？",
+    messages: ["ログアウトすると、再度ログインが必要になります。"],
+    html: { data: { confirm_dialog_target: "dialog" } } do %>
+    <button
+      type="button"
+      class="btn btn-ghost"
+      data-action="click->confirm-dialog#close"
+    >キャンセル</button>
+    <%= button_to "ログアウト",
+      destroy_user_session_path,
+      method: :delete,
+      class: "btn btn-primary" %>
+  <% end %>
 </div>
