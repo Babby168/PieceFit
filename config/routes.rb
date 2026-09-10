@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # 開発中はメールを確認するためのルートを追加
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
+    mount RailsIcons::Engine, at: "/rails_icons"
   end
 
   # トップページ
