@@ -153,3 +153,8 @@ Dir.glob(mosaic_color_dir.join("*.yml")).sort.each do |yaml_path|
     design_piece.save!
   end
 end
+
+# デモユーザーを作成する
+# bin/rails db:seed のたびにデモユーザーも揃う。
+# CI の db:seed:replant(config/ci.rb) も同じ経路を通る。
+DemoUserSeeder.call
