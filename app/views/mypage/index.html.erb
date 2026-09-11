@@ -1,17 +1,14 @@
 <div class="max-w-6xl mx-auto px-4 py-4">
   <h1 class="text-2xl font-bold mb-6">マイページ</h1>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <%# 左カラム %>
-    <div class="space-y-6">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+    <%# 左カラム（プロフィール＋連続日数） %>
+    <div class="space-y-6 md:col-span-1">
       <%= render "mypage/profile" %>
       <%= render "mypage/streak", streak_days: @streak_days %>
-      <%= render "mypage/history",
-              stretch_logs: @stretch_logs,
-              body_part_counts: @body_part_counts %>
     </div>
 
-    <%# 右カラム（モザイク＋履歴） %>
+    <%# 中カラム（モザイク） %>
     <div class="md:col-span-2 space-y-6">
       <%= render "mosaic_arts/grid",
         # モザイクアートの情報
@@ -22,6 +19,13 @@
         design_pieces_by_position: @design_pieces_by_position,
         # ピースの獲得状況
         pieces_by_position: @pieces_by_position %>
+    </div>
+
+    <%# 右カラム（履歴） %>
+    <div class="md:col-span-1 space-y-6">
+      <%= render "mypage/history",
+              stretch_logs: @stretch_logs,
+              body_part_counts: @body_part_counts %>
     </div>
   </div>
 
