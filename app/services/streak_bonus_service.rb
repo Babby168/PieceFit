@@ -76,6 +76,7 @@ class StreakBonusService
     end
     # モザイクアートの画像を合成する
     MosaicImageCompositionJob.perform_later(mosaic_art.id) if result.art_completed
+    PieceAcquisitionService.new(@user).ensure_current_mosaic_art! if result.art_completed
     result
   end
 end

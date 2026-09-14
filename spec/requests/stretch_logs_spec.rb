@@ -139,6 +139,25 @@ RSpec.describe "StretchLogs", type: :request do
             expect(flash[:mosaic_completed]).to be_truthy
             expect(flash[:streak_bonus_days]).to be_nil
           end
+
+          it "完成後のグリッドは次の進行中アートを出し、既存の完成作品を全埋め表示しないこと" do
+            other_design = create(:mosaic_design)
+            create(:design_piece, mosaic_design: other_design, position: 0, color: [ "#ABCDEF", "#ABCDEF", "#ABCDEF", "#ABCDEF" ])
+            create(:mosaic_art, user: user, mosaic_design: other_design, completed_at: 2.weeks.ago).tap do |art|
+              create(:piece, mosaic_art: art, position: 0, acquired_at: 2.weeks.ago)
+            end
+
+            pieces[0..2].each { |piece| piece.update!(acquired_at: 1.day.ago) }
+
+            completed_id = mosaic_art.id
+            post stretch_logs_path, params: { stretch_id: stretch.id }
+            follow_redirect!
+
+            expect(response.body).not_to include("#ABCDEF")
+            next_art = user.mosaic_arts.in_progress.last
+            expect(next_art.id).not_to eq(completed_id)
+            expect(next_art.pieces.acquired.count).to eq(0)
+          end
         end
       end
 

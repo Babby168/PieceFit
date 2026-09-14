@@ -69,6 +69,25 @@ RSpec.describe PieceAcquisitionService, type: :service do
         expect(mosaic_art.reload.completed_at).to be_present
       end
 
+      it "最後のピース獲得後、次の進行中アートを未獲得のまま作ること" do
+  piece_0.update!(acquired_at: 1.day.ago)
+  piece_1.update!(acquired_at: 1.day.ago)
+  piece_2.update!(acquired_at: 1.day.ago)
+  expect {
+    described_class.call(user)
+  }.not_to change { user.mosaic_arts.in_progress.count }
+  next_art = user.mosaic_arts.in_progress.last
+  expect(next_art.id).not_to eq(mosaic_art.id)
+  expect(next_art.pieces.acquired.count).to eq(0)
+  expect(next_art.pieces.unacquired.count).to eq(4)
+end
+
+      it "未完成の獲得では次のMosaicArtを作らないこと" do
+        expect {
+          described_class.call(user)
+        }.not_to change(MosaicArt, :count)
+      end
+
       it "最後のピース獲得時に MosaicImageCompositionJob を詰むこと" do
         piece_0.update!(acquired_at: 1.day.ago)
         piece_1.update!(acquired_at: 1.day.ago)
