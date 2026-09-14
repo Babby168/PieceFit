@@ -108,6 +108,14 @@ RSpec.describe "Mypage", type: :request do
           expect(response.body).to include("モザイクアート完成")
           expect(response.body).to include("data-controller=\"auto-open-dialog\"")
         end
+
+        it "マイページに完成モーダルの文言が表示されること" do
+          get mypage_path
+          expect(response.body).to include("モザイクアート完成")
+          expect(response.body).to include("data-controller=\"auto-open-dialog\"")
+          expect(response.body).to include(collection_path)
+          expect(response.body).to include("コレクションを見る")
+        end
       end
 
       it "通常のマイページアクセスでは完成モーダルが出ないこと" do
