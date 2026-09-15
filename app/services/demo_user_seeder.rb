@@ -2,7 +2,7 @@
 class DemoUserSeeder
   EMAIL = "demo@example.com"
   NICKNAME = "デモユーザー"
-  IN_PROGRESS_DESIGN_NAME = "ロボらんてくん"
+  IN_PROGRESS_DESIGN_NAME = "ロボらんてくん（非公式）"
   COMPLETED_DESIGN_NAMES = [ "ドクター", "シェフ" ].freeze
   REMAINING_PIECES = 2
   STREAK_DAYS = 5 # 3の倍数にしない（ボーナスで1回で完成するのを防ぐ）
