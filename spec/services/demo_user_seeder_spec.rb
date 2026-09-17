@@ -19,7 +19,7 @@ RSpec.describe DemoUserSeeder, type: :service do
     user = described_class.call
     art = user.mosaic_arts.in_progress.last
 
-    expect(art.mosaic_design.name).to eq("ロボらんてくん")
+    expect(art.mosaic_design.name).to eq("ロボらんてくん（非公式）")
     expect(art.pieces.acquired.count).to eq(2)
     expect(art.pieces.unacquired.order(:position).pluck(:position)).to eq([ 2, 3 ])
     expect(art.pieces.acquired.first.acquired_at.to_date).not_to eq(Time.zone.today)

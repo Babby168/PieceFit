@@ -22,6 +22,9 @@ application.register("illustration-slideshow", IllustrationSlideshowController)
 import LegalTabsController from "./legal_tabs_controller"
 application.register("legal-tabs", LegalTabsController)
 
+import StretchBgmController from "./stretch_bgm_controller"
+application.register("stretch-bgm", StretchBgmController)
+
 import StretchLogController from "./stretch_log_controller"
 application.register("stretch-log", StretchLogController)
 
