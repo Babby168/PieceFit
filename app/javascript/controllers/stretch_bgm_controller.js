@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 const STORAGE_KEY = "piecefit-bgm-muted"
-const DEFAULT_VOLUME = 0.1
+const DEFAULT_VOLUME = 0.2
 
 // Connects to data-controller="stretch-bgm"
 export default class extends Controller {
