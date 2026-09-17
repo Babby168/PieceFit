@@ -12,7 +12,7 @@
 
   <div
     class="grid grid-cols-1 md:grid-cols-5 gap-4 max-w-6xl w-full flex-1 min-h-0"
-    data-controller="stretch-log-dialog countdown-timer illustration-slideshow"
+    data-controller="stretch-log-dialog countdown-timer illustration-slideshow stretch-bgm"
     data-stretch-log-dialog-signed-in-value="<%= user_signed_in? %>"
     data-countdown-timer-duration-value="60"
     data-stretch-log-dialog-stretch-id-value="<%= @stretch.id %>"
@@ -20,8 +20,15 @@
     data-illustration-slideshow-key-visual-value="<%= asset_path(@stretch.key_visual_path) %>"
     data-illustration-slideshow-loops-value="5"
     data-illustration-slideshow-interval-value="<%= (60.0 / (@stretch.stretch_steps.size * 5)).round(2) %>"
-    data-action="countdown-timer:start@window->illustration-slideshow#start countdown-timer:complete@window->illustration-slideshow#stop countdown-timer:reset@window->illustration-slideshow#reset"
+    data-action="countdown-timer:start@window->illustration-slideshow#start countdown-timer:complete@window->illustration-slideshow#stop countdown-timer:reset@window->illustration-slideshow#reset 
+                countdown-timer:start@window->stretch-bgm#play countdown-timer:complete@window->stretch-bgm#stop countdown-timer:reset@window->stretch-bgm#stop"
   >
+
+  <audio
+    data-stretch-bgm-target="player"
+    preload="auto"
+    src="<%= asset_path('stretch_bgm.mp3') %>"
+  ></audio>
 
     <%# タイマー： カウントダウンタイマー（「中止」ボタンはタイマー開始時にJSで表示） %>
     <div class="md:col-span-3 sticky top-0 z-20 md:static card bg-base-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-2 p-4 flex flex-col items-center justify-center overflow-hidden">
@@ -52,6 +59,18 @@
             class="btn btn-info btn-sm md:btn-md rounded-full"
             data-action="click->countdown-timer#reset"
           >リセット</button>
+          <button
+            type="button"
+            class="btn btn-ghost btn-sm md:btn-md btn-square rounded-full"
+            data-stretch-bgm-target="muteButton"
+            data-action="click->stretch-bgm#toggleMute"
+            aria-label="BGMのミュート切り替え"
+            aria-pressed="false"
+          >
+            <%= icon "volume-2", class: "size-10 bg-gray-200 border-1 border-gray-400 text-green-500 rounded-full p-1", data: { stretch_bgm_target: "unmutedIcon" }, "aria-hidden": true %>
+            <%= icon "volume-x", class: "size-10 bg-gray-200 border-1 border-gray-400 text-red-400 rounded-full p-1 hidden", data: { stretch_bgm_target: "mutedIcon" }, "aria-hidden": true %>
+          </button>
+
         </div>
       </div>
     </div>

@@ -230,6 +230,22 @@ RSpec.describe "Stretches", type: :request do
         expect(abort_button_html).to match(/\bhidden\b/)
       end
 
+      it "BGM用のStimulusコントローラとaudio要素があること" do
+        expect(response.body).to match(/data-controller="[^"]*stretch-bgm[^"]*"/)
+        expect(response.body).to include('data-stretch-bgm-target="player"')
+        expect(response.body).to include("/assets/stretch_bgm")
+      end
+
+      it "タイマー開始時にスライドショーとBGMが同じdata-actionで購読されること" do
+        expect(response.body).to match(/data-action="[^"]*illustration-slideshow#start[^"]*stretch-bgm#play[^"]*"/)
+        expect(response.body).not_to match(/data-action="[^"]*"\s+data-action="/)
+      end
+
+      it "BGMのミュートボタンが表示されること" do
+        expect(response.body).to include(' data-action="click->stretch-bgm#toggleMute"')
+        expect(response.body).to include("BGMのミュート切り替え")
+      end
+
       it "実施記録ダイアログのStimulusコントローラが設定されていること" do
         expect(response.body).to match(/data-controller="[^"]*stretch-log-dialog[^"]*"/)
         expect(response.body).to include("data-stretch-log-dialog-stretch-id-value=\"#{stretch.id}\"")
