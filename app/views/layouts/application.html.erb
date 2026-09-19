@@ -9,6 +9,11 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <!-- Google Analytics -->
+    <% if (measurement_id = google_analytics_measurement_id) %>
+      <%= render "shared/google_analytics", measurement_id: measurement_id %>
+    <% end %>
+
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>

@@ -11,6 +11,8 @@ RSpec.describe "Legal", type: :request do
       get legal_path
       expect(response.body).to include("プライバシーポリシー")
       expect(response.body).to include("制定日：2026年8月31日")
+      expect(response.body).to include("改定日：2026年9月19日")
+      expect(response.body).to include("Google Analytics")
     end
 
     it "利用規約が表示されていること" do
