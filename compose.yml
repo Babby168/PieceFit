@@ -35,10 +35,13 @@ services: # コンテナの定義開始
       - .:/myapp # ソースコードのマウント設定
       - bundle_data:/usr/local/bundle:cached # gemの永続化
       - node_modules:/myapp/node_modules # node_modulesの永続化
+      - ./qiita-articles/.qiita-config:/root/.config/qiita-cli
     environment:
       TZ: Asia/Tokyo # タイムゾーンを日本に設定
+      QIITA_TOKEN: ${QIITA_TOKEN} # Qiita CLIの認証トークン
     ports:
       - "3000:3000" # Rails標準ポート
+      - "8888:8888" # Qiita CLIプレビュー用ポート
     depends_on:
       db: # dbサービスに依存
         condition: service_healthy # dbの健康チェックが通るまで待機
