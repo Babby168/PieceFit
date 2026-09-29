@@ -12,24 +12,32 @@
   <div class="w-full max-w-6xl">
     <h1 class="text-2xl font-bold mb-2">モザイクコレクション</h1>
     <p class="text-sm text-base-content/60 mb-8">
-      完成したモザイクアートを確認できます。
+      シリーズごとの枠に、完成したモザイクアートが埋まっていきます。
     </p>
 
-    <%# モザイクアート一覧 %>
-    <% if @mosaic_arts.any? %>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <% @mosaic_arts.each do |mosaic_art| %>
-          <%= render "collection/card", mosaic_art: mosaic_art %>
-        <% end %>
-      </div>
-    <% else %>
-      <div class="card bg-base-100 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border p-8 text-center">
+    <% unless @has_completed_art %>
+      <div class="mb-8">
         <p class="font-bold mb-2">まだ完成した作品はありません。</p>
         <p class="text-sm text-base-content/60 mb-6">
           ストレッチを続けて、最初のモザイクアートを完成させましょう。
         </p>
         <%= link_to "ストレッチを始める", stretches_path, class: "btn btn-primary" %>
       </div>
+    <% end %>
+
+    <% @shelves.each do |shelf| %>
+      <section class="mb-10">
+        <h2 class="text-lg font-bold mb-3"><%= shelf[:series_name] %></h2>
+        <div class="flex gap-4 overflow-x-auto pb-4">
+          <% shelf[:slots].each do |slot| %>
+            <% if slot[:mosaic_art] %>
+              <%= render "collection/card", mosaic_art: slot[:mosaic_art] %>
+            <% else %>
+              <%= render "collection/empty_card" %>
+            <% end %>
+          <% end %>
+        </div>
+      </section>
     <% end %>
   </div>
 </div>

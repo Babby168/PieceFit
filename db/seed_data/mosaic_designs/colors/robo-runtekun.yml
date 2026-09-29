@@ -1,5 +1,7 @@
 ---
 name: ロボらんてくん（非公式）
+series_name: ロボらんてくん
+collection_position: 1
 area_size_x: 10
 area_size_y: 9
 pieces:
