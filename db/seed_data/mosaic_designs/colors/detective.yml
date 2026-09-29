@@ -1,5 +1,7 @@
 ---
 name: 探偵
+series_name: おじさんシリーズ
+collection_position: 3
 area_size_x: 10
 area_size_y: 9
 pieces:

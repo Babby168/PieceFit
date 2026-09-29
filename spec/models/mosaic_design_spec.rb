@@ -27,6 +27,24 @@ RSpec.describe MosaicDesign, type: :model do
       mosaic_design = build(:mosaic_design, area_size_y: -1)
       expect(mosaic_design).to be_invalid
     end
+
+    it "collection_positionが空の場合は無効であること" do
+      expect(build(:mosaic_design, collection_position: nil)).to be_invalid
+    end
+
+    it "同じシリーズでcollection_positionが重複する場合は無効であること" do
+      series = create(:mosaic_series)
+      create(:mosaic_design, mosaic_series: series, collection_position: 1)
+      mosaic_design = build(:mosaic_design, mosaic_series: series, collection_position: 1)
+      expect(mosaic_design).to be_invalid
+    end
+
+    it "別シリーズなら同じcollection_positionでも有効であること" do
+      series1 = create(:mosaic_series)
+      series2 = create(:mosaic_series, name: "別シリーズ")
+      create(:mosaic_design, mosaic_series: series1, collection_position: 1)
+      expect(build(:mosaic_design, mosaic_series: series2, collection_position: 1)).to be_valid
+    end
   end
 
   describe "アソシエーション" do
@@ -42,6 +60,12 @@ RSpec.describe MosaicDesign, type: :model do
       create(:design_piece, mosaic_design: mosaic_design)
 
       expect { mosaic_design.destroy }.to change(DesignPiece, :count).by(-1)
+    end
+
+    it "mosaic_seriesに属すること" do
+      series = create(:mosaic_series)
+      mosaic_design = create(:mosaic_design, mosaic_series: series)
+      expect(mosaic_design.mosaic_series).to eq(series)
     end
   end
 end

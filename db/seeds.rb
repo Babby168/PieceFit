@@ -134,14 +134,27 @@ stretches_data.each do |data|
   end
 end
 
+series_by_name = {}
+YAML.safe_load_file(Rails.root.join("db/seed_data/mosaic_designs/series.yml")).each do |row|
+  series = MosaicSeries.find_or_initialize_by(name: row["name"])
+  series.position = row["position"]
+  series.save!
+  series_by_name[series.name] = series
+end
+
 mosaic_color_dir = Rails.root.join("db/seed_data/mosaic_designs/colors")
 Dir.glob(mosaic_color_dir.join("*.yml")).sort.each do |yaml_path|
   data = YAML.safe_load_file(yaml_path, permitted_classes: [ Symbol ], aliases: true)
   next if data.blank?
 
+  series = series_by_name[data["series_name"]]
+  raise "未知のシリーズです: #{data["series_name"]} (#{yaml_path})" if series.nil?
+
   mosaic_design = MosaicDesign.find_or_initialize_by(name: data["name"])
   mosaic_design.area_size_x = data["area_size_x"]
   mosaic_design.area_size_y = data["area_size_y"]
+  mosaic_design.mosaic_series = series
+  mosaic_design.collection_position = data["collection_position"]
   mosaic_design.save!
 
   Array(data["pieces"]).each do |piece_data|

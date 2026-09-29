@@ -3,5 +3,7 @@ FactoryBot.define do
     sequence(:name) { |n| "モザイクデザイン#{n}" }
     area_size_x { 10 }
     area_size_y { 9 }
+    mosaic_series
+    sequence(:collection_position)
   end
 end

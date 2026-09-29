@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_04_113416) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_29_143837) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -38,9 +38,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_113416) do
   create_table "mosaic_designs", force: :cascade do |t|
     t.integer "area_size_x", default: 10, null: false
     t.integer "area_size_y", default: 9, null: false
+    t.integer "collection_position", null: false
     t.datetime "created_at", null: false
+    t.bigint "mosaic_series_id", null: false
     t.string "name", null: false
     t.datetime "updated_at", null: false
+    t.index ["mosaic_series_id", "collection_position"], name: "index_mosaic_designs_on_series_and_position", unique: true
+    t.index ["mosaic_series_id"], name: "index_mosaic_designs_on_mosaic_series_id"
+  end
+
+  create_table "mosaic_series", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.integer "position", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_mosaic_series_on_name", unique: true
+    t.index ["position"], name: "index_mosaic_series_on_position", unique: true
   end
 
   create_table "pieces", force: :cascade do |t|
@@ -105,6 +118,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_113416) do
   add_foreign_key "design_pieces", "mosaic_designs"
   add_foreign_key "mosaic_arts", "mosaic_designs"
   add_foreign_key "mosaic_arts", "users"
+  add_foreign_key "mosaic_designs", "mosaic_series"
   add_foreign_key "pieces", "mosaic_arts"
   add_foreign_key "stretch_logs", "stretches"
   add_foreign_key "stretch_logs", "users"

@@ -1,5 +1,7 @@
 ---
 name: ポリス
+series_name: おじさんシリーズ
+collection_position: 6
 area_size_x: 10
 area_size_y: 9
 pieces:
