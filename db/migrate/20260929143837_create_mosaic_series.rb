@@ -1,4 +1,6 @@
 class CreateMosaicSeries < ActiveRecord::Migration[8.1]
+  disable_ddl_transaction!
+  
   def up
     unless table_exists?(:mosaic_series)
       create_table :mosaic_series do |t|
