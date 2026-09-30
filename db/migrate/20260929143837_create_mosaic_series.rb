@@ -21,8 +21,6 @@ class CreateMosaicSeries < ActiveRecord::Migration[8.1]
 
     backfill_from_yaml!
 
-    change_column_null :mosaic_designs, :mosaic_series_id, false
-    change_column_null :mosaic_designs, :collection_position, false
     add_index :mosaic_designs, [ :mosaic_series_id, :collection_position ],
               unique: true, if_not_exists: true,
               name: "index_mosaic_designs_on_series_and_position"
@@ -68,7 +66,7 @@ class CreateMosaicSeries < ActiveRecord::Migration[8.1]
     missing_names = select_values("SELECT name FROM mosaic_designs WHERE mosaic_series_id IS NULL")
     return if missing_names.empty?
 
-    raise "シリーズ未設定の題材があります: #{missing_names.join(", ")}"
+    say "カタログ外の題材は住所なしのままにします: #{missing_names.join(", ")}"
   end
 
   def series_rows

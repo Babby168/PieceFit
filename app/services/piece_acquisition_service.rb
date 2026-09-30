@@ -60,7 +60,7 @@ class PieceAcquisitionService
     return art if art
 
     # モザイクデザインテーブルの件数を取得
-    total = MosaicDesign.count
+    total = MosaicDesign.in_collection.count
     # モザイクデザインテーブルの件数が0の場合はnilを返す
     return nil if total.zero?
 
@@ -75,7 +75,7 @@ class PieceAcquisitionService
     end
 
     # モザイクデザインテーブルから、ユーザーが今周で使った題材IDを除いたものをランダムに取得
-    random_design = MosaicDesign.where.not(id: used_ids).order(Arel.sql("RANDOM()")).first
+    random_design = MosaicDesign.in_collection.where.not(id: used_ids).order(Arel.sql("RANDOM()")).first
 
     # モザイクアートを作成して、デザインのピースを作成
     @user.mosaic_arts.create!(mosaic_design: random_design).tap do |mosaic_art|
