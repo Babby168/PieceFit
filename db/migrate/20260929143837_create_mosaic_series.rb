@@ -1,6 +1,6 @@
 class CreateMosaicSeries < ActiveRecord::Migration[8.1]
   disable_ddl_transaction!
-  
+
   def up
     unless table_exists?(:mosaic_series)
       create_table :mosaic_series do |t|
@@ -9,18 +9,18 @@ class CreateMosaicSeries < ActiveRecord::Migration[8.1]
         t.timestamps
       end
     end
-  
+
     add_index :mosaic_series, :name, unique: true, if_not_exists: true
     add_index :mosaic_series, :position, unique: true, if_not_exists: true
-  
+
     add_column :mosaic_designs, :mosaic_series_id, :bigint, if_not_exists: true
     add_index :mosaic_designs, :mosaic_series_id, if_not_exists: true
     add_foreign_key :mosaic_designs, :mosaic_series,
                     column: :mosaic_series_id, if_not_exists: true
     add_column :mosaic_designs, :collection_position, :integer, if_not_exists: true
-  
+
     backfill_from_yaml!
-  
+
     change_column_null :mosaic_designs, :mosaic_series_id, false
     change_column_null :mosaic_designs, :collection_position, false
     add_index :mosaic_designs, [ :mosaic_series_id, :collection_position ],
@@ -40,7 +40,7 @@ class CreateMosaicSeries < ActiveRecord::Migration[8.1]
   def backfill_from_yaml!
     now = Time.current
     series_id_by_name = {}
-  
+
     series_rows.each do |row|
       name = row["name"]
       position = row["position"].to_i
@@ -51,12 +51,12 @@ class CreateMosaicSeries < ActiveRecord::Migration[8.1]
         RETURNING id
       SQL
     end
-  
+
     Dir.glob(Rails.root.join("db/seed_data/mosaic_designs/colors/*.yml")).each do |yaml_path|
       data = YAML.safe_load_file(yaml_path, permitted_classes: [ Symbol ], aliases: true)
       series_id = series_id_by_name[data["series_name"]]
       raise "未知のシリーズです: #{data["series_name"]} (#{yaml_path})" if series_id.nil?
-  
+
       execute(<<~SQL.squish)
         UPDATE mosaic_designs
         SET mosaic_series_id = #{series_id.to_i},
@@ -64,10 +64,10 @@ class CreateMosaicSeries < ActiveRecord::Migration[8.1]
         WHERE name = #{connection.quote(data["name"])}
       SQL
     end
-  
+
     missing_names = select_values("SELECT name FROM mosaic_designs WHERE mosaic_series_id IS NULL")
     return if missing_names.empty?
-  
+
     raise "シリーズ未設定の題材があります: #{missing_names.join(", ")}"
   end
 
