@@ -1,4 +1,12 @@
 class CreateMosaicSeries < ActiveRecord::Migration[8.1]
+  class MosaicSeriesRow < ActiveRecord::Base
+    self.table_name = "mosaic_series"
+  end
+
+  class MosaicDesignRow < ActiveRecord::Base
+    self.table_name = "mosaic_designs"
+  end
+
   def up
     create_table :mosaic_series do |t|
       t.string :name, null: false
@@ -30,12 +38,12 @@ class CreateMosaicSeries < ActiveRecord::Migration[8.1]
   private
 
   def backfill_from_yaml!
-    MosaicSeries.reset_column_information
-    MosaicDesign.reset_column_information
+    MosaicSeriesRow.reset_column_information
+    MosaicDesignRow.reset_column_information
 
     series_by_name = {}
     series_rows.each do |row|
-      series = MosaicSeries.create!(name: row["name"], position: row["position"])
+      series = MosaicSeriesRow.create!(name: row["name"], position: row["position"])
       series_by_name[series.name] = series
     end
 
@@ -45,13 +53,13 @@ class CreateMosaicSeries < ActiveRecord::Migration[8.1]
       series = series_by_name[data["series_name"]]
       raise "未知のシリーズです: #{data["series_name"]} (#{yaml_path})" if series.nil?
 
-      MosaicDesign.where(name: data["name"]).update_all(
+      MosaicDesignRow.where(name: data["name"]).update_all(
         mosaic_series_id: series.id,
         collection_position: data["collection_position"]
       )
     end
 
-    missing_names = MosaicDesign.where(mosaic_series_id: nil).pluck(:name)
+    missing_names = MosaicDesignRow.where(mosaic_series_id: nil).pluck(:name)
     return if missing_names.empty?
 
     raise "シリーズ未設定の題材があります: #{missing_names.join(', ')}"
