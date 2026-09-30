@@ -38,9 +38,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_29_143837) do
   create_table "mosaic_designs", force: :cascade do |t|
     t.integer "area_size_x", default: 10, null: false
     t.integer "area_size_y", default: 9, null: false
-    t.integer "collection_position", null: false
+    t.integer "collection_position"
     t.datetime "created_at", null: false
-    t.bigint "mosaic_series_id", null: false
+    t.bigint "mosaic_series_id"
     t.string "name", null: false
     t.datetime "updated_at", null: false
     t.index ["mosaic_series_id", "collection_position"], name: "index_mosaic_designs_on_series_and_position", unique: true

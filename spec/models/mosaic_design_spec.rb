@@ -28,8 +28,15 @@ RSpec.describe MosaicDesign, type: :model do
       expect(mosaic_design).to be_invalid
     end
 
-    it "collection_positionが空の場合は無効であること" do
-      expect(build(:mosaic_design, collection_position: nil)).to be_invalid
+    it "住所が未設定でも有効であること" do
+      expect(build(:mosaic_design, mosaic_series: nil, collection_position: nil)).to be_valid
+    end
+
+    it "in_collectionは住所が未設定の題材を含まないこと" do
+      in_collection = create(:mosaic_design)
+      without_address = create(:mosaic_design, mosaic_series: nil, collection_position: nil)
+      expect(MosaicDesign.in_collection).to include(in_collection)
+      expect(MosaicDesign.in_collection).not_to include(without_address)
     end
 
     it "同じシリーズでcollection_positionが重複する場合は無効であること" do
