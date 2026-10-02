@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   # マイページ
   get "mypage", to: "mypage#index", as: :mypage
 
+  # リマインド通知の文面取得
+  get "reminders/message", to: "reminders#show", as: :reminder_message
+
   # モザイクコレクション
   get "collection", to: "collection#index", as: :collection
 

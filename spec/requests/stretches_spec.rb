@@ -254,7 +254,6 @@ RSpec.describe "Stretches", type: :request do
 
       it "実施記録ダイアログのStimulusターゲットが設定されていること" do
         expect(response.body).to include('data-stretch-log-dialog-target="completeDialog"')
-        expect(response.body).to include('data-stretch-log-dialog-target="abortDialog"')
       end
 
       it "完了ダイアログが未ログインの内容を持つこと" do
@@ -262,21 +261,16 @@ RSpec.describe "Stretches", type: :request do
         expect(response.body).to include("お疲れ様でした！")
         expect(response.body).to include("部位選択に戻る")
         expect(response.body).not_to include("ピースを獲得しました")
-        expect(response.body).not_to include("マイページで確認する")
-      end
-
-      it "中止確認ダイアログが未ログイン用の内容を持つこと" do
-        expect(response.body).to include("ストレッチを中止しますか？")
-        expect(response.body).to include("中止すると、部位選択に戻ります。")
-        expect(response.body).not_to include("中止すると、ここまでの実施が記録されます")
-        expect(response.body).to include("キャンセル")
-        expect(response.body).to include("中止する")
+        expect(response.body).not_to include("次はいつ思い出す？")
       end
 
       it "実施記録ダイアログのStimulusアクションが設定されていること" do
-        expect(response.body).to include('data-action="click->stretch-log-dialog#openAbortConfirm"')
-        expect(response.body).to include('data-action="click->stretch-log-dialog#closeAbortConfirm"')
         expect(response.body).to include('data-action="click->stretch-log-dialog#recordAndRedirect"')
+      end
+
+      it "中止ボタンがタイマーを完了させて完了ダイアログを開くこと" do
+        expect(response.body).to include('data-action="click->countdown-timer#complete"')
+        expect(response.body).not_to include("ストレッチを中止しますか？")
       end
 
       it "ストレッチ選択に戻るリンクが表示されること" do
@@ -306,11 +300,15 @@ RSpec.describe "Stretches", type: :request do
 
       it "完了ダイアログがログイン用の内容を持つこと" do
         expect(response.body).to include("ピースを獲得しました")
-        expect(response.body).to include("マイページで確認する")
+        expect(response.body).to include("次はいつ思い出す？")
+        expect(response.body).to include("このタイミングで設定する")
+        expect(response.body).to include("部位選択へ")
+        expect(response.body).to include("マイページへ")
       end
 
-      it "中止確認ダイアログがログイン用の内容を持つこと" do
-        expect(response.body).to include("中止すると、ここまでの実施が記録されます")
+      it "中止しても完了ダイアログを使うこと" do
+        expect(response.body).to include('data-action="click->countdown-timer#complete"')
+        expect(response.body).not_to include("ストレッチを中止しますか？")
       end
     end
 
