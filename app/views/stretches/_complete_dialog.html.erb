@@ -1,0 +1,75 @@
+<%# ストレッチ完了モーダル（リマインド設定UIを含むため shared/_feedback_modal とは別に用意） %>
+<dialog class="modal" data-stretch-log-dialog-target="completeDialog">
+  <div class="modal-box border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-center">
+    <h3 class="text-3xl font-bold">ストレッチ完了！</h3>
+
+    <div class="py-4 space-y-2">
+      <p class="text-base-content/80">お疲れ様でした！</p>
+      <% if user_signed_in? %>
+        <p class="text-base-content/80">ピースを獲得しました！</p>
+      <% end %>
+    </div>
+
+    <% if user_signed_in? %>
+      <%# 第1段： リマインドの時間を選ぶ %>
+      <div class="border-t-2 border-black/20 pt-4 space-y-3"
+           data-stretch-log-dialog-target="reminderStep">
+        <p class="font-bold">次はいつ思い出す？</p>
+        <p class="text-sm text-base-content/70">選んだ時間になったら、ブラウザの通知でお知らせします。</p>
+
+        <%# 時間の選択（押されたボタンの data-seconds を JS が読む） %>
+        <div class="flex flex-wrap gap-2 justify-center">
+          <% reminder_delay_options.each do |option| %>
+            <button
+              type="button"
+              class="btn btn-outline"
+              data-stretch-log-dialog-target="delayButton"
+              data-seconds="<%= option[:seconds] %>"
+              data-label="<%= option[:label] %>"
+              data-action="click->stretch-log-dialog#selectDelay"
+            ><%= option[:label] %></button>
+          <% end %>
+        </div>
+
+        <%# このボタンを押した瞬間に通知の許可を求める %>
+        <button
+          type="button"
+          class="btn btn-primary w-full"
+          disabled
+          data-stretch-log-dialog-target="scheduleButton"
+          data-action="click->stretch-log-dialog#scheduleReminder"
+        >このタイミングで設定する</button>
+
+        <button
+          type="button"
+          class="btn btn-ghost btn-sm"
+          data-action="click->stretch-log-dialog#skipReminder"
+        >リマインドなしで終わる</button>
+      </div>
+
+      <%# 第2段： 移動先を選ぶ（設定後またはスキップ後に表示） %>
+      <div class="border-t-2 border-black/20 pt-4 space-y-3 hidden"
+           data-stretch-log-dialog-target="destinationStep">
+        <p class="font-bold" data-stretch-log-dialog-target="reminderResult"></p>
+        <p class="text-sm text-base-content/70">このあとどこへ移動しますか？</p>
+
+        <div class="flex flex-col gap-2">
+          <%= tag.button "部位選択へ", type: "button", class: "btn btn-primary",
+                data: { destination: stretches_path,
+                        action: "click->stretch-log-dialog#recordAndRedirect" } %>
+          <%= tag.button "マイページへ", type: "button", class: "btn btn-outline btn-primary",
+                data: { destination: mypage_path,
+                        action: "click->stretch-log-dialog#recordAndRedirect" } %>
+        </div>
+      </div>
+    <% else %>
+      <div class="modal-action justify-center">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-action="click->stretch-log-dialog#recordAndRedirect"
+        >部位選択に戻る</button>
+      </div>
+    <% end %>
+  </div>
+</dialog>

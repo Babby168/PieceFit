@@ -22,6 +22,9 @@ application.register("illustration-slideshow", IllustrationSlideshowController)
 import LegalTabsController from "./legal_tabs_controller"
 application.register("legal-tabs", LegalTabsController)
 
+import ReminderController from "./reminder_controller"
+application.register("reminder", ReminderController)
+
 import StretchBgmController from "./stretch_bgm_controller"
 application.register("stretch-bgm", StretchBgmController)
 
