@@ -1,7 +1,7 @@
 
 ## 本番URL
 
-https://piecefit.onrender.com
+https://piecefit.app
 
 ---
 
@@ -579,6 +579,7 @@ https://piecefit.onrender.com
 | Neon | データベースサーバー |
 | Cloudinary | 合成済みモザイク画像の保存・配信 |
 | 静的アセット | ストレッチ画像・キービジュアル・ファビコンなど、固定素材の配信。<br>ストレッチ実施BGMは DOVA-SYNDROMEの音源を使用。音源単体の再配布はしない。 |
+| Resend | 確認メールの送信（無料枠） |
 
 ---
 
