@@ -9,3 +9,9 @@ services:
         sync: false
       - key: RAILS_MASTER_KEY
         sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: APP_HOST
+        value: piecefit.app
+      - key: SOLID_QUEUE_IN_PUMA
+        value: "true"

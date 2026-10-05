@@ -22,5 +22,9 @@ RSpec.describe PasswordResetMailer, type: :mailer do
     it "本文にユーザーのニックネームが含まれること" do
       expect(mail.body.encoded).to include(user.nickname)
     end
+
+    it "送信元が no-reply@piecefit.app であること" do
+      expect(mail.from).to eq([ "no-reply@piecefit.app" ])
+    end
   end
 end
