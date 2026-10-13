@@ -15,3 +15,5 @@ services:
         value: piecefit.app
       - key: SOLID_QUEUE_IN_PUMA
         value: "true"
+      - key: SENTRY_DSN
+        sync: false
