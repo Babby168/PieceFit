@@ -88,7 +88,7 @@ group :development, :test do
   gem "faker"
 
   # HTMLを安全に扱うためのgem
-  gem "rails-html-sanitizer", ">= 1.7.1"
+  gem "rails-html-sanitizer", ">= 1.7.2"
 
   # 環境変数を管理するためのgem
   gem "dotenv-rails"
