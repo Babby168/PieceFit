@@ -98,7 +98,7 @@ group :development, :test do
 
   # Addressableのバージョンの下限を明示する（Railsのバージョンを上げてもAddressableのバージョンが上がらなかったため）
   gem "addressable", "~> 2.9", ">= 2.9.1"
-  
+
   # Crassのバージョンの下限を明示する（Railsのバージョンを上げてもCrassのバージョンが上がらなかったため）
   gem "crass", "~> 1.0", ">= 1.0.8"
 
