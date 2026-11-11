@@ -90,6 +90,18 @@ group :development, :test do
   # HTMLを安全に扱うためのgem
   gem "rails-html-sanitizer", ">= 1.7.2"
 
+  # Rackのバージョンの下限を明示する（Railsのバージョンを上げてもRackのバージョンが上がらなかったため）
+  gem "rack", "~> 3.2.8"
+
+  # Net::SSHのバージョンの下限を明示する（Railsのバージョンを上げてもNet::SSHのバージョンが上がらなかったため）
+  gem "net-ssh", "~> 7.3", ">= 7.3.5"
+
+  # Addressableのバージョンの下限を明示する（Railsのバージョンを上げてもAddressableのバージョンが上がらなかったため）
+  gem "addressable", "~> 2.9", ">= 2.9.1"
+  
+  # Crassのバージョンの下限を明示する（Railsのバージョンを上げてもCrassのバージョンが上がらなかったため）
+  gem "crass", "~> 1.0", ">= 1.0.8"
+
   # 環境変数を管理するためのgem
   gem "dotenv-rails"
 end
