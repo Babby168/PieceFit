@@ -13,6 +13,21 @@
 # it.
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+# コードのカバレッジを計測するための設定
+require "simplecov"
+
+# アプリケーションが読み込まれる前に開始させるためにrailsを指定
+SimpleCov.start "rails" do
+  # ブランチ単位でカバレッジを計測する
+  enable_coverage :branch
+
+  # カバレッジを計測するファイルの範囲を指定（テストされていないファイルも表示するための設定）
+  track_files "{app,lib}/**/*.rb"
+
+  # カバレッジの最低値を80%に指定
+  minimum_coverage 80
+end
+
 require "factory_bot_rails"
 require "faker"
 
