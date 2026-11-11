@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.1.3", ">= 8.1.3.1"
+gem "rails", "~> 8.1.4", ">= 8.1.4.1"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use postgresql as the database for Active Record
@@ -88,7 +88,19 @@ group :development, :test do
   gem "faker"
 
   # HTMLを安全に扱うためのgem
-  gem "rails-html-sanitizer", ">= 1.7.1"
+  gem "rails-html-sanitizer", ">= 1.7.2"
+
+  # Rackのバージョンの下限を明示する（Railsのバージョンを上げてもRackのバージョンが上がらなかったため）
+  gem "rack", "~> 3.2.8"
+
+  # Net::SSHのバージョンの下限を明示する（Railsのバージョンを上げてもNet::SSHのバージョンが上がらなかったため）
+  gem "net-ssh", "~> 7.3", ">= 7.3.5"
+
+  # Addressableのバージョンの下限を明示する（Railsのバージョンを上げてもAddressableのバージョンが上がらなかったため）
+  gem "addressable", "~> 2.9", ">= 2.9.1"
+
+  # Crassのバージョンの下限を明示する（Railsのバージョンを上げてもCrassのバージョンが上がらなかったため）
+  gem "crass", "~> 1.0", ">= 1.0.8"
 
   # 環境変数を管理するためのgem
   gem "dotenv-rails"
@@ -106,4 +118,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+
+  # コードのカバレッジを計測するためのgem
+  gem "simplecov", require: false
 end
